@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 7 Maths – First Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f2044;
+    --blue: #1a4a8a;
+    --teal: #00b4a0;
+    --amber: #f5a623;
+    --white: #ffffff;
+    --light: #f0f4fa;
+    --text: #1a1a2e;
+    --muted: #6b7a99;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── SLIDE CONTAINER ── */
+  .slides {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px;
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    text-align: center;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  /* ── BACKGROUNDS ── */
+  .bg-navy  { background: var(--navy); }
+  .bg-teal  { background: linear-gradient(135deg, #007a6e 0%, #00b4a0 100%); }
+  .bg-blue  { background: linear-gradient(135deg, #0f2044 0%, #1a4a8a 100%); }
+  .bg-light { background: var(--light); color: var(--text); }
+  .bg-amber { background: linear-gradient(135deg, #d4840a 0%, #f5a623 100%); }
+  .bg-dark  { background: #080f1e; }
+
+  /* ── TYPOGRAPHY ── */
+  .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: 18px;
+  }
+
+  .title-xl {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .title-lg {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4.5vw, 3.6rem);
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  .title-md {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .body-lg {
+    font-size: clamp(1rem, 2.2vw, 1.35rem);
+    font-weight: 300;
+    line-height: 1.6;
+    opacity: 0.88;
+    max-width: 680px;
+  }
+
+  .body-md {
+    font-size: clamp(0.9rem, 1.8vw, 1.15rem);
+    font-weight: 300;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  .highlight {
+    color: var(--amber);
+    font-weight: 600;
+  }
+
+  .highlight-teal {
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  /* ── DECORATIVE ACCENT ── */
+  .accent-line {
+    width: 56px;
+    height: 4px;
+    background: var(--amber);
+    border-radius: 2px;
+    margin: 0 auto 28px;
+  }
+
+  .accent-line.teal { background: var(--teal); }
+
+  /* ── ICON CIRCLE ── */
+  .icon-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    margin: 0 auto 28px;
+  }
+
+  .icon-navy  { background: rgba(255,255,255,0.12); }
+  .icon-amber { background: rgba(245,166,35,0.2); color: var(--amber); }
+  .icon-teal  { background: rgba(0,180,160,0.2); color: var(--teal); }
+
+  /* ── RULE CARDS (expectations) ── */
+  .rule-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    max-width: 820px;
+    margin-top: 12px;
+  }
+
+  .rule-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+    transition: background 0.3s;
+  }
+
+  .rule-card:hover {
+    background: rgba(255,255,255,0.12);
+  }
+
+  .rule-icon { font-size: 1.8rem; flex-shrink: 0; }
+
+  .rule-text strong {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .rule-text span {
+    font-size: 0.82rem;
+    opacity: 0.7;
+    font-weight: 300;
+  }
+
+  /* ── WHITEBOARD INSTRUCTIONS ── */
+  .wb-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 640px;
+    margin-top: 16px;
+  }
+
+  .wb-step {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(0,180,160,0.1);
+    border: 1px solid rgba(0,180,160,0.25);
+    border-radius: 12px;
+    padding: 16px 22px;
+    text-align: left;
+    animation: fadeIn 0.4s ease both;
+  }
+
+  .step-num {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* ── BIG QUESTION SLIDE ── */
+  .question-box {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 44px 60px;
+    max-width: 700px;
+    margin-top: 20px;
+  }
+
+  .question-box .q-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.2;
+  }
+
+  .sub-note {
+    font-size: 0.85rem;
+    opacity: 0.5;
+    margin-top: 14px;
+    font-style: italic;
+  }
+
+  /* ── ANSWER REVEAL ── */
+  .answer-reveal {
+    background: var(--teal);
+    color: var(--navy);
+    border-radius: 16px;
+    padding: 18px 40px;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+    margin-top: 24px;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    display: inline-block;
+  }
+
+  .answer-reveal.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--amber));
+    transition: width 0.5s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-info {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+    text-transform: uppercase;
+  }
+
+  .nav-btns { display: flex; gap: 10px; }
+
+  .nav-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: white;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 0.82rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .nav-btn:hover { background: rgba(255,255,255,0.2); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  .nav-btn.primary { background: var(--teal); border-color: var(--teal); color: var(--navy); font-weight: 600; }
+  .nav-btn.primary:hover { background: #00cbb6; }
+
+  /* ── REVEAL BTN ── */
+  .reveal-btn {
+    background: transparent;
+    border: 2px solid var(--teal);
+    color: var(--teal);
+    border-radius: 12px;
+    padding: 12px 36px;
+    font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: background 0.25s, color 0.25s;
+    letter-spacing: 0.04em;
+  }
+
+  .reveal-btn:hover { background: var(--teal); color: var(--navy); }
+
+  /* ── SLIDE-SPECIFIC LAYOUTS ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    width: 100%;
+    max-width: 900px;
+    text-align: left;
+    margin-top: 20px;
+  }
+
+  .col-card {
+    background: rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .col-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--teal);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .col-card p { font-size: 0.9rem; opacity: 0.8; line-height: 1.6; }
+
+  /* ── UNIT PREVIEW ── */
+  .unit-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    max-width: 700px;
+    margin-top: 24px;
+  }
+
+  .pill {
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border: 1.5px solid;
+  }
+
+  .pill-teal  { border-color: var(--teal); color: var(--teal); background: rgba(0,180,160,0.08); }
+  .pill-amber { border-color: var(--amber); color: var(--amber); background: rgba(245,166,35,0.08); }
+  .pill-white { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.05); }
+
+  /* ── HOLD UP VISUAL ── */
+  .whiteboard-visual {
+    width: 180px;
+    height: 130px;
+    background: white;
+    border-radius: 10px;
+    border: 4px solid #ccc;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    position: relative;
+  }
+
+  .whiteboard-visual::after {
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 20px;
+    background: #999;
+    border-radius: 3px;
+  }
+
+  .wb-marker { font-size: 2.4rem; color: #333; }
+
+  /* ── TIMER ── */
+  .timer-display {
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    color: var(--amber);
+    margin-top: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .wb-step:nth-child(1) { animation-delay: 0.1s; }
+  .wb-step:nth-child(2) { animation-delay: 0.2s; }
+  .wb-step:nth-child(3) { animation-delay: 0.3s; }
+  .wb-step:nth-child(4) { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<div class="slides">
+
+  <!-- SLIDE 1: Welcome -->
+  <div class="slide bg-navy active" id="slide-1">
+    <div class="label">Year 7 Mathematics · 2025</div>
+    <div class="title-xl">Welcome to<br><span class="highlight-teal">Maths.</span></div>
+    <div class="accent-line teal"></div>
+    <div class="body-lg">Find your seat, get comfortable.<br>Something fun is coming.</div>
+  </div>
+
+  <!-- SLIDE 2: Expectations (minimal — signalling principle) -->
+  <div class="slide bg-blue" id="slide-2">
+    <div class="label">How we work together</div>
+    <div class="title-md">Four things that matter in this room</div>
+    <div class="accent-line"></div>
+    <div class="rule-grid">
+      <div class="rule-card">
+        <div class="rule-icon">🤔</div>
+        <div class="rule-text">
+          <strong>Think before writing</strong>
+          <span>Mistakes are part of learning — embrace them.</span>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">👂</div>
+        <div class="rule-text">
+          <strong>Listen when others share</strong>
+          <span>Their thinking helps your thinking.</span>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🙋</div>
+        <div class="rule-text">
+          <strong>Ask questions</strong>
+          <span>If you're confused, someone else is too.</span>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">✅</div>
+        <div class="rule-text">
+          <strong>Show your board together</strong>
+          <span>We hold up on the count of 3 — always.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Introduce Mini Whiteboards -->
+  <div class="slide bg-dark" id="slide-3">
+    <div class="whiteboard-visual">
+      <span class="wb-marker">✍️</span>
+    </div>
+    <div class="label">New Tool</div>
+    <div class="title-lg">Your <span class="highlight-teal">mini whiteboard</span></div>
+    <div class="accent-line teal"></div>
+    <div class="body-lg">This is how we'll share thinking every lesson.<br>Not to test you — to <strong>see</strong> you.</div>
+  </div>
+
+  <!-- SLIDE 4: How to use them (segmenting — one concept) -->
+  <div class="slide bg-dark" id="slide-4">
+    <div class="label">How it works</div>
+    <div class="title-md">The routine — every single time</div>
+    <div class="wb-steps">
+      <div class="wb-step">
+        <div class="step-num">1</div>
+        <div class="body-md"><strong>Read the question</strong> — think first, don't rush.</div>
+      </div>
+      <div class="wb-step">
+        <div class="step-num">2</div>
+        <div class="body-md"><strong>Write your answer</strong> on the whiteboard.</div>
+      </div>
+      <div class="wb-step">
+        <div class="step-num">3</div>
+        <div class="body-md">Wait for <strong>"3, 2, 1..."</strong></div>
+      </div>
+      <div class="wb-step">
+        <div class="step-num">4</div>
+        <div class="body-md"><strong>Hold up together</strong> — everyone at the same time.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: WARMUP — non-maths, get them comfy -->
+  <div class="slide bg-teal" id="slide-5">
+    <div class="label" style="color:rgba(0,30,26,0.6)">Whiteboard Warm-Up · Round 1</div>
+    <div class="title-lg" style="color:#002920">Write your <span style="background:rgba(0,0,0,0.12); padding:2px 12px; border-radius:8px;">first name</span><br>as large as you can.</div>
+    <div class="body-lg" style="color:rgba(0,30,26,0.7); margin-top:16px;">Hold up on 3... 2... 1! 🙌</div>
+    <div class="sub-note" style="color:rgba(0,30,26,0.5)">Empty board? That's totally fine — just hold it up.</div>
+  </div>
+
+  <!-- SLIDE 6 -->
+  <div class="slide bg-dark" id="slide-6">
+    <div class="label">Whiteboard Activity · Question 2</div>
+    <div class="question-box">
+      <div class="q-text">What is your <span class="highlight-teal">favourite number</span>?</div>
+    </div>
+    <div class="body-md" style="margin-top:20px; opacity:0.55">Any number — no wrong answer. Empty board is fine too.</div>
+    <div class="body-lg" style="margin-top:12px;">Hold up on <span class="highlight">3... 2... 1!</span></div>
+  </div>
+
+  <!-- SLIDE 7 -->
+  <div class="slide bg-navy" id="slide-7">
+    <div class="label">Whiteboard Activity · Question 3</div>
+    <div class="question-box">
+      <div class="q-text">What is <span class="highlight">6 × 7</span> ?</div>
+    </div>
+    <div class="sub-note">Write your answer — hold up on 3, 2, 1...</div>
+    <button class="reveal-btn" onclick="toggleReveal('r7')">Reveal Answer</button>
+    <div class="answer-reveal" id="r7">42</div>
+  </div>
+
+  <!-- SLIDE 8 -->
+  <div class="slide bg-navy" id="slide-8">
+    <div class="label">Whiteboard Activity · Question 4</div>
+    <div class="question-box">
+      <div class="q-text"><span class="highlight-teal">9 × □ = 63</span><br><span style="font-size:55%; opacity:0.55; font-family:'DM Sans',sans-serif;">What is the missing number?</span></div>
+    </div>
+    <div class="sub-note">Write your answer — hold up on 3, 2, 1...</div>
+    <button class="reveal-btn" onclick="toggleReveal('r8')">Reveal Answer</button>
+    <div class="answer-reveal" id="r8">7</div>
+  </div>
+
+  <!-- SLIDE 9 -->
+  <div class="slide bg-navy" id="slide-9">
+    <div class="label">Whiteboard Activity · Question 5</div>
+    <div class="question-box">
+      <div class="q-text">Double <span class="highlight">34</span></div>
+    </div>
+    <div class="sub-note">Write your answer — hold up on 3, 2, 1...</div>
+    <button class="reveal-btn" onclick="toggleReveal('r9')">Reveal Answer</button>
+    <div class="answer-reveal" id="r9">68</div>
+  </div>
+
+  <!-- SLIDE 10 -->
+  <div class="slide bg-navy" id="slide-10">
+    <div class="label">Whiteboard Activity · Question 6</div>
+    <div class="question-box">
+      <div class="q-text"><span class="highlight-teal">□ × 8 = 56</span><br><span style="font-size:55%; opacity:0.55; font-family:'DM Sans',sans-serif;">What is the missing number?</span></div>
+    </div>
+    <div class="sub-note">Write your answer — hold up on 3, 2, 1...</div>
+    <button class="reveal-btn" onclick="toggleReveal('r10')">Reveal Answer</button>
+    <div class="answer-reveal" id="r10">7</div>
+  </div>
+
+  <!-- SLIDE 11 -->
+  <div class="slide bg-navy" id="slide-11">
+    <div class="label">Whiteboard Activity · Question 7</div>
+    <div class="question-box">
+      <div class="q-text">Half of <span class="highlight">86</span></div>
+    </div>
+    <div class="sub-note">Write your answer — hold up on 3, 2, 1...</div>
+    <button class="reveal-btn" onclick="toggleReveal('r11')">Reveal Answer</button>
+    <div class="answer-reveal" id="r11">43</div>
+  </div>
+
+  <!-- SLIDE 12 -->
+  <div class="slide bg-navy" id="slide-12">
+    <div class="label">Whiteboard Activity · Question 8</div>
+    <div class="question-box">
+      <div class="q-text">What is <span class="highlight">12 × 11</span> ?</div>
+    </div>
+    <div class="sub-note">Write your answer — hold up on 3, 2, 1...</div>
+    <button class="reveal-btn" onclick="toggleReveal('r12')">Reveal Answer</button>
+    <div class="answer-reveal" id="r12">132</div>
+  </div>
+
+  <!-- SLIDE 13 -->
+  <div class="slide bg-navy" id="slide-13">
+    <div class="label">Whiteboard Activity · Question 9</div>
+    <div class="question-box">
+      <div class="q-text"><span class="highlight-teal">□ × 6 = 42</span><br><span style="font-size:55%; opacity:0.55; font-family:'DM Sans',sans-serif;">What is the missing number?</span></div>
+    </div>
+    <div class="sub-note">Write your answer — hold up on 3, 2, 1...</div>
+    <button class="reveal-btn" onclick="toggleReveal('r13')">Reveal Answer</button>
+    <div class="answer-reveal" id="r13">7</div>
+  </div>
+
+  <!-- SLIDE 14 -->
+  <div class="slide bg-navy" id="slide-14">
+    <div class="label">Whiteboard Activity · Question 10</div>
+    <div class="question-box">
+      <div class="q-text">Is <span class="highlight">72</span> even or odd?<br><span style="font-size:55%; opacity:0.55; font-family:'DM Sans',sans-serif;">How do you know?</span></div>
+    </div>
+    <div class="sub-note">Write your answer — hold up on 3, 2, 1...</div>
+    <button class="reveal-btn" onclick="toggleReveal('r14')">Reveal Answer</button>
+    <div class="answer-reveal" id="r14">Even — last digit is 2</div>
+  </div>
+
+  <!-- SLIDE 15: What's coming — Unit 1 preview -->
+  <div class="slide bg-blue" id="slide-15">
+    <div class="label">This term in Maths</div>
+    <div class="title-md">Unit 1 — <span class="highlight">Natural Numbers</span></div>
+    <div class="accent-line"></div>
+    <div class="body-lg" style="margin-bottom:20px;">We'll explore the building blocks of all numbers.</div>
+    <div class="unit-pills">
+      <div class="pill pill-teal">Divisibility Rules</div>
+      <div class="pill pill-teal">Factors & Multiples</div>
+      <div class="pill pill-amber">Prime Numbers</div>
+      <div class="pill pill-amber">LCM & HCF</div>
+      <div class="pill pill-white">Powers & Roots</div>
+      <div class="pill pill-white">BODMAS</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 16: Sign-off -->
+  <div class="slide bg-dark" id="slide-16">
+    <div class="icon-circle icon-teal">🎯</div>
+    <div class="title-lg">That's how we work<br>in this class.</div>
+    <div class="accent-line teal"></div>
+    <div class="body-lg">Boards ready.<br>Questions welcome.<br><span class="highlight-teal">Let's build something together.</span></div>
+  </div>
+
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <div class="progress-fill" id="progress" style="width: 6.25%"></div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-info" id="slide-counter">Slide 1 of 16</div>
+  <div class="nav-btns">
+    <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)" disabled>← Back</button>
+    <button class="nav-btn primary" id="next-btn" onclick="changeSlide(1)">Next →</button>
+  </div>
+</div>
+
+<script>
+  const total = 16;
+  let current = 1;
+
+  function changeSlide(dir) {
+    const prev = document.getElementById('slide-' + current);
+    prev.classList.remove('active');
+    current = Math.max(1, Math.min(total, current + dir));
+    const next = document.getElementById('slide-' + current);
+    next.classList.add('active');
+
+    document.getElementById('slide-counter').textContent = 'Slide ' + current + ' of ' + total;
+    document.getElementById('progress').style.width = ((current / total) * 100) + '%';
+    document.getElementById('prev-btn').disabled = current === 1;
+    document.getElementById('next-btn').disabled = current === total;
+    document.getElementById('next-btn').textContent = current === total ? 'Done ✓' : 'Next →';
+  }
+
+  function toggleReveal(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('show');
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
+    if (e.key === 'ArrowLeft') changeSlide(-1);
+  });
+</script>
+</body>
+</html>
