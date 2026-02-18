@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 7 Unit 1 – Do Nows</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f2044;
+    --teal: #00b4a0;
+    --amber: #f5a623;
+    --coral: #ff6b6b;
+    --purple: #8b5cf6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slides {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 50px;
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  .bg-navy { background: var(--navy); }
+  .bg-dark { background: #080f1e; }
+
+  .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: 14px;
+  }
+
+  .title-xl {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .title-md {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .body-lg {
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    font-weight: 300;
+    line-height: 1.6;
+    opacity: 0.88;
+    max-width: 700px;
+    text-align: center;
+  }
+
+  .highlight-teal {
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  .accent-line {
+    width: 60px;
+    height: 5px;
+    background: var(--teal);
+    border-radius: 3px;
+    margin: 0 auto 28px;
+  }
+
+  .timer-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    padding: 12px 28px;
+    margin-top: 20px;
+    font-size: 0.95rem;
+    opacity: 0.7;
+  }
+
+  /* QUESTION GRID - BIGGER */
+  .questions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 24px;
+  }
+
+  .question-card {
+    border-radius: 20px;
+    padding: 32px 36px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.2s;
+    position: relative;
+  }
+
+  .question-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .q-teal {
+    background: linear-gradient(135deg, rgba(0,180,160,0.18), rgba(0,180,160,0.1));
+    border: 2.5px solid rgba(0,180,160,0.4);
+  }
+
+  .q-amber {
+    background: linear-gradient(135deg, rgba(245,166,35,0.18), rgba(245,166,35,0.1));
+    border: 2.5px solid rgba(245,166,35,0.4);
+  }
+
+  .q-purple {
+    background: linear-gradient(135deg, rgba(139,92,246,0.18), rgba(139,92,246,0.1));
+    border: 2.5px solid rgba(139,92,246,0.4);
+  }
+
+  .q-coral {
+    background: linear-gradient(135deg, rgba(255,107,107,0.18), rgba(255,107,107,0.1));
+    border: 2.5px solid rgba(255,107,107,0.4);
+  }
+
+  .q-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    opacity: 0.95;
+    margin-bottom: 6px;
+  }
+
+  .q-teal .q-num { color: var(--teal); }
+  .q-amber .q-num { color: var(--amber); }
+  .q-purple .q-num { color: var(--purple); }
+  .q-coral .q-num { color: var(--coral); }
+
+  .q-text {
+    font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+    line-height: 1.5;
+    flex: 1;
+    font-weight: 500;
+  }
+
+  .q-hint {
+    font-size: 0.85rem;
+    opacity: 0.65;
+    font-style: italic;
+    margin-top: 6px;
+  }
+
+  /* ANSWER TOGGLE */
+  .answer-section {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .answer-hidden {
+    display: none;
+  }
+
+  .answer-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 8px;
+    padding: 10px 14px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+  }
+
+  /* TOGGLE BUTTON */
+  .toggle-answers-btn {
+    background: rgba(0,180,160,0.15);
+    border: 2px solid var(--teal);
+    color: var(--teal);
+    border-radius: 12px;
+    padding: 10px 28px;
+    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.2s;
+  }
+
+  .toggle-answers-btn:hover {
+    background: rgba(0,180,160,0.25);
+    transform: scale(1.02);
+  }
+
+  .toggle-answers-btn.active {
+    background: var(--teal);
+    color: var(--navy);
+  }
+
+  /* PROGRESS & NAV */
+  .progress-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--amber));
+    transition: width 0.5s;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 36px;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-info {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+    text-transform: uppercase;
+  }
+
+  .nav-btns {
+    display: flex;
+    gap: 12px;
+  }
+
+  .nav-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: white;
+    border-radius: 10px;
+    padding: 10px 24px;
+    font-size: 0.88rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .nav-btn:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .nav-btn.primary {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  @media (max-width: 1000px) {
+    .questions-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="slides">
+  <!-- Title Slide -->
+  <div class="slide bg-navy active">
+    <div class="label">Year 7 · Unit 1 · Natural Numbers</div>
+    <div class="title-xl">Do Now<br><span class="highlight-teal">Collection</span></div>
+    <div class="accent-line"></div>
+    <div class="body-lg">16 warm-up slides with 64 questions.<br>Following the Unit 1 journey from divisibility to BODMAS.</div>
+    <div class="timer-box"><span>⏱️</span> <span>4 minutes per slide</span></div>
+  </div>
+
+  <!-- Do Now 1 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 1 · Prior Knowledge</div>
+    <div class="title-md">Basic Number Skills</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(1)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text"><strong>8 × ? = 56</strong></div>
+        <div class="answer-section answer-hidden" data-slide="1"><div class="answer-text">7</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text"><strong>? ÷ 9 = 8</strong></div>
+        <div class="answer-section answer-hidden" data-slide="1"><div class="answer-text">72</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Half of <strong>86</strong> is?</div>
+        <div class="answer-section answer-hidden" data-slide="1"><div class="answer-text">43</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Double <strong>34</strong></div>
+        <div class="answer-section answer-hidden" data-slide="1"><div class="answer-text">68</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 2 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 2 · Prior Knowledge</div>
+    <div class="title-md">Number Properties</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(2)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Is <strong>72</strong> even or odd?</div>
+        <div class="answer-section answer-hidden" data-slide="2"><div class="answer-text">Even (last digit is 2)</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text"><strong>6, 12, 18, ?, 30</strong><br>What's the missing multiple?</div>
+        <div class="answer-section answer-hidden" data-slide="2"><div class="answer-text">24</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text"><strong>12 × 11 = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="2"><div class="answer-text">132</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text"><strong>? × 6 = 42</strong></div>
+        <div class="answer-section answer-hidden" data-slide="2"><div class="answer-text">7</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 3 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 3 · Divisibility Rules</div>
+    <div class="title-md">Can you divide it evenly?</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(3)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Is <strong>234</strong> divisible by 3?<br><span class="q-hint">Sum of digits test</span></div>
+        <div class="answer-section answer-hidden" data-slide="3"><div class="answer-text">Yes (2+3+4=9, divisible by 3)</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Circle the numbers divisible by 5:<br><strong>147, 205, 318, 440</strong></div>
+        <div class="answer-section answer-hidden" data-slide="3"><div class="answer-text">205, 440</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Is <strong>428</strong> divisible by 2?</div>
+        <div class="answer-section answer-hidden" data-slide="3"><div class="answer-text">Yes (ends in 8)</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Is <strong>1,512</strong> divisible by 9?<br><span class="q-hint">1+5+1+2 = ?</span></div>
+        <div class="answer-section answer-hidden" data-slide="3"><div class="answer-text">Yes (digit sum = 9)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 4 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 4 · Divisibility Rules</div>
+    <div class="title-md">Trickier Tests</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(4)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Is <strong>5,916</strong> divisible by 4?<br><span class="q-hint">Check last 2 digits</span></div>
+        <div class="answer-section answer-hidden" data-slide="4"><div class="answer-text">Yes (16 ÷ 4 = 4)</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Is <strong>714</strong> divisible by 6?<br><span class="q-hint">Must pass 2 AND 3</span></div>
+        <div class="answer-section answer-hidden" data-slide="4"><div class="answer-text">Yes (even & digit sum=12)</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text">How many divisibility tests does <strong>120</strong> pass?</div>
+        <div class="answer-section answer-hidden" data-slide="4"><div class="answer-text">7 tests (2,3,4,5,6,8,10)</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text"><strong>987,824</strong> ÷ 8 = ?<br><span class="q-hint">Is it a whole number?</span></div>
+        <div class="answer-section answer-hidden" data-slide="4"><div class="answer-text">Yes, 123,478</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 5 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 5 · Factors</div>
+    <div class="title-md">Numbers that divide evenly</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(5)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text">List all factors of <strong>12</strong></div>
+        <div class="answer-section answer-hidden" data-slide="5"><div class="answer-text">1, 2, 3, 4, 6, 12</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text">How many factors does <strong>24</strong> have?</div>
+        <div class="answer-section answer-hidden" data-slide="5"><div class="answer-text">8 factors</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text"><strong>16 = 1 × 16 = 2 × ?</strong><br>Complete the factor pairs</div>
+        <div class="answer-section answer-hidden" data-slide="5"><div class="answer-text">2×8, also 4×4</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Largest factor of <strong>30</strong><br>(excluding 30 itself)</div>
+        <div class="answer-section answer-hidden" data-slide="5"><div class="answer-text">15</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 6 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 6 · Multiples</div>
+    <div class="title-md">Times table patterns</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(6)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text"><strong>7, 14, 21, ?, 35</strong><br>Missing multiple of 7?</div>
+        <div class="answer-section answer-hidden" data-slide="6"><div class="answer-text">28</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Largest multiple of <strong>5</strong> less than <strong>200</strong></div>
+        <div class="answer-section answer-hidden" data-slide="6"><div class="answer-text">195</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Multiples of <strong>10</strong> between 1111 and 1181</div>
+        <div class="answer-section answer-hidden" data-slide="6"><div class="answer-text">1120, 1130, 1140, 1150, 1160, 1170, 1180</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Which are multiples of 3?<br><strong>161, 162, 163, 164, 165</strong></div>
+        <div class="answer-section answer-hidden" data-slide="6"><div class="answer-text">162, 165</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 7 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 7 · Prime Numbers</div>
+    <div class="title-md">Only 1 and itself</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(7)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Is <strong>17</strong> prime?</div>
+        <div class="answer-section answer-hidden" data-slide="7"><div class="answer-text">Yes</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Is <strong>51</strong> prime?<br><span class="q-hint">Divisible by 3?</span></div>
+        <div class="answer-section answer-hidden" data-slide="7"><div class="answer-text">No (51 = 3×17)</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Circle the primes:<br><strong>21, 23, 25, 27, 29, 31</strong></div>
+        <div class="answer-section answer-hidden" data-slide="7"><div class="answer-text">23, 29, 31</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Why isn't <strong>1</strong> prime?</div>
+        <div class="answer-section answer-hidden" data-slide="7"><div class="answer-text">Primes need exactly 2 factors; 1 has only one factor</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 8 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 8 · Prime & Composite</div>
+    <div class="title-md">Classifying numbers</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(8)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Is <strong>89</strong> prime or composite?</div>
+        <div class="answer-section answer-hidden" data-slide="8"><div class="answer-text">Prime</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text">What's the smallest prime?</div>
+        <div class="answer-section answer-hidden" data-slide="8"><div class="answer-text">2</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text">🧩 I'm between 30 and 40. I'm prime. My digits add to 8. What am I?</div>
+        <div class="answer-section answer-hidden" data-slide="8"><div class="answer-text">None! (Trick: 37 is prime but 3+7=10)</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text">How many composite numbers between 10 and 20?</div>
+        <div class="answer-section answer-hidden" data-slide="8"><div class="answer-text">7 (12,14,15,16,18,20 plus 10)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 9 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 9 · HCF</div>
+    <div class="title-md">Highest Common Factor</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(9)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text">HCF of <strong>12 and 18</strong></div>
+        <div class="answer-section answer-hidden" data-slide="9"><div class="answer-text">6</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text">HCF of <strong>24 and 36</strong></div>
+        <div class="answer-section answer-hidden" data-slide="9"><div class="answer-text">12</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text">HCF of <strong>30 and 45</strong></div>
+        <div class="answer-section answer-hidden" data-slide="9"><div class="answer-text">15</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text">HCF of <strong>7 and 13</strong><br><span class="q-hint">Both prime...</span></div>
+        <div class="answer-section answer-hidden" data-slide="9"><div class="answer-text">1</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 10 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 10 · LCM</div>
+    <div class="title-md">Lowest Common Multiple</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(10)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text">LCM of <strong>4 and 6</strong></div>
+        <div class="answer-section answer-hidden" data-slide="10"><div class="answer-text">12</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text">LCM of <strong>6 and 8</strong></div>
+        <div class="answer-section answer-hidden" data-slide="10"><div class="answer-text">24</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text">LCM of <strong>5 and 7</strong><br><span class="q-hint">Both prime...</span></div>
+        <div class="answer-section answer-hidden" data-slide="10"><div class="answer-text">35</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text">LCM of <strong>12 and 18</strong></div>
+        <div class="answer-section answer-hidden" data-slide="10"><div class="answer-text">36</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 11 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 11 · Prime Factorization</div>
+    <div class="title-md">Breaking down to primes</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(11)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text"><strong>20</strong> as a product of primes</div>
+        <div class="answer-section answer-hidden" data-slide="11"><div class="answer-text">2 × 2 × 5 or 2² × 5</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text"><strong>30</strong> as a product of primes</div>
+        <div class="answer-section answer-hidden" data-slide="11"><div class="answer-text">2 × 3 × 5</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text"><strong>60</strong> in index form<br><span class="q-hint">Use powers</span></div>
+        <div class="answer-section answer-hidden" data-slide="11"><div class="answer-text">2² × 3 × 5</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text"><strong>2³ × 3 = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="11"><div class="answer-text">24</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 12 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 12 · Powers</div>
+    <div class="title-md">Index notation</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(12)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text"><strong>5² = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="12"><div class="answer-text">25</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text"><strong>2⁵ = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="12"><div class="answer-text">32</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Write <strong>8 × 8 × 8</strong> using indices</div>
+        <div class="answer-section answer-hidden" data-slide="12"><div class="answer-text">8³</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text"><strong>10³ = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="12"><div class="answer-text">1000</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 13 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 13 · Square Roots</div>
+    <div class="title-md">Finding the original</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(13)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text"><strong>√25 = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="13"><div class="answer-text">5</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text"><strong>√64 = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="13"><div class="answer-text">8</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text">🧩 <strong>√? = 9</strong><br>What number goes in the box?</div>
+        <div class="answer-section answer-hidden" data-slide="13"><div class="answer-text">81</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text"><strong>√100 = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="13"><div class="answer-text">10</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 14 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 14 · BODMAS</div>
+    <div class="title-md">Order of operations</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(14)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text"><strong>3 + 4 × 5 = ?</strong><br><span class="q-hint">Multiply first</span></div>
+        <div class="answer-section answer-hidden" data-slide="14"><div class="answer-text">23</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text"><strong>20 − 2 × 6 = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="14"><div class="answer-text">8</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text"><strong>(3 + 4) × 5 = ?</strong><br><span class="q-hint">Brackets first</span></div>
+        <div class="answer-section answer-hidden" data-slide="14"><div class="answer-text">35</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text"><strong>10 − 2 × 3 + 4² = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="14"><div class="answer-text">20</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 15 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 15 · BODMAS Challenges</div>
+    <div class="title-md">Make it work!</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(15)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text">⚡ Add brackets:<br><strong>3 + 4 × 5 = 35</strong></div>
+        <div class="answer-section answer-hidden" data-slide="15"><div class="answer-text">(3 + 4) × 5 = 35</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text">⚡ Fill in operations:<br><strong>6 ☐ 3 ☐ 2 = 12</strong></div>
+        <div class="answer-section answer-hidden" data-slide="15"><div class="answer-text">6 × 3 − 2 = 12 (or 6 ÷ 3 + 2)</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text">🧩 Four 4's make <strong>16</strong>:<br><strong>4 ☐ 4 ☐ 4 ☐ 4</strong></div>
+        <div class="answer-section answer-hidden" data-slide="15"><div class="answer-text">4 + 4 + 4 + 4 (or 4 × 4 + 4 − 4)</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text"><strong>2³ + 3² − 5 = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="15"><div class="answer-text">12</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Now 16 -->
+  <div class="slide bg-dark">
+    <div class="label">Do Now 16 · Final Challenge</div>
+    <div class="title-md">Everything together</div>
+    <button class="toggle-answers-btn" onclick="toggleAnswers(16)">Show Answers</button>
+    <div class="questions-grid">
+      <div class="question-card q-teal">
+        <div class="q-num">Q1</div>
+        <div class="q-text">🧩 I'm less than 100, a multiple of 6, a factor of 72, and my digits sum to 9</div>
+        <div class="answer-section answer-hidden" data-slide="16"><div class="answer-text">18 (digits: 1+8=9)</div></div>
+      </div>
+      <div class="question-card q-amber">
+        <div class="q-num">Q2</div>
+        <div class="q-text">HCF and LCM of <strong>8 and 12</strong></div>
+        <div class="answer-section answer-hidden" data-slide="16"><div class="answer-text">HCF = 4, LCM = 24</div></div>
+      </div>
+      <div class="question-card q-purple">
+        <div class="q-num">Q3</div>
+        <div class="q-text"><strong>(√36 + 2²) × 5 = ?</strong></div>
+        <div class="answer-section answer-hidden" data-slide="16"><div class="answer-text">50</div></div>
+      </div>
+      <div class="question-card q-coral">
+        <div class="q-num">Q4</div>
+        <div class="q-text">⚡ Add brackets:<br><strong>10 − 4 × 2 + 3 = 9</strong></div>
+        <div class="answer-section answer-hidden" data-slide="16"><div class="answer-text">10 − 4 × (2 + 3) = −10? Try: (10−4)×2−3=9 ✗<br>Actually: 10−(4×2−3)=5 ✗<br>Best: 10−(4×2)+3=5 ✗<br>Real: (10−4)×2+3=15 ✗<br><strong>Trick Q! Try different approach</strong></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progress"></div>
+</div>
+
+<div class="nav">
+  <div class="nav-info" id="counter"></div>
+  <div class="nav-btns">
+    <button class="nav-btn" id="prev">← Back</button>
+    <button class="nav-btn primary" id="next">Next →</button>
+  </div>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+
+const counter = document.getElementById('counter');
+const progress = document.getElementById('progress');
+const prev = document.getElementById('prev');
+const next = document.getElementById('next');
+
+function update() {
+  slides.forEach((s, i) => s.classList.toggle('active', i === current));
+  counter.textContent = `Slide ${current + 1} of ${total}`;
+  progress.style.width = ((current + 1) / total * 100) + '%';
+  prev.disabled = current === 0;
+  next.disabled = current === total - 1;
+  next.textContent = current === total - 1 ? 'Done ✓' : 'Next →';
+}
+
+function toggleAnswers(slideNum) {
+  const answers = document.querySelectorAll(`[data-slide="${slideNum}"]`);
+  const btn = event.target;
+  
+  answers.forEach(a => a.classList.toggle('answer-hidden'));
+  
+  if (btn.classList.contains('active')) {
+    btn.classList.remove('active');
+    btn.textContent = 'Show Answers';
+  } else {
+    btn.classList.add('active');
+    btn.textContent = 'Hide Answers';
+  }
+}
+
+prev.onclick = () => { if (current > 0) { current--; update(); } };
+next.onclick = () => { if (current < total - 1) { current++; update(); } };
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { 
+    e.preventDefault(); 
+    if (current < total - 1) { current++; update(); } 
+  }
+  if (e.key === 'ArrowLeft') { 
+    e.preventDefault(); 
+    if (current > 0) { current--; update(); } 
+  }
+});
+
+update();
+</script>
+</body>
+</html>

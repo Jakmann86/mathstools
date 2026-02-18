@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divisibility Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .score-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-label {
+            font-size: 1em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .score-display {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .puzzle-section {
+            background: #f8fafc;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .puzzle-instruction {
+            font-size: 1.2em;
+            color: #4b5563;
+            margin-bottom: 20px;
+        }
+
+        .puzzle-number {
+            font-size: 4em;
+            font-weight: bold;
+            color: #1e293b;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 8px;
+        }
+
+        .blank {
+            color: #667eea;
+            border-bottom: 4px solid #667eea;
+            padding: 0 15px;
+            display: inline-block;
+            min-width: 50px;
+        }
+
+        .answer-section {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .practice-input {
+            width: 100px;
+            padding: 18px;
+            font-size: 2em;
+            border: 3px solid #cbd5e1;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .practice-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-new {
+            background: #10b981;
+            color: white;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-new:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .puzzle-number {
+                font-size: 3em;
+            }
+            
+            .answer-section {
+                flex-direction: column;
+            }
+            
+            .practice-input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Divisibility Practice</h1>
+        <p class="subtitle">Find the missing digit to make the number divisible!</p>
+
+        <div class="score-section">
+            <div class="score-label">Score</div>
+            <div class="score-display" id="scoreDisplay">0 / 0</div>
+        </div>
+
+        <div class="puzzle-section">
+            <div class="puzzle-instruction" id="puzzleInstruction">Find a digit that makes this number divisible by...</div>
+            <div class="puzzle-number" id="puzzleNumber">???</div>
+            
+            <div class="answer-section">
+                <input type="text" 
+                       id="practiceAnswer" 
+                       class="practice-input" 
+                       placeholder="?" 
+                       maxlength="1"
+                       autofocus>
+                <button class="btn btn-primary" onclick="checkPracticeAnswer()">Check Answer</button>
+                <button class="btn btn-secondary" onclick="showPracticeSolution()">Show Solution</button>
+            </div>
+            
+            <button class="btn btn-new" onclick="generatePractice()">New Puzzle</button>
+        </div>
+    </div>
+
+    <script>
+        let currentPuzzle = null;
+        let practiceScore = {
+            correct: 0,
+            total: 0
+        };
+
+        // Generate practice puzzle on load
+        window.onload = function() {
+            generatePractice();
+        };
+
+        function generatePractice() {
+            const rules = [2, 3, 4, 5, 6, 8, 9, 10];
+            const rule = rules[Math.floor(Math.random() * rules.length)];
+            
+            // Generate a random number with missing digit
+            const numDigits = 3 + Math.floor(Math.random() * 2); // 3-4 digits
+            const blankPos = Math.floor(Math.random() * numDigits);
+            
+            let numberParts = [];
+            for (let i = 0; i < numDigits; i++) {
+                if (i === blankPos) {
+                    numberParts.push('_');
+                } else {
+                    numberParts.push(Math.floor(Math.random() * 10));
+                }
+            }
+            
+            // Ensure first digit isn't 0
+            if (numberParts[0] === 0) numberParts[0] = Math.floor(Math.random() * 9) + 1;
+            
+            const numberStr = numberParts.join('');
+            
+            // Find valid solutions
+            let solutions = [];
+            for (let d = 0; d <= 9; d++) {
+                const testNum = parseInt(numberStr.replace('_', d));
+                if (testNum % rule === 0) {
+                    solutions.push(d);
+                }
+            }
+            
+            // If no solutions, regenerate
+            if (solutions.length === 0) {
+                generatePractice();
+                return;
+            }
+            
+            currentPuzzle = {
+                number: numberStr,
+                rule: rule,
+                solutions: solutions,
+                blankPosition: blankPos
+            };
+            
+            // Display puzzle
+            const puzzleDisplay = document.getElementById('puzzleNumber');
+            puzzleDisplay.innerHTML = '';
+            numberParts.forEach((part, index) => {
+                if (part === '_') {
+                    puzzleDisplay.innerHTML += '<span class="blank">?</span>';
+                } else {
+                    puzzleDisplay.innerHTML += part;
+                }
+            });
+            
+            document.getElementById('puzzleInstruction').textContent = 
+                `Find a digit that makes this number divisible by ${rule}`;
+            document.getElementById('practiceAnswer').value = '';
+            document.getElementById('practiceAnswer').focus();
+        }
+
+        function checkPracticeAnswer() {
+            if (!currentPuzzle) {
+                alert('Please generate a puzzle first!');
+                return;
+            }
+
+            const answer = document.getElementById('practiceAnswer').value.trim();
+            
+            if (answer === '' || isNaN(answer)) {
+                alert('Please enter a digit (0-9)!');
+                return;
+            }
+
+            const digit = parseInt(answer);
+            practiceScore.total++;
+            
+            if (currentPuzzle.solutions.includes(digit)) {
+                practiceScore.correct++;
+                alert('✓ Correct! Well done!');
+                generatePractice();
+            } else {
+                alert(`✗ Not quite! ${digit} doesn't work. Try again or click "Show Solution".`);
+            }
+            
+            updateScoreDisplay();
+        }
+
+        function showPracticeSolution() {
+            if (!currentPuzzle) {
+                alert('Please generate a puzzle first!');
+                return;
+            }
+
+            alert(`Solution(s): ${currentPuzzle.solutions.join(', ')}\n\nClick "New Puzzle" to try another one!`);
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('scoreDisplay').textContent = 
+                `${practiceScore.correct} / ${practiceScore.total}`;
+        }
+
+        // Enter key support
+        document.addEventListener('DOMContentLoaded', function() {
+            const practiceAnswer = document.getElementById('practiceAnswer');
+            if (practiceAnswer) {
+                practiceAnswer.addEventListener('input', function(e) {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+                
+                practiceAnswer.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPracticeAnswer();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
