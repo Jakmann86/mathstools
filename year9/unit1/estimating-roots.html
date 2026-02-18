@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estimating Roots Â· MWB Activity</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #0f2044;
+    --teal:   #00b4a0;
+    --amber:  #f5a623;
+    --coral:  #ff6b6b;
+    --purple: #8b5cf6;
+    --green:  #22c55e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+  }
+
+  /* â”€â”€ SLIDES â”€â”€ */
+  .slides { flex: 1; position: relative; overflow: hidden; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 60px;
+    opacity: 0;
+    transform: translateY(24px);
+    pointer-events: none;
+    transition: opacity 0.4s, transform 0.4s;
+    text-align: center;
+  }
+
+  .slide.active { opacity: 1; transform: translateY(0); pointer-events: all; }
+
+  /* â”€â”€ TITLE SLIDE â”€â”€ */
+  .label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 14px;
+  }
+
+  .title-xl {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 6vw, 5.2rem);
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+
+  .body-lg {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 300;
+    line-height: 1.65;
+    opacity: 0.82;
+    max-width: 640px;
+  }
+
+  .accent-line {
+    width: 56px; height: 5px;
+    background: var(--teal);
+    border-radius: 3px;
+    margin: 0 auto 26px;
+  }
+
+  .highlight-teal  { color: var(--teal);  font-weight: 600; }
+  .highlight-amber { color: var(--amber); font-weight: 600; }
+
+  /* â”€â”€ QUESTION SLIDE LAYOUT â”€â”€ */
+  .q-meta {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 20px;
+  }
+
+  /* Big root expression */
+  .root-display {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(5rem, 14vw, 10rem);
+    line-height: 1;
+    color: white;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Number line */
+  .number-line-wrap {
+    width: 100%;
+    max-width: 720px;
+    margin: 10px auto 24px;
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+
+  .number-line-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 10px;
+  }
+
+  .number-line {
+    position: relative;
+    height: 52px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nl-track {
+    position: absolute;
+    left: 0; right: 0;
+    height: 4px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 2px;
+  }
+
+  .nl-tick {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nl-tick-mark {
+    width: 2px;
+    height: 18px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 1px;
+    margin-top: -7px;
+  }
+
+  .nl-tick-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.5;
+    margin-top: 14px;
+    white-space: nowrap;
+  }
+
+  .nl-tick-label.perfect {
+    color: var(--teal);
+    opacity: 0.85;
+  }
+
+  /* perfect square circles */
+  .nl-perfect {
+    position: absolute;
+    transform: translateX(-50%);
+    top: -20px;
+  }
+
+  .ps-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(0,180,160,0.5);
+    border: 2px solid var(--teal);
+  }
+
+  /* the estimated position marker */
+  .nl-marker {
+    position: absolute;
+    transform: translateX(-50%);
+    transition: left 0.5s cubic-bezier(.34,1.56,.64,1);
+    top: -14px;
+  }
+
+  .nl-marker-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--amber);
+    border: 3px solid white;
+    box-shadow: 0 0 16px rgba(245,166,35,0.6);
+  }
+
+  /* â”€â”€ INSTRUCTION STRIP â”€â”€ */
+  .instruction-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 13px 32px;
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.85;
+    animation: fadeUp 0.5s 0.15s ease both;
+  }
+
+  .countdown {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--amber);
+  }
+
+  /* â”€â”€ REVEAL SECTION â”€â”€ */
+  .reveal-btn {
+    background: var(--teal);
+    border: none;
+    border-radius: 16px;
+    padding: 20px 56px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--navy);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 32px rgba(0,180,160,0.35);
+    animation: fadeUp 0.5s 0.2s ease both;
+    margin-top: 10px;
+  }
+
+  .reveal-btn:hover { transform: scale(1.04); box-shadow: 0 12px 40px rgba(0,180,160,0.5); }
+
+  .reveal-panel {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: popReveal 0.5s cubic-bezier(.34,1.56,.64,1) both;
+  }
+
+  .reveal-panel.show { display: flex; }
+
+  @keyframes popReveal {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .exact-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(4rem, 10vw, 7.5rem);
+    color: var(--teal);
+    line-height: 1;
+    text-shadow: 0 0 60px rgba(0,180,160,0.4);
+  }
+
+  .decimal-value {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--amber);
+    font-family: 'DM Serif Display', serif;
+    opacity: 0.9;
+  }
+
+  .between-note {
+    font-size: 1rem;
+    opacity: 0.6;
+    padding: 10px 24px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  /* â”€â”€ WINNER SHOUTOUT â”€â”€ */
+  .winner-strip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(245,166,35,0.12);
+    border: 1.5px solid rgba(245,166,35,0.35);
+    border-radius: 12px;
+    padding: 12px 28px;
+    font-size: 0.95rem;
+    color: var(--amber);
+    font-weight: 500;
+  }
+
+  /* â”€â”€ NAV â”€â”€ */
+  .progress-bar  { height: 4px; background: rgba(255,255,255,0.07); }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--amber)); transition: width 0.4s; }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 32px;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-info { font-size: 0.76rem; letter-spacing: 0.1em; opacity: 0.42; text-transform: uppercase; }
+
+  .nav-btns { display: flex; gap: 10px; }
+
+  .nav-btn {
+    background: rgba(255,255,255,0.09);
+    border: 1px solid rgba(255,255,255,0.16);
+    color: white;
+    border-radius: 8px;
+    padding: 9px 22px;
+    font-size: 0.83rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-btn:hover    { background: rgba(255,255,255,0.18); }
+  .nav-btn:disabled { opacity: 0.28; cursor: default; }
+  .nav-btn.primary  { background: var(--teal); border-color: var(--teal); color: var(--navy); font-weight: 700; }
+
+  /* â”€â”€ TYPE BADGE â”€â”€ */
+  .type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .badge-sq   { background: rgba(0,180,160,.18);   border: 1px solid rgba(0,180,160,.4);   color: var(--teal); }
+  .badge-cube { background: rgba(139,92,246,.18);  border: 1px solid rgba(139,92,246,.4);  color: var(--purple); }
+  .badge-nth  { background: rgba(245,166,35,.18);  border: 1px solid rgba(245,166,35,.4);  color: var(--amber); }
+  .badge-hard { background: rgba(255,107,107,.18); border: 1px solid rgba(255,107,107,.4); color: var(--coral); }
+</style>
+</head>
+<body>
+
+<div class="slides">
+
+  <!-- â•â• TITLE â•â• -->
+  <div class="slide active" id="s0">
+    <div class="label">Year 9 Â· Unit 1 Â· Mini Whiteboard Activity</div>
+    <div class="title-xl">Estimating<br><span class="highlight-teal">Roots</span></div>
+    <div class="accent-line"></div>
+    <div class="body-lg">Write your best estimate on your board.<br>Hold up on <span class="highlight-amber">3 Â· 2 Â· 1</span> â€” then we'll see who's closest!</div>
+  </div>
+
+  <!-- Questions generated by JS -->
+
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+<div class="nav">
+  <div class="nav-info" id="counter">Slide 1</div>
+  <div class="nav-btns">
+    <button class="nav-btn" id="prev" disabled>â† Back</button>
+    <button class="nav-btn primary" id="next">Next â†’</button>
+  </div>
+</div>
+
+<script>
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   QUESTIONS
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+const QUESTIONS = [
+  // Square roots â€“ non-perfect squares, increasing difficulty
+  { expr: 'âˆš20',   type: 'sq',   badge: 'badge-sq',   label: 'âˆš Square Root',   value: Math.sqrt(20),   exact: null,         lo: 4, hi: 5,  loSq: 16,  hiSq: 25  },
+  { expr: 'âˆš50',   type: 'sq',   badge: 'badge-sq',   label: 'âˆš Square Root',   value: Math.sqrt(50),   exact: '5âˆš2',        lo: 7, hi: 8,  loSq: 49,  hiSq: 64  },
+  { expr: 'âˆš130',  type: 'sq',   badge: 'badge-sq',   label: 'âˆš Square Root',   value: Math.sqrt(130),  exact: null,         lo: 11, hi: 12, loSq: 121, hiSq: 144 },
+  { expr: 'âˆš72',   type: 'sq',   badge: 'badge-sq',   label: 'âˆš Square Root',   value: Math.sqrt(72),   exact: '6âˆš2',        lo: 8, hi: 9,  loSq: 64,  hiSq: 81  },
+  // Cube roots
+  { expr: 'âˆ›20',   type: 'cube', badge: 'badge-cube', label: 'âˆ› Cube Root',    value: Math.cbrt(20),   exact: null,         lo: 2, hi: 3,  loSq: 8,   hiSq: 27  },
+  { expr: 'âˆ›100',  type: 'cube', badge: 'badge-cube', label: 'âˆ› Cube Root',    value: Math.cbrt(100),  exact: null,         lo: 4, hi: 5,  loSq: 64,  hiSq: 125 },
+  { expr: 'âˆ›50',   type: 'cube', badge: 'badge-cube', label: 'âˆ› Cube Root',    value: Math.cbrt(50),   exact: null,         lo: 3, hi: 4,  loSq: 27,  hiSq: 64  },
+  // Mixed / harder
+  { expr: 'âˆš200',  type: 'sq',   badge: 'badge-sq',   label: 'âˆš Square Root',   value: Math.sqrt(200),  exact: '10âˆš2',       lo: 14, hi: 15, loSq: 196, hiSq: 225 },
+  { expr: 'âˆš0.5',  type: 'hard', badge: 'badge-hard', label: 'âš¡ Challenge',      value: Math.sqrt(0.5),  exact: 'âˆš2/2',       lo: 0, hi: 1,  loSq: 0,   hiSq: 1   },
+  { expr: 'âˆ›150',  type: 'cube', badge: 'badge-cube', label: 'âˆ› Cube Root',    value: Math.cbrt(150),  exact: null,         lo: 5, hi: 6,  loSq: 125, hiSq: 216 },
+  { expr: 'âˆš7',    type: 'sq',   badge: 'badge-sq',   label: 'âˆš Square Root',   value: Math.sqrt(7),    exact: null,         lo: 2, hi: 3,  loSq: 4,   hiSq: 9   },
+  { expr: 'âˆš(1/4)',type: 'hard', badge: 'badge-hard', label: 'âš¡ Challenge',      value: 0.5,             exact: '1/2',        lo: 0, hi: 1,  loSq: 0,   hiSq: 1   },
+];
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   BUILD SLIDES
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+const slidesEl = document.querySelector('.slides');
+const totalSlides = QUESTIONS.length + 1; // +1 for title
+
+QUESTIONS.forEach((q, idx) => {
+  const num = idx + 1;
+  const slide = document.createElement('div');
+  slide.className = 'slide';
+  slide.id = `s${num}`;
+
+  const dec3 = q.value.toFixed(3);
+  const dec1 = q.value.toFixed(1);
+
+  // Number line setup
+  const lo = q.lo, hi = q.hi;
+  const range = hi - lo;
+
+  // Build number line ticks
+  let ticks = '';
+  const steps = Math.min(range, 6);
+  for (let i = 0; i <= steps; i++) {
+    const v = lo + i;
+    const pct = ((v - lo) / range * 100).toFixed(1);
+    const isPerfect = true; // all our boundary integers are perfect squares/cubes by design
+    ticks += `
+      <div class="nl-tick" style="left:${pct}%">
+        <div class="nl-tick-mark"></div>
+        <div class="nl-tick-label perfect">${v}</div>
+      </div>`;
+  }
+
+  // Marker position
+  const markerPct = ((q.value - lo) / range * 100).toFixed(1);
+
+  // Exact string
+  const exactStr = q.exact ? `<span style="color:var(--amber);font-size:0.9em"> = ${q.exact}</span>` : '';
+
+  slide.innerHTML = `
+    <div class="q-meta">Question ${num} of ${QUESTIONS.length}</div>
+
+    <div class="type-badge ${q.badge}">${q.label}</div>
+
+    <div class="root-display">${q.expr}</div>
+
+    ${num <= 2 ? `
+    <div class="number-line-wrap">
+      <div class="number-line-label">It lies betweenâ€¦</div>
+      <div class="number-line">
+        <div class="nl-track"></div>
+        ${ticks}
+        <div class="nl-marker" id="marker-${num}" style="left:-9999px">
+          <div class="nl-marker-dot"></div>
+        </div>
+      </div>
+    </div>` : `<div id="marker-${num}" style="display:none"></div>`}
+
+    <div class="instruction-strip">
+      âœï¸ Write your estimate on your board &nbsp;Â·&nbsp; Hold up on <span class="countdown">3 Â· 2 Â· 1</span>
+    </div>
+
+    <!-- Before reveal -->
+    <div id="pre-${num}" style="margin-top:20px">
+      <button class="reveal-btn" onclick="reveal(${num})">Reveal Answer ðŸŽ¯</button>
+    </div>
+
+    <!-- After reveal -->
+    <div class="reveal-panel" id="rev-${num}">
+      <div class="exact-value">${dec3}â€¦${exactStr}</div>
+      <div class="decimal-value">${q.expr} â‰ˆ ${dec1}</div>
+      <div class="between-note">Lies between <strong>${lo}</strong> and <strong>${hi}</strong> (${lo}Â² = ${lo*lo > 1000 ? lo*lo : lo*lo}, ${hi}Â² = ${hi*hi})</div>
+      <div class="winner-strip">ðŸ† Closest board wins â€” check your neighbours!</div>
+    </div>
+  `;
+
+  slidesEl.appendChild(slide);
+});
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   NAV
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+let current = 0;
+const allSlides = document.querySelectorAll('.slide');
+const counter   = document.getElementById('counter');
+const progress  = document.getElementById('progress');
+const prevBtn   = document.getElementById('prev');
+const nextBtn   = document.getElementById('next');
+
+function update() {
+  allSlides.forEach((s, i) => s.classList.toggle('active', i === current));
+  counter.textContent = current === 0 ? 'Intro' : `Question ${current} of ${QUESTIONS.length}`;
+  progress.style.width = ((current + 1) / totalSlides * 100) + '%';
+  prevBtn.disabled = current === 0;
+  nextBtn.textContent = current === totalSlides - 1 ? 'Done âœ“' : 'Next â†’';
+  nextBtn.disabled = current === totalSlides - 1;
+}
+
+prevBtn.onclick = () => { if (current > 0) { current--; update(); } };
+nextBtn.onclick = () => { if (current < totalSlides - 1) { current++; update(); } };
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); if (current < totalSlides - 1) { current++; update(); } }
+  if (e.key === 'ArrowLeft')  { e.preventDefault(); if (current > 0) { current--; update(); } }
+});
+
+update();
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   REVEAL
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+function reveal(num) {
+  const q = QUESTIONS[num - 1];
+
+  if (num <= 2) {
+    const lo = q.lo, hi = q.hi, range = hi - lo;
+    const pct = ((q.value - lo) / range * 100).toFixed(1);
+    const marker = document.getElementById(`marker-${num}`);
+    marker.style.left = '-9999px';
+    requestAnimationFrame(() => {
+      setTimeout(() => { marker.style.left = pct + '%'; }, 50);
+    });
+  }
+
+  document.getElementById(`pre-${num}`).style.display = 'none';
+  document.getElementById(`rev-${num}`).classList.add('show');
+}
+</script>
+</body>
+</html>
