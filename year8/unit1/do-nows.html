@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Y8 · Unit 1 · Do Nows 1–13</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:     #f0ede8;
+    --navy:   #0f2044;
+    --text:   #1a1a2e;
+    --muted:  #6a6a8a;
+
+    --c1-bg:  #dff0ed; --c1-bdr: #9dd4cc; --c1-ink: #0a6b5e;
+    --c2-bg:  #fdf0dc; --c2-bdr: #f0c472; --c2-ink: #7a4800;
+    --c3-bg:  #e8e4f8; --c3-bdr: #b8aeed; --c3-ink: #4c2ea8;
+    --c4-bg:  #fde8e8; --c4-bdr: #f0a8a8; --c4-ink: #9a1f1f;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; overflow:hidden; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .topbar {
+    background: var(--navy);
+    color: white;
+    height: 50px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .top-left { display:flex; align-items:center; gap:16px; }
+  .top-title { font-family:'DM Serif Display',serif; font-size:1rem; }
+  .top-sub   { font-size:0.68rem; opacity:0.45; letter-spacing:0.13em; text-transform:uppercase; }
+  .toggle-btn {
+    background: rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(255,255,255,0.28);
+    color: white;
+    border-radius:8px; padding:6px 18px;
+    font-size:0.78rem; font-family:'DM Sans',sans-serif; font-weight:600;
+    cursor:pointer; transition:all .2s; letter-spacing:0.04em;
+  }
+  .toggle-btn:hover { background:rgba(255,255,255,.22); }
+  .toggle-btn.on    { background:#00b4a0; border-color:#00b4a0; }
+
+  .slides { flex:1; position:relative; overflow:hidden; min-height:0; }
+  .slide {
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    padding:14px 20px;
+    opacity:0; transform:translateY(14px); pointer-events:none;
+    transition:opacity .35s, transform .35s;
+  }
+  .slide.active { opacity:1; transform:translateY(0); pointer-events:all; }
+
+  .lesson-tag {
+    font-size:0.65rem; font-weight:700; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--muted);
+    margin-bottom:10px; text-align:center;
+  }
+
+  .grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:1fr 1fr;
+    gap:13px;
+    width:100%; height:100%;
+    max-width:1200px; max-height:640px;
+    margin:0 auto;
+  }
+
+  .card {
+    border-radius:18px;
+    padding:20px 26px;
+    border:2.5px solid;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    overflow:hidden;
+    position:relative;
+  }
+
+  .card.c1 { background:var(--c1-bg); border-color:var(--c1-bdr); }
+  .card.c2 { background:var(--c2-bg); border-color:var(--c2-bdr); }
+  .card.c3 { background:var(--c3-bg); border-color:var(--c3-bdr); }
+  .card.c4 { background:var(--c4-bg); border-color:var(--c4-bdr); }
+
+  .q-row { display:flex; align-items:center; gap:9px; }
+  .q-dot {
+    width:26px; height:26px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.82rem; font-weight:800; color:white; flex-shrink:0;
+  }
+  .c1 .q-dot { background:var(--c1-ink); }
+  .c2 .q-dot { background:var(--c2-ink); }
+  .c3 .q-dot { background:var(--c3-ink); }
+  .c4 .q-dot { background:var(--c4-ink); }
+
+  .q-type {
+    font-size:0.62rem; font-weight:700; letter-spacing:0.16em;
+    text-transform:uppercase; opacity:0.6;
+  }
+  .c1 .q-type { color:var(--c1-ink); }
+  .c2 .q-type { color:var(--c2-ink); }
+  .c3 .q-type { color:var(--c3-ink); }
+  .c4 .q-type { color:var(--c4-ink); }
+
+  .q-text {
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(1.6rem, 3.8vw, 3rem);
+    line-height:1.2;
+    flex:1;
+    display:flex;
+    align-items:center;
+  }
+  .q-text.sm  { font-size:clamp(1.15rem,2.6vw,2rem); }
+  .q-text.med { font-size:clamp(1.3rem,3vw,2.4rem); }
+
+  .c1 .q-text { color:var(--c1-ink); }
+  .c2 .q-text { color:var(--c2-ink); }
+  .c3 .q-text { color:var(--c3-ink); }
+  .c4 .q-text { color:var(--c4-ink); }
+
+  .q-hint {
+    font-size:0.76rem; color:var(--muted); font-style:italic;
+    line-height:1.45; margin-top:-4px;
+  }
+
+  .ans-wrap {
+    display:none; flex-direction:column; gap:4px;
+    border-top:2px dashed rgba(0,0,0,0.13);
+    padding-top:10px; margin-top:4px;
+    animation:fadeUp .25s ease both;
+  }
+  .ans-wrap.on { display:flex; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+
+  .ans-lbl { font-size:0.6rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; opacity:0.45; }
+  .ans-val {
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(1.1rem,2.6vw,1.9rem);
+    line-height:1.2;
+  }
+  .ans-note { font-size:0.74rem; color:var(--muted); line-height:1.45; }
+
+  .c1 .ans-val { color:var(--c1-ink); }
+  .c2 .ans-val { color:var(--c2-ink); }
+  .c3 .ans-val { color:var(--c3-ink); }
+  .c4 .ans-val { color:var(--c4-ink); }
+
+  .q-instr {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.82rem, 1.6vw, 1rem);
+    color: var(--muted);
+    line-height: 1.4;
+    margin-top: 2px;
+  }
+  .q-eq {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3.8vw, 3rem);
+    line-height: 1.2;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.06em;
+  }
+  .c1 .q-eq { color: var(--c1-ink); }
+  .c2 .q-eq { color: var(--c2-ink); }
+  .c3 .q-eq { color: var(--c3-ink); }
+  .c4 .q-eq { color: var(--c4-ink); }
+
+  sup {
+    font-size: 0.55em;
+    vertical-align: baseline;
+    position: relative;
+    top: -0.55em;
+    line-height: 1;
+  }
+
+  .pk-badge {
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 2px 9px; border-radius: 20px;
+    align-self: flex-start; opacity: 0.7;
+  }
+  .c1 .pk-badge { background: rgba(10,107,94,0.15); color: var(--c1-ink); }
+  .c2 .pk-badge { background: rgba(122,72,0,0.12);  color: var(--c2-ink); }
+  .c3 .pk-badge { background: rgba(76,46,168,0.12); color: var(--c3-ink); }
+  .c4 .pk-badge { background: rgba(154,31,31,0.12); color: var(--c4-ink); }
+
+  .pbar  { height:4px; background:rgba(0,0,0,.08); flex-shrink:0; }
+  .pfill { height:100%; background:var(--navy); transition:width .4s; }
+
+  .bnav {
+    height:44px; background:var(--navy);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 24px; flex-shrink:0;
+  }
+  .nav-info { font-size:0.7rem; color:rgba(255,255,255,.38); letter-spacing:0.12em; text-transform:uppercase; }
+  .nbtns { display:flex; gap:8px; }
+  .nb {
+    background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2);
+    color:white; border-radius:7px; padding:6px 18px;
+    font-size:0.78rem; font-family:'DM Sans',sans-serif;
+    cursor:pointer; transition:background .18s;
+  }
+  .nb:hover { background:rgba(255,255,255,.2); }
+  .nb:disabled { opacity:.28; cursor:default; }
+  .nb.prim { background:#00b4a0; border-color:#00b4a0; color:var(--navy); font-weight:700; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="top-left">
+    <div class="top-title">Y8 · Unit 1 Do Nows</div>
+    <div class="top-sub" id="topSub">Do Now 1</div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div style="font-size:0.68rem;opacity:.38;color:white;letter-spacing:.1em;text-transform:uppercase" id="topLesson"></div>
+    <button class="toggle-btn" id="masterBtn" onclick="toggleAnswers()">Show Answers</button>
+  </div>
+</div>
+
+<div class="slides" id="slideWrap"></div>
+
+<div class="pbar"><div class="pfill" id="pf" style="width:0%"></div></div>
+<div class="bnav">
+  <div class="nav-info" id="navInfo">Do Now 1 of 13</div>
+  <div class="nbtns">
+    <button class="nb" id="pb" disabled>← Back</button>
+    <button class="nb prim" id="nb">Next →</button>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   DO NOW DATA – 13 slides
+   DN 1–3: Prior Knowledge (fractions/decimals + integers/powers)
+   DN 4–13: Unit 1 content with rolling 3-recap rule
+   Card colours: c1=teal, c2=amber, c3=purple, c4=coral(always puzzle)
+══════════════════════════════════════════════════════ */
+
+const DONOWS = [
+
+  // ── DO NOW 1 · Prior Knowledge: Fractions & Decimals ─────────────────────
+  {
+    lesson: 'Prior Knowledge · Fractions & Decimals',
+    cards: [
+      {
+        col:'c1', type:'Fractions', badge:'prior knowledge',
+        instr:'Simplify:',
+        qtext:'36/48',
+        ans:'3/4', note:'HCF(36,48) = 12 · 36÷12 = 3 · 48÷12 = 4 · Answer: 3/4'
+      },
+      {
+        col:'c2', type:'Fractions', badge:'prior knowledge',
+        qtext:'¾ + ⅝ = ?', size:'med',
+        ans:'11/8 = 1⅜', note:'LCD = 8 · 6/8 + 5/8 = 11/8'
+      },
+      {
+        col:'c3', type:'Decimals', badge:'prior knowledge',
+        instr:'Write as a fraction in simplest form:',
+        qtext:'0.65',
+        ans:'13/20', note:'0.65 = 65/100 · HCF(65,100) = 5 · 65÷5=13 · 100÷5=20'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'I am a fraction. My numerator is 3 less than my denominator. My decimal is 0.8. What fraction am I?', size:'sm',
+        ans:'4/5', note:'0.8 = 4/5 · Check: denominator − numerator = 5 − 4 = 1… wait: try ⁴⁄₅ · 4 = 5 − 1 · Hmm: 12/15? 12=15−3 ✓ and 12÷15=0.8 ✓', 
+      },
+    ]
+  },
+
+  // ── DO NOW 2 · Prior Knowledge: Integers & Powers ────────────────────────
+  {
+    lesson: 'Prior Knowledge · Integers & Powers',
+    cards: [
+      {
+        col:'c1', type:'Integers', badge:'prior knowledge',
+        qtext:'−12 + 7 − (−5) = ?', size:'med',
+        ans:'0', note:'−12 + 7 = −5 · −5 − (−5) = −5 + 5 = 0'
+      },
+      {
+        col:'c2', type:'Integers', badge:'prior knowledge',
+        instr:'Find the missing number:',
+        qtext:'? × (−6) = 42',
+        ans:'−7', note:'42 ÷ (−6) = −7 · Negative × Negative = Positive ✓'
+      },
+      {
+        col:'c3', type:'Powers', badge:'prior knowledge',
+        qtext:'2<sup>4</sup> × 3<sup>2</sup> = ?', size:'med',
+        ans:'144', note:'2⁴ = 16 · 3² = 9 · 16 × 9 = 144'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'The temperature drops 3°C each hour. It is 8°C at noon. At what time does it reach −4°C?', size:'sm',
+        ans:'4pm', note:'Need to drop 12°C · 12 ÷ 3 = 4 hours · Noon + 4h = 4pm'
+      },
+    ]
+  },
+
+  // ── DO NOW 3 · Prior Knowledge: Mixed Review ─────────────────────────────
+  {
+    lesson: 'Prior Knowledge · Mixed Fractions & Integers',
+    cards: [
+      {
+        col:'c1', type:'Fractions', badge:'prior knowledge',
+        qtext:'2⅓ × 1½ = ?', size:'med',
+        ans:'3½', note:'7/3 × 3/2 = 21/6 = 7/2 = 3½'
+      },
+      {
+        col:'c2', type:'Integers', badge:'prior knowledge',
+        instr:'Find the missing number:',
+        qtext:'−48 ÷ ? = 8',
+        ans:'−6', note:'−48 ÷ 8 = −6 · Check: −6 × 8 = −48 ✓'
+      },
+      {
+        col:'c3', type:'Powers', badge:'prior knowledge',
+        instr:'Simplify:',
+        qtext:'3<sup>5</sup> ÷ 3<sup>3</sup>',
+        ans:'3² = 9', note:'Same base → subtract exponents: 5 − 3 = 2 · So 3²= 9'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'Place +, −, × or ÷ between 2, 3, 4 and 5 (in that order, no brackets) to get the smallest possible positive result.', size:'sm',
+        ans:'2 + 3 − 4 × 5 = −15 (negative) · 2 × 3 − 4 − 5 = −3 · Closest positive: 2 + 3 × 4 − 5 = 9', note:'Try all combinations! No rearranging the digits.'
+      },
+    ]
+  },
+
+  // ── DO NOW 4 · Lesson 1: Review Integers & Fractions ─────────────────────
+  {
+    lesson: 'Lesson 1 · Integers & Fractions Review',
+    cards: [
+      {
+        col:'c1', type:'Combined Ops',
+        qtext:'(−3)² − |−5| + 2 = ?', size:'med',
+        ans:'6', note:'(−3)² = 9 · |−5| = 5 · 9 − 5 + 2 = 6'
+      },
+      {
+        col:'c2', type:'Fractions',
+        instr:'Calculate:',
+        qtext:'⅝ ÷ ¾',
+        ans:'5/6', note:'Multiply by the reciprocal: 5/8 × 4/3 = 20/24 = 5/6'
+      },
+      {
+        col:'c3', type:'Integers', badge:'prior knowledge',
+        instr:'Find the missing number:',
+        qtext:'? ÷ (−7) = −9',
+        ans:'63', note:'(−7) × (−9) = 63 · Negative × negative = positive'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'A submarine is at −240m. It rises ¼ of that distance. What is its new depth?', size:'sm',
+        ans:'−180 m', note:'¼ × 240 = 60m rise · −240 + 60 = −180m'
+      },
+    ]
+  },
+
+  // ── DO NOW 5 · Lesson 2: Rational Numbers & Recurring Decimals ───────────
+  {
+    lesson: 'Lesson 2 · Rational Numbers & Recurring Decimals',
+    cards: [
+      {
+        col:'c1', type:'Rational Numbers',
+        qtext:'Is √2 rational or irrational?', size:'med',
+        ans:'Irrational', note:'√2 cannot be written as p/q · Its decimal never terminates or recurs'
+      },
+      {
+        col:'c2', type:'Recurring Dec.',
+        instr:'Write as a recurring decimal:',
+        qtext:'5/11',
+        ans:'0.4̄5̄', note:'5 ÷ 11 = 0.454545… · The block "45" repeats'
+      },
+      {
+        col:'c3', type:'Combined Ops', badge:'recap ①',
+        qtext:'(−2)³ + |−10| ÷ 5 = ?', size:'med',
+        ans:'−6', note:'(−2)³ = −8 · |−10| = 10 · 10 ÷ 5 = 2 · −8 + 2 = −6'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'Write three different fractions that all have the same recurring decimal. What do you notice about their denominators?', size:'sm',
+        ans:'e.g. 1/3=0.3̄, 2/3=0.6̄, 1/9=0.1̄ · Denominators are multiples of 3 or 9', note:'Denominators with factors of 3 (but not 2 or 5 only) produce recurring decimals'
+      },
+    ]
+  },
+
+  // ── DO NOW 6 · Lesson 3: Converting Recurring Decimals ───────────────────
+  {
+    lesson: 'Lesson 3 · Converting Recurring Decimals to Fractions',
+    cards: [
+      {
+        col:'c1', type:'Convert',
+        instr:'Write as a fraction in simplest form:',
+        qtext:'0.3̄',
+        hint:'Let x = 0.333… then 10x = 3.333…',
+        ans:'1/3', note:'10x − x = 3 · 9x = 3 · x = 3/9 = 1/3'
+      },
+      {
+        col:'c2', type:'Recurring Dec.', badge:'recap ①',
+        instr:'Write as a recurring decimal:',
+        qtext:'7/12',
+        ans:'0.583̄', note:'7 ÷ 12 = 0.5833… · Only the 3 recurs'
+      },
+      {
+        col:'c3', type:'Rational Numbers', badge:'recap ①',
+        qtext:'Classify: −5,  0.7̄,  √9,  π', size:'sm',
+        ans:'Rational: −5, 0.7̄, √9=3 · Irrational: π', note:'π cannot be written as a fraction · All others can'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        instr:'Convert to a fraction using the algebraic method:',
+        qtext:'0.1̄2̄',
+        hint:'Multiply by 100, then subtract',
+        ans:'12/99 = 4/33', note:'100x − x = 12 · 99x = 12 · x = 12/99 = 4/33'
+      },
+    ]
+  },
+
+  // ── DO NOW 7 · Lesson 4: Combined Operations with Rationals ──────────────
+  {
+    lesson: 'Lesson 4 · Combined Operations',
+    cards: [
+      {
+        col:'c1', type:'Combined Ops',
+        qtext:'(¾ − ½)² × 8 = ?', size:'med',
+        ans:'½', note:'¾ − ½ = ¼ · (¼)² = 1/16 · 1/16 × 8 = 8/16 = ½'
+      },
+      {
+        col:'c2', type:'Convert', badge:'recap ①',
+        instr:'Write as a fraction in simplest form:',
+        qtext:'0.4̄',
+        ans:'4/9', note:'Let x = 0.444… · 10x = 4.444… · 9x = 4 · x = 4/9'
+      },
+      {
+        col:'c3', type:'Recurring Dec.', badge:'recap ②',
+        instr:'Convert to a fraction:',
+        qtext:'0.2̄7̄',
+        hint:'Multiply by 100',
+        ans:'27/99 = 3/11', note:'99x = 27 · x = 27/99 = 3/11'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'Insert one pair of brackets to make this true:\n1/2 + 1/4 × 8 − 2 = 5', size:'sm',
+        ans:'(1/2 + 1/4) × 8 − 2 = 5', note:'¾ × 8 = 6 · 6 − 1 = 5 ✓'
+      },
+    ]
+  },
+
+  // ── DO NOW 8 · Lesson 5: Powers with Integer Exponents ───────────────────
+  {
+    lesson: 'Lesson 5 · Powers with Integer Exponents',
+    cards: [
+      {
+        col:'c1', type:'Powers',
+        qtext:'(−2)<sup>4</sup> = ?',
+        ans:'16', note:'(−2)⁴ = (−2)×(−2)×(−2)×(−2) = 16 · Even power → positive'
+      },
+      {
+        col:'c2', type:'Combined Ops', badge:'recap ①',
+        qtext:'(−⅔)² + |−¼| = ?', size:'med',
+        ans:'11/12', note:'(−⅔)² = 4/9 · |−¼| = 1/4 · LCD=36: 16/36+9/36 = 25/36 · Hmm: 4/9+1/4 = 16/36+9/36=25/36', 
+      },
+      {
+        col:'c3', type:'Convert', badge:'recap ②',
+        instr:'Without a calculator, which is larger?',
+        qtext:'0.1̄8̄  or  2/11', size:'sm',
+        ans:'They are equal', note:'0.18̄ = 18/99 = 2/11 · They are the same rational number!'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'(−1)<sup>100</sup> + (−1)<sup>101</sup> + (−1)<sup>102</sup> = ?', size:'med',
+        ans:'1', note:'Even powers = +1 · Odd powers = −1 · 1 + (−1) + 1 = 1'
+      },
+    ]
+  },
+
+  // ── DO NOW 9 · Lesson 6: Negative Exponents ──────────────────────────────
+  {
+    lesson: 'Lesson 6 · Negative Exponents',
+    cards: [
+      {
+        col:'c1', type:'Neg. Exponents',
+        qtext:'4<sup>−2</sup> = ?',
+        ans:'1/16', note:'4⁻² = 1/4² = 1/16 · Rule: a⁻ⁿ = 1/aⁿ'
+      },
+      {
+        col:'c2', type:'Neg. Exponents',
+        instr:'Simplify:',
+        qtext:'(2/3)<sup>−3</sup>',
+        ans:'27/8', note:'Flip the fraction, then cube: (3/2)³ = 27/8'
+      },
+      {
+        col:'c3', type:'Powers', badge:'recap ①',
+        qtext:'(−3)<sup>3</sup> × (−3)<sup>2</sup> = ?', size:'med',
+        ans:'−243', note:'Add exponents: (−3)⁵ = −243 · Odd power → negative'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'True or false: 2⁻³ = −8. Explain your reasoning.', size:'sm',
+        ans:'False', note:'2⁻³ = 1/2³ = 1/8 · A negative exponent means reciprocal, NOT a negative number'
+      },
+    ]
+  },
+
+  // ── DO NOW 10 · Lesson 7: Roots of Rational Numbers ──────────────────────
+  {
+    lesson: 'Lesson 7 · Roots of Rational Numbers',
+    cards: [
+      {
+        col:'c1', type:'Roots',
+        instr:'Evaluate:',
+        qtext:'√(9/25)',
+        ans:'3/5', note:'√9 = 3 · √25 = 5 · So √(9/25) = 3/5'
+      },
+      {
+        col:'c2', type:'Neg. Exponents', badge:'recap ①',
+        instr:'Simplify:',
+        qtext:'(1/2)<sup>−4</sup>',
+        ans:'16', note:'Flip: (2/1)⁴ = 2⁴ = 16'
+      },
+      {
+        col:'c3', type:'Powers', badge:'recap ②',
+        instr:'Simplify (leave as a power):',
+        qtext:'5<sup>3</sup> × 5<sup>−5</sup>',
+        ans:'5<sup>−2</sup> = 1/25', note:'3 + (−5) = −2 · 5⁻² = 1/25'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'Find a rational number r such that r² = 0.09. How many solutions are there?', size:'sm',
+        ans:'r = 0.3 or r = −0.3 (two solutions)', note:'0.3² = 0.09 ✓ · (−0.3)² = 0.09 ✓ · Square roots always have two solutions'
+      },
+    ]
+  },
+
+  // ── DO NOW 11 · Lesson 8: Scientific Notation (Intro) ────────────────────
+  {
+    lesson: 'Lesson 8 · Scientific Notation',
+    cards: [
+      {
+        col:'c1', type:'Sci. Notation',
+        qtext:'Write 0.00047 in scientific notation', size:'sm',
+        ans:'4.7 × 10⁻⁴', note:'Move decimal 4 places right → negative power of 10'
+      },
+      {
+        col:'c2', type:'Sci. Notation',
+        qtext:'Write 6.02 × 10⁵ as an ordinary number', size:'sm',
+        ans:'602 000', note:'Move decimal 5 places right'
+      },
+      {
+        col:'c3', type:'Roots', badge:'recap ①',
+        instr:'Evaluate:',
+        qtext:'∛(−8/27)',
+        ans:'−2/3', note:'∛(−8) = −2 · ∛27 = 3 · So ∛(−8/27) = −2/3'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'The Earth is approximately 1.5 × 10⁸ km from the Sun. Light travels at 3 × 10⁵ km/s. How many seconds does sunlight take to reach Earth?', size:'sm',
+        ans:'500 seconds', note:'(1.5×10⁸) ÷ (3×10⁵) = 0.5×10³ = 500 seconds · About 8 minutes!'
+      },
+    ]
+  },
+
+  // ── DO NOW 12 · Lesson 9: Scientific Notation (Operations) ───────────────
+  {
+    lesson: 'Lesson 9 · Scientific Notation Operations',
+    cards: [
+      {
+        col:'c1', type:'Sci. Notation',
+        qtext:'(4 × 10³) × (3 × 10⁴) = ?', size:'med',
+        ans:'1.2 × 10⁸', note:'4×3=12 · 10³×10⁴=10⁷ · 12×10⁷ = 1.2×10⁸'
+      },
+      {
+        col:'c2', type:'Sci. Notation',
+        qtext:'(9 × 10⁶) ÷ (3 × 10²) = ?', size:'med',
+        ans:'3 × 10⁴', note:'9÷3=3 · 10⁶÷10²=10⁴ · Answer: 3×10⁴'
+      },
+      {
+        col:'c3', type:'Sci. Notation', badge:'recap ①',
+        instr:'Which is larger, and by how much?',
+        qtext:'3.6 × 10⁵  or  8.1 × 10⁴', size:'sm',
+        ans:'3.6×10⁵ is larger · Difference = 360000 − 81000 = 279 000 = 2.79×10⁵', note:'Convert both: 360 000 vs 81 000'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'A computer processes 2.4 × 10⁹ operations per second. How many operations in 5 minutes? Give your answer in sci. notation.', size:'sm',
+        ans:'7.2 × 10¹¹', note:'5 min = 300 s · 2.4×10⁹ × 300 = 720×10⁹ = 7.2×10¹¹'
+      },
+    ]
+  },
+
+  // ── DO NOW 13 · Lesson 10: Combined Review ───────────────────────────────
+  {
+    lesson: 'Lesson 10 · Unit Review',
+    cards: [
+      {
+        col:'c1', type:'Combined Ops',
+        qtext:'(−½)<sup>3</sup> ÷ √(1/4) = ?', size:'med',
+        ans:'−¼', note:'(−½)³ = −1/8 · √(1/4) = ½ · −1/8 ÷ ½ = −1/8 × 2 = −¼'
+      },
+      {
+        col:'c2', type:'Sci. Notation', badge:'recap ①',
+        qtext:'(5 × 10⁻³) × (6 × 10⁴) = ?', size:'med',
+        ans:'3 × 10²  = 300', note:'5×6=30 · 10⁻³×10⁴=10¹ · 30×10¹=3×10²'
+      },
+      {
+        col:'c3', type:'Neg. Exponents', badge:'recap ③',
+        instr:'Simplify completely:',
+        qtext:'(3<sup>−2</sup> × 3<sup>4</sup>) ÷ 3<sup>−1</sup>', size:'sm',
+        ans:'3<sup>3</sup> = 27', note:'3⁻²×3⁴=3² · 3²÷3⁻¹=3²⁺¹=3³=27'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'The distance from Earth to the nearest star (Proxima Centauri) is about 4.24 × 10¹³ km. At 3 × 10⁵ km/s, how many years would light take to get there? (1 year ≈ 3.15 × 10⁷ s)', size:'sm',
+        ans:'≈ 4.5 years', note:'Time in s = (4.24×10¹³)÷(3×10⁵) ≈ 1.41×10⁸ s · Years = 1.41×10⁸ ÷ 3.15×10⁷ ≈ 4.5 years'
+      },
+    ]
+  },
+
+];
+
+/* ── BUILD SLIDES ── */
+const wrap = document.getElementById('slideWrap');
+
+DONOWS.forEach((dn, idx) => {
+  const slide = document.createElement('div');
+  slide.className = 'slide' + (idx === 0 ? ' active' : '');
+  slide.id = 'dn' + idx;
+
+  const tag = document.createElement('div');
+  tag.className = 'lesson-tag';
+  tag.textContent = dn.lesson;
+
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+
+  dn.cards.forEach((c, ci) => {
+    const card = document.createElement('div');
+    card.className = 'card ' + c.col;
+
+    const sizeClass = c.size ? ' ' + c.size : '';
+
+    if (c.instr) {
+      card.innerHTML = `
+        <div class="q-row">
+          <div class="q-dot">${ci + 1}</div>
+          <div class="q-type">${c.type}</div>
+        </div>
+        ${c.badge ? `<div class="pk-badge">${c.badge}</div>` : ''}
+        <div class="q-instr">${c.instr}</div>
+        <div class="q-eq">${c.qtext}</div>
+        ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">${c.ans}</div>
+          ${c.note ? `<div class="ans-note">${c.note}</div>` : ''}
+        </div>
+      `;
+    } else {
+      card.innerHTML = `
+        <div class="q-row">
+          <div class="q-dot">${ci + 1}</div>
+          <div class="q-type">${c.type}</div>
+        </div>
+        ${c.badge ? `<div class="pk-badge">${c.badge}</div>` : ''}
+        <div class="q-text${sizeClass}">${c.qtext.replace(/\n/g,'<br>')}</div>
+        ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">${c.ans}</div>
+          ${c.note ? `<div class="ans-note">${c.note}</div>` : ''}
+        </div>
+      `;
+    }
+    grid.appendChild(card);
+  });
+
+  slide.appendChild(tag);
+  slide.appendChild(grid);
+  wrap.appendChild(slide);
+});
+
+/* ── NAV ── */
+const slides   = document.querySelectorAll('.slide');
+const total    = slides.length;
+let cur        = 0;
+let showing    = false;
+
+const topSub    = document.getElementById('topSub');
+const topLesson = document.getElementById('topLesson');
+const navInfo   = document.getElementById('navInfo');
+const pf        = document.getElementById('pf');
+const pb        = document.getElementById('pb');
+const nb        = document.getElementById('nb');
+const masterBtn = document.getElementById('masterBtn');
+
+function update() {
+  slides.forEach((s,i) => s.classList.toggle('active', i===cur));
+  topSub.textContent    = `Do Now ${cur+1} of ${total}`;
+  topLesson.textContent = DONOWS[cur].lesson;
+  navInfo.textContent   = `Do Now ${cur+1} of ${total}`;
+  pf.style.width        = ((cur+1)/total*100) + '%';
+  pb.disabled = cur===0;
+  nb.disabled = cur===total-1;
+  nb.textContent = cur===total-1 ? 'Done ✓' : 'Next →';
+  hideAll();
+  showing = false;
+  masterBtn.textContent = 'Show Answers';
+  masterBtn.classList.remove('on');
+}
+
+function hideAll() {
+  document.querySelectorAll('.ans-wrap').forEach(el => el.classList.remove('on'));
+}
+
+function toggleAnswers() {
+  showing = !showing;
+  for(let ci=0; ci<4; ci++) {
+    const el = document.getElementById(`a${cur}-${ci}`);
+    if(el) el.classList.toggle('on', showing);
+  }
+  masterBtn.textContent = showing ? 'Hide Answers' : 'Show Answers';
+  masterBtn.classList.toggle('on', showing);
+}
+
+pb.onclick = () => { if(cur>0){cur--;update();} };
+nb.onclick = () => { if(cur<total-1){cur++;update();} };
+
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();if(cur<total-1){cur++;update();}}
+  if(e.key==='ArrowLeft'){e.preventDefault();if(cur>0){cur--;update();}}
+});
+
+update();
+</script>
+</body>
+</html>
