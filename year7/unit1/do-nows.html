@@ -607,10 +607,12 @@ const DONOWS = [
         qtext:'36 and 90', size:'med',
         ans:'18', note:'36 = 2²×3² · 90 = 2×3²×5 · HCF = 2×3² = 18'
       },
-      { // Q4 — puzzle: units digit pattern in powers of 3
+      { // Q4 — puzzle: place 2, 3, 4 in boxes to hit the target
         col:'c4', type:'🧩 Puzzle',
-        qtext:'What is the units digit of 3<sup>100</sup>? Look for a pattern in the powers of 3.', size:'sm',
-        ans:'1', note:'3¹=3, 3²=9, 3³=27, 3⁴=81 · Pattern 3,9,7,1 repeats every 4 · 100÷4=25 r0 → units digit 1'
+        instr:'Place 2, 3 and 4 in the boxes — each number once:',
+        qtext:'☐<sup>☐</sup> + ☐ = 12',
+        hint:'Which number works best as the power?',
+        ans:'2<sup>3</sup> + 4 = 12', note:'2³ = 8 · 8 + 4 = 12 ✓ · Is there another way?'
       },
     ]
   },
