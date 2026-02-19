@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Y9 · Unit 1 · Do Nows 1–11</title>
+<title>Y9 · Unit 1 · Do Nows 1–9</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -174,6 +174,27 @@
     letter-spacing: 0.08em;
     margin-top: 4px;
   }
+  /* Two-part card: small instruction + big equation on its own line */
+  .q-instr {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.82rem, 1.6vw, 1rem);
+    color: var(--muted);
+    line-height: 1.4;
+    margin-top: 2px;
+  }
+  .q-eq {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3.8vw, 3rem);
+    line-height: 1.2;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.06em;
+  }
+  .c1 .q-eq { color: var(--c1-ink); }
+  .c2 .q-eq { color: var(--c2-ink); }
+  .c3 .q-eq { color: var(--c3-ink); }
+  .c4 .q-eq { color: var(--c4-ink); }
 
   /* ── SUPERSCRIPTS ── */
   sup {
@@ -264,7 +285,7 @@
 
 <script>
 /* ══════════════════════════════════════════
-   DO NOW DATA — 11 slides
+   DO NOW DATA — 9 slides
    Card colours: c1=teal, c2=amber, c3=purple, c4=coral(always puzzle)
    BODMAS fades: Do Nows 1-3 have BODMAS (c3), replaced by topic from DN4
 ══════════════════════════════════════════ */
@@ -308,7 +329,9 @@ const DONOWS = [
         ans:'8', note:'The ½ power means square root: √64 = 8'
       },
       {
-        col:'c3', type:'Place the Numbers', qtext:'Place 2, 3, 5 in the ☐ to make it true:<br><span class="eq">☐ + ☐<sup>2</sup> × ☐ = 47</span>', size:'sm',
+        col:'c3', type:'Place the Numbers',
+        instr:'Place 2, 3 and 5 in the boxes — each number once:',
+        qtext:'☐ + ☐<sup>2</sup> × ☐ = 47',
         hint:'Which number works as the power?',
         ans:'2 + 3<sup>2</sup> × 5 = 47', note:'3<sup>2</sup> = 9 · 9 × 5 = 45 · 45 + 2 = 47 ✓'
       },
@@ -369,65 +392,6 @@ const DONOWS = [
         qtext:'Use 2, 3, 4 and 5 once each.<br>Make 29.', size:'med',
         hint:'Use + − × ÷ and brackets in any order',
         ans:'e.g. 4 × 5 + 3² = 29', note:'Other solutions exist! · Can anyone find another way?'
-      },
-    ]
-  },
-
-  // ── DO NOW 4b · Number Types & BODMAS Practice ──────────────────────
-  {
-    lesson: 'Lesson 4 · Number Types & BODMAS',
-    cards: [
-      {
-        col:'c1', type:'BODMAS', qtext:'5 + 3 × (12 − 2<sup>2</sup>) = ?', size:'med',
-        ans:'29', note:'2²=4 · 12−4=8 · 3×8=24 · 5+24=29'
-      },
-      {
-        col:'c2', type:'Classify',
-        qtext:'Which are rational but NOT natural or integer?<br><br>−3, &nbsp; ¾, &nbsp; 7, &nbsp; −0.5, &nbsp; √9, &nbsp; 0.3̄, &nbsp; 0, &nbsp; 2/5',
-        size:'sm',
-        ans:'¾, &nbsp;−0.5, &nbsp;0.3̄, &nbsp;2/5',
-        note:'−3 & 0 are integers · 7 & √9=3 are natural · The rest are rational but not integers'
-      },
-      {
-        col:'c3', type:'Place the Numbers',
-        instr:'Place 3, 4 and 5 in the boxes — each used once:',
-        qtext:'(☐ + ☐) × ☐ − 1 = 34',
-        hint:'BODMAS — brackets first! Which pair adds to something useful?',
-        ans:'(3 + 4) × 5 − 1 = 34', note:'3+4=7 · 7×5=35 · 35−1=34 ✓'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle', qtext:'I am rational but not an integer. I am negative. My denominator is 4 and my numerator is odd, between −5 and 0. What could I be?', size:'sm',
-        ans:'−1/4 or −3/4', note:'Odd numbers between −5 and 0: −3, −1 · So −3/4 or −1/4'
-      },
-    ]
-  },
-
-  // ── DO NOW 5b · Recurring Decimals & Rational Numbers ───────────────
-  {
-    lesson: 'Lesson 4–5 · Recurring Decimals & Rationals',
-    cards: [
-      {
-        col:'c1', type:'BODMAS', qtext:'(2 + 3)<sup>2</sup> − 4 × 6 = ?', size:'med',
-        ans:'1', note:'(2+3)=5 · 5²=25 · 4×6=24 · 25−24=1'
-      },
-      {
-        col:'c2', type:'Convert',
-        instr:'Convert to a fraction in simplest form:',
-        qtext:'0.2̄',
-        hint:'Let x = 0.222… then 10x = ?',
-        ans:'2/9', note:'Let x=0.222… · 10x=2.222… · 9x=2 · x=2/9'
-      },
-      {
-        col:'c3', type:'Classify',
-        qtext:'Sort into TERMINATING or RECURRING:<br><br>¼, &nbsp; ⅓, &nbsp; ⅜, &nbsp; 2/9, &nbsp; 7/20',
-        size:'sm',
-        ans:'Terminating: ¼, ⅜, 7/20<br>Recurring: ⅓, 2/9',
-        note:'Terminating if denominator (simplified) has only factors of 2 and 5'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle', qtext:'I am a recurring decimal. As a fraction my denominator is 9 and my numerator is a single digit. I am greater than 0.5 but less than 0.8. What am I?', size:'sm',
-        ans:'6/9 = 2/3 (0.6̄) and 7/9 (0.7̄)',
-        note:'5/9=0.5̄ (not >) · 6/9=0.6̄ ✓ · 7/9=0.7̄ ✓ · 8/9=0.8̄ (not <)'
       },
     ]
   },
@@ -549,6 +513,32 @@ const DONOWS = [
     ]
   },
 
+  // ── DO NOW 10 · Rational Numbers: Fractions warm-up ─────────────────
+  {
+    lesson: 'Rational Numbers · Fractions Review',
+    cards: [
+      {
+        col:'c1', type:'Classify', qtext:'Write one number that is rational but NOT an integer',
+        ans:'e.g. ½, 0.3, −¾', note:'Any fraction or terminating/recurring decimal that is not whole'
+      },
+      {
+        col:'c2', type:'Convert', qtext:'Write 0.35 as a fraction in its simplest form',
+        ans:'7/20', note:'0.35 = 35/100 · HCF(35,100) = 5 · → 7/20'
+      },
+      {
+        col:'c3', type:'Convert',
+        instr:'Write as a fraction in simplest form:',
+        qtext:'0.4̄',
+        hint:'Use the algebraic method for recurring decimals',
+        ans:'4/9', note:'Let x = 0.444… · 10x = 4.444… · 9x = 4 · x = 4/9'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle', qtext:'I am a fraction less than 1. My decimal is 0.375. My denominator is 8. What fraction am I?', size:'sm',
+        ans:'3/8', note:'0.375 × 8 = 3 · So the fraction is 3/8 · Check: 3÷8 = 0.375 ✓'
+      },
+    ]
+  },
+
 ];
 
 /* ── BUILD SLIDES ── */
@@ -581,6 +571,22 @@ DONOWS.forEach((dn, idx) => {
         </div>
         <div class="topic-label">${c.label}</div>
         <div class="q-text${sizeClass}">${c.qtext}</div>
+        ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">${c.ans}</div>
+          ${c.note ? `<div class="ans-note">${c.note}</div>` : ''}
+        </div>
+      `;
+    } else if (c.instr) {
+      // Two-part layout: small instruction line + big standalone equation
+      card.innerHTML = `
+        <div class="q-row">
+          <div class="q-dot">${ci + 1}</div>
+          <div class="q-type">${c.type}</div>
+        </div>
+        <div class="q-instr">${c.instr}</div>
+        <div class="q-eq">${c.qtext}</div>
         ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
         <div class="ans-wrap" id="a${idx}-${ci}">
           <div class="ans-lbl">Answer</div>
