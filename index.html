@@ -5,438 +5,166 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maths Resource Hub</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0b0f1a;
       --surface: #131928;
-      --border: rgba(255, 255, 255, 0.07);
+      --border: rgba(255,255,255,0.07);
       --text: #e8eaf0;
       --muted: #6b7696;
-      --y7: #00c4a0;
-      --y8: #4d9eff;
-      --y9: #c97aff;
+      --y7:  #00c4a0;
+      --y8:  #4d9eff;
+      --y9:  #c97aff;
       --y10: #ff8c42;
+      --y11: #ff4d6d;
+      --y12: #ffd84d;
       --arcade: #ffd84d;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
 
-    /* ── HEADER ── */
+    /* HEADER */
     header {
       padding: 40px 60px 32px;
       border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
     }
-
     .header-left h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1;
+      font-family:'Syne',sans-serif;
+      font-size: clamp(1.6rem,3vw,2.4rem);
+      font-weight:800; letter-spacing:-0.02em; line-height:1;
     }
-
-    .header-left h1 span {
-      color: var(--y7);
-    }
-
-    .header-left p {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-top: 6px;
-      letter-spacing: 0.04em;
-    }
+    .header-left h1 span { color:var(--y7); }
+    .header-left p { font-size:0.82rem; color:var(--muted); margin-top:6px; letter-spacing:0.04em; }
 
     .arcade-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255, 216, 77, 0.1);
-      border: 1.5px solid rgba(255, 216, 77, 0.35);
-      color: var(--arcade);
-      border-radius: 10px;
-      padding: 10px 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      font-family: 'Syne', sans-serif;
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: background 0.2s, border-color 0.2s;
-      cursor: pointer;
-      white-space: nowrap;
+      display:flex; align-items:center; gap:10px;
+      background:rgba(255,216,77,0.1); border:1.5px solid rgba(255,216,77,0.35);
+      color:var(--arcade); border-radius:10px; padding:10px 20px;
+      font-size:0.85rem; font-weight:600; font-family:'Syne',sans-serif;
+      text-decoration:none; letter-spacing:0.04em;
+      transition:background 0.2s, border-color 0.2s; cursor:pointer; white-space:nowrap;
     }
+    .arcade-btn:hover { background:rgba(255,216,77,0.18); border-color:rgba(255,216,77,0.6); }
+    .arcade-icon { font-size:1.1rem; }
 
-    .arcade-btn:hover {
-      background: rgba(255, 216, 77, 0.18);
-      border-color: rgba(255, 216, 77, 0.6);
-    }
+    /* MAIN */
+    main { padding:40px 60px 80px; max-width:1400px; margin:0 auto; }
 
-    .arcade-icon {
-      font-size: 1.1rem;
-    }
-
-    /* ── MAIN ── */
-    main {
-      padding: 40px 60px 80px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* ── YEAR TABS ── */
-    .year-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 36px;
-      flex-wrap: wrap;
-    }
-
+    /* TABS */
+    .year-tabs { display:flex; gap:8px; margin-bottom:36px; flex-wrap:wrap; }
     .year-tab {
-      padding: 8px 22px;
-      border-radius: 100px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      font-family: 'Syne', sans-serif;
-      cursor: pointer;
-      border: 1.5px solid transparent;
-      background: var(--surface);
-      color: var(--muted);
-      transition: all 0.2s;
-      letter-spacing: 0.04em;
+      padding:8px 22px; border-radius:100px; font-size:0.82rem; font-weight:600;
+      font-family:'Syne',sans-serif; cursor:pointer; border:1.5px solid transparent;
+      background:var(--surface); color:var(--muted);
+      transition:all 0.2s; letter-spacing:0.04em;
     }
+    .year-tab:hover { color:var(--text); border-color:var(--border); }
+    .year-tab.active[data-year="7"]  { background:rgba(0,196,160,0.12);   border-color:var(--y7);  color:var(--y7);  }
+    .year-tab.active[data-year="8"]  { background:rgba(77,158,255,0.12);  border-color:var(--y8);  color:var(--y8);  }
+    .year-tab.active[data-year="9"]  { background:rgba(201,122,255,0.12); border-color:var(--y9);  color:var(--y9);  }
+    .year-tab.active[data-year="10"] { background:rgba(255,140,66,0.12);  border-color:var(--y10); color:var(--y10); }
+    .year-tab.active[data-year="11"] { background:rgba(255,77,109,0.12);  border-color:var(--y11); color:var(--y11); }
+    .year-tab.active[data-year="12"] { background:rgba(255,216,77,0.12);  border-color:var(--y12); color:var(--y12); }
 
-    .year-tab:hover {
-      color: var(--text);
-      border-color: var(--border);
-    }
+    /* PANELS */
+    .year-panel { display:none; }
+    .year-panel.active { display:block; }
 
-    .year-tab.active[data-year="7"] {
-      background: rgba(0, 196, 160, 0.12);
-      border-color: var(--y7);
-      color: var(--y7);
-    }
+    /* YEAR HEADER */
+    .year-header { display:flex; align-items:baseline; gap:16px; margin-bottom:28px; }
+    .year-badge { font-family:'Syne',sans-serif; font-size:2.8rem; font-weight:800; line-height:1; }
+    .y7-color  { color:var(--y7);  }
+    .y8-color  { color:var(--y8);  }
+    .y9-color  { color:var(--y9);  }
+    .y10-color { color:var(--y10); }
+    .y11-color { color:var(--y11); }
+    .y12-color { color:var(--y12); }
+    .year-subtitle { font-size:0.8rem; color:var(--muted); letter-spacing:0.06em; text-transform:uppercase; }
 
-    .year-tab.active[data-year="8"] {
-      background: rgba(77, 158, 255, 0.12);
-      border-color: var(--y8);
-      color: var(--y8);
-    }
+    /* UNIT GRID */
+    .unit-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
 
-    .year-tab.active[data-year="9"] {
-      background: rgba(201, 122, 255, 0.12);
-      border-color: var(--y9);
-      color: var(--y9);
-    }
-
-    .year-tab.active[data-year="10"] {
-      background: rgba(255, 140, 66, 0.12);
-      border-color: var(--y10);
-      color: var(--y10);
-    }
-
-    /* ── YEAR PANEL ── */
-    .year-panel {
-      display: none;
-    }
-
-    .year-panel.active {
-      display: block;
-    }
-
-    /* ── YEAR HEADER ── */
-    .year-header {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-
-    .year-badge {
-      font-family: 'Syne', sans-serif;
-      font-size: 2.8rem;
-      font-weight: 800;
-      line-height: 1;
-    }
-
-    .y7-color {
-      color: var(--y7);
-    }
-
-    .y8-color {
-      color: var(--y8);
-    }
-
-    .y9-color {
-      color: var(--y9);
-    }
-
-    .y10-color {
-      color: var(--y10);
-    }
-
-    .year-subtitle {
-      font-size: 0.8rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    /* ── UNIT GRID ── */
-    .unit-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 16px;
-    }
-
-    /* ── UNIT CARD ── */
+    /* UNIT CARD */
     .unit-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: border-color 0.2s, transform 0.2s;
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:16px; overflow:hidden; transition:border-color 0.2s, transform 0.2s;
     }
+    .unit-card:hover { transform:translateY(-2px); }
+    .unit-card[data-year="7"]:hover  { border-color:rgba(0,196,160,0.3);   }
+    .unit-card[data-year="8"]:hover  { border-color:rgba(77,158,255,0.3);  }
+    .unit-card[data-year="9"]:hover  { border-color:rgba(201,122,255,0.3); }
+    .unit-card[data-year="10"]:hover { border-color:rgba(255,140,66,0.3);  }
+    .unit-card[data-year="11"]:hover { border-color:rgba(255,77,109,0.3);  }
+    .unit-card[data-year="12"]:hover { border-color:rgba(255,216,77,0.3);  }
 
-    .unit-card:hover {
-      transform: translateY(-2px);
-    }
-
-    .unit-card[data-year="7"]:hover {
-      border-color: rgba(0, 196, 160, 0.3);
-    }
-
-    .unit-card[data-year="8"]:hover {
-      border-color: rgba(77, 158, 255, 0.3);
-    }
-
-    .unit-card[data-year="9"]:hover {
-      border-color: rgba(201, 122, 255, 0.3);
-    }
-
-    .unit-card[data-year="10"]:hover {
-      border-color: rgba(255, 140, 66, 0.3);
-    }
-
-    .unit-header {
-      padding: 18px 20px 14px;
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-    }
-
+    .unit-header { padding:18px 20px 14px; display:flex; align-items:flex-start; gap:14px; }
     .unit-number {
-      font-family: 'Syne', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 100px;
-      white-space: nowrap;
-      flex-shrink: 0;
-      margin-top: 2px;
+      font-family:'Syne',sans-serif; font-size:0.7rem; font-weight:700;
+      letter-spacing:0.1em; text-transform:uppercase; padding:4px 10px;
+      border-radius:100px; white-space:nowrap; flex-shrink:0; margin-top:2px;
     }
+    .un-y7  { background:rgba(0,196,160,0.12);   color:var(--y7);  }
+    .un-y8  { background:rgba(77,158,255,0.12);  color:var(--y8);  }
+    .un-y9  { background:rgba(201,122,255,0.12); color:var(--y9);  }
+    .un-y10 { background:rgba(255,140,66,0.12);  color:var(--y10); }
+    .un-y11 { background:rgba(255,77,109,0.12);  color:var(--y11); }
+    .un-y12 { background:rgba(255,216,77,0.12);  color:var(--y12); }
 
-    .un-y7 {
-      background: rgba(0, 196, 160, 0.12);
-      color: var(--y7);
-    }
+    .unit-name { font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:700; line-height:1.3; color:var(--text); }
 
-    .un-y8 {
-      background: rgba(77, 158, 255, 0.12);
-      color: var(--y8);
-    }
-
-    .un-y9 {
-      background: rgba(201, 122, 255, 0.12);
-      color: var(--y9);
-    }
-
-    .un-y10 {
-      background: rgba(255, 140, 66, 0.12);
-      color: var(--y10);
-    }
-
-    .unit-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      line-height: 1.3;
-      color: var(--text);
-    }
-
-    /* ── TOOLS LIST ── */
-    .tools-list {
-      padding: 0 20px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
+    /* TOOLS */
+    .tools-list { padding:0 20px 18px; display:flex; flex-direction:column; gap:6px; }
     .tool-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid transparent;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 0.82rem;
-      transition: background 0.15s, border-color 0.15s;
-      cursor: pointer;
+      display:flex; align-items:center; gap:10px; padding:8px 12px;
+      border-radius:8px; background:rgba(255,255,255,0.03); border:1px solid transparent;
+      text-decoration:none; color:var(--text); font-size:0.82rem;
+      transition:background 0.15s, border-color 0.15s; cursor:pointer;
     }
-
-    .tool-item:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: var(--border);
-    }
-
-    .tool-icon {
-      font-size: 0.95rem;
-      flex-shrink: 0;
-    }
-
-    .tool-label {
-      flex: 1;
-      font-weight: 400;
-    }
-
+    .tool-item:hover { background:rgba(255,255,255,0.06); border-color:var(--border); }
+    .tool-icon  { font-size:0.95rem; flex-shrink:0; }
+    .tool-label { flex:1; font-weight:400; }
     .tool-tag {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 2px 7px;
-      border-radius: 100px;
+      font-size:0.65rem; font-weight:600; letter-spacing:0.08em;
+      text-transform:uppercase; padding:2px 7px; border-radius:100px;
     }
+    .tag-pres  { background:rgba(0,196,160,0.15);  color:var(--y7);    }
+    .tag-inter { background:rgba(77,158,255,0.15); color:var(--y8);    }
+    .tag-game  { background:rgba(255,216,77,0.15); color:var(--arcade);}
+    .tag-soon  { background:rgba(255,255,255,0.05);color:var(--muted); }
 
-    .tag-pres {
-      background: rgba(0, 196, 160, 0.15);
-      color: var(--y7);
-    }
-
-    .tag-inter {
-      background: rgba(77, 158, 255, 0.15);
-      color: var(--y8);
-    }
-
-    .tag-game {
-      background: rgba(255, 216, 77, 0.15);
-      color: var(--arcade);
-    }
-
-    .tag-soon {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--muted);
-    }
-
-    /* ── EMPTY STATE ── */
     .empty-slot {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-style: italic;
-      opacity: 0.6;
+      display:flex; align-items:center; gap:10px; padding:8px 12px;
+      border-radius:8px; font-size:0.8rem; color:var(--muted); font-style:italic; opacity:0.6;
     }
 
-    /* ── DIVIDER ── */
-    .unit-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 0 20px 14px;
-    }
+    .unit-divider { height:1px; background:var(--border); margin:0 20px 14px; }
 
-    /* ── COMING SOON PANEL ── */
+    /* COMING SOON */
     .coming-soon-panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 60px 40px;
-      text-align: center;
-      max-width: 500px;
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:20px; padding:60px 40px; text-align:center; max-width:500px;
     }
+    .coming-soon-panel .cs-icon { font-size:3rem; margin-bottom:16px; }
+    .coming-soon-panel h3 { font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:700; margin-bottom:10px; color:var(--y10); }
+    .coming-soon-panel p { font-size:0.88rem; color:var(--muted); line-height:1.6; }
 
-    .coming-soon-panel .cs-icon {
-      font-size: 3rem;
-      margin-bottom: 16px;
-    }
-
-    .coming-soon-panel h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--y10);
-    }
-
-    .coming-soon-panel p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    /* ── LEGEND ── */
+    /* LEGEND */
     .legend {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
-      padding: 14px 18px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      width: fit-content;
+      display:flex; gap:20px; flex-wrap:wrap; margin-bottom:28px;
+      padding:14px 18px; background:var(--surface); border:1px solid var(--border);
+      border-radius:10px; width:fit-content;
     }
+    .legend-item { display:flex; align-items:center; gap:7px; font-size:0.75rem; color:var(--muted); }
+    .legend-dot  { width:8px; height:8px; border-radius:50%; }
 
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .legend-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-
-      header,
-      main {
-        padding-left: 24px;
-        padding-right: 24px;
-      }
-
-      .unit-grid {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width:700px) {
+      header, main { padding-left:24px; padding-right:24px; }
+      .unit-grid { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -455,31 +183,23 @@
 
   <main>
 
-    <!-- YEAR TABS -->
     <div class="year-tabs">
-      <button class="year-tab active" data-year="7" onclick="showYear(7, this)">Year 7</button>
-      <button class="year-tab" data-year="8" onclick="showYear(8, this)">Year 8</button>
-      <button class="year-tab" data-year="9" onclick="showYear(9, this)">Year 9</button>
-      <button class="year-tab" data-year="10" onclick="showYear(10, this)">Year 10</button>
+      <button class="year-tab active" data-year="7"  onclick="showYear(7,this)">Year 7</button>
+      <button class="year-tab"        data-year="8"  onclick="showYear(8,this)">Year 8</button>
+      <button class="year-tab"        data-year="9"  onclick="showYear(9,this)">Year 9</button>
+      <button class="year-tab"        data-year="10" onclick="showYear(10,this)">Year 10</button>
+      <button class="year-tab"        data-year="11" onclick="showYear(11,this)">Year 11</button>
+      <button class="year-tab"        data-year="12" onclick="showYear(12,this)">Year 12</button>
     </div>
 
-    <!-- LEGEND -->
     <div class="legend">
-      <div class="legend-item">
-        <div class="legend-dot" style="background:#00c4a0"></div> Presentation
-      </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:#4d9eff"></div> Interactive Tool
-      </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:#ffd84d"></div> Game
-      </div>
-      <div class="legend-item">
-        <div class="legend-dot" style="background:#444"></div> Coming Soon
-      </div>
+      <div class="legend-item"><div class="legend-dot" style="background:#00c4a0"></div> Presentation</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4d9eff"></div> Interactive Tool</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#ffd84d"></div> Game</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#444"></div> Coming Soon</div>
     </div>
 
-    <!-- ═══════════════ YEAR 7 ═══════════════ -->
+    <!-- ═══ YEAR 7 ═══ -->
     <div class="year-panel active" id="panel-7">
       <div class="year-header">
         <div class="year-badge y7-color">Year 7</div>
@@ -487,108 +207,62 @@
       </div>
       <div class="unit-grid">
 
-        <!-- U1 -->
         <div class="unit-card" data-year="7">
-          <div class="unit-header">
-            <span class="unit-number un-y7">Unit 1</span>
-            <div class="unit-name">Natural Numbers</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y7">Unit 1</span><div class="unit-name">Natural Numbers</div></div>
           <div class="unit-divider"></div>
           <div class="tools-list">
             <a class="tool-item" href="year7/unit1/first-lesson-whiteboard.html" target="_blank">
-              <span class="tool-icon">📋</span>
-              <span class="tool-label">First Lesson – Mini Whiteboard Activity</span>
-              <span class="tool-tag tag-pres">Presentation</span>
+              <span class="tool-icon">📋</span><span class="tool-label">First Lesson – Mini Whiteboard Activity</span><span class="tool-tag tag-pres">Presentation</span>
             </a>
             <a class="tool-item" href="year7/unit1/do-nows.html" target="_blank">
-              <span class="tool-icon">📝</span>
-              <span class="tool-label">Do Nows – 16 Warm-Up Slides (64 Questions)</span>
-              <span class="tool-tag tag-pres">Presentation</span>
+              <span class="tool-icon">📝</span><span class="tool-label">Do Nows – 16 Warm-Up Slides (64 Questions)</span><span class="tool-tag tag-pres">Presentation</span>
             </a>
             <a class="tool-item" href="year7/unit1/divisibility-practice.html" target="_blank">
-              <span class="tool-icon">🎮</span>
-              <span class="tool-label">Divisibility Practice – Missing Digit Game</span>
-              <span class="tool-tag tag-inter">Interactive</span>
+              <span class="tool-icon">🎮</span><span class="tool-label">Divisibility Practice – Missing Digit Game</span><span class="tool-tag tag-inter">Interactive</span>
             </a>
           </div>
         </div>
 
-      <!-- U2 -->
-      <div class="unit-card" data-year="7">
-        <div class="unit-header">
-          <span class="unit-number un-y7">Unit 2</span>
-          <div class="unit-name">Integers</div>
+        <div class="unit-card" data-year="7">
+          <div class="unit-header"><span class="unit-number un-y7">Unit 2</span><div class="unit-name">Integers</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
-        <div class="unit-divider"></div>
-        <div class="tools-list">
-          <div class="empty-slot">📂 No tools yet — add your HTML files here</div>
-        </div>
-      </div>
 
-      <!-- U3 -->
-      <div class="unit-card" data-year="7">
-        <div class="unit-header">
-          <span class="unit-number un-y7">Unit 3</span>
-          <div class="unit-name">Introduction to Algebra</div>
+        <div class="unit-card" data-year="7">
+          <div class="unit-header"><span class="unit-number un-y7">Unit 3</span><div class="unit-name">Introduction to Algebra</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
-        <div class="unit-divider"></div>
-        <div class="tools-list">
-          <div class="empty-slot">📂 No tools yet</div>
-        </div>
-      </div>
 
-      <!-- U4 -->
-      <div class="unit-card" data-year="7">
-        <div class="unit-header">
-          <span class="unit-number un-y7">Unit 4</span>
-          <div class="unit-name">Geometry, Perimeter, Area & Pythagoras</div>
+        <div class="unit-card" data-year="7">
+          <div class="unit-header"><span class="unit-number un-y7">Unit 4</span><div class="unit-name">Geometry, Perimeter, Area & Pythagoras</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
-        <div class="unit-divider"></div>
-        <div class="tools-list">
-          <div class="empty-slot">📂 No tools yet</div>
-        </div>
-      </div>
 
-      <!-- U5 -->
-      <div class="unit-card" data-year="7">
-        <div class="unit-header">
-          <span class="unit-number un-y7">Unit 5</span>
-          <div class="unit-name">Fractions & Decimals</div>
+        <div class="unit-card" data-year="7">
+          <div class="unit-header"><span class="unit-number un-y7">Unit 5</span><div class="unit-name">Fractions & Decimals</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
-        <div class="unit-divider"></div>
-        <div class="tools-list">
-          <div class="empty-slot">📂 No tools yet</div>
-        </div>
-      </div>
 
-      <!-- U6 -->
-      <div class="unit-card" data-year="7">
-        <div class="unit-header">
-          <span class="unit-number un-y7">Unit 6</span>
-          <div class="unit-name">Direct Proportionality & Ratio</div>
+        <div class="unit-card" data-year="7">
+          <div class="unit-header"><span class="unit-number un-y7">Unit 6</span><div class="unit-name">Direct Proportionality & Ratio</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
-        <div class="unit-divider"></div>
-        <div class="tools-list">
-          <div class="empty-slot">📂 No tools yet</div>
-        </div>
-      </div>
 
-      <!-- U7 -->
-      <div class="unit-card" data-year="7">
-        <div class="unit-header">
-          <span class="unit-number un-y7">Unit 7</span>
-          <div class="unit-name">Statistics</div>
+        <div class="unit-card" data-year="7">
+          <div class="unit-header"><span class="unit-number un-y7">Unit 7</span><div class="unit-name">Statistics</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
-        <div class="unit-divider"></div>
-        <div class="tools-list">
-          <div class="empty-slot">📂 No tools yet</div>
-        </div>
-      </div>
 
-    </div>
+      </div>
     </div>
 
-    <!-- ═══════════════ YEAR 8 ═══════════════ -->
+    <!-- ═══ YEAR 8 ═══ -->
     <div class="year-panel" id="panel-8">
       <div class="year-header">
         <div class="year-badge y8-color">Year 8</div>
@@ -596,106 +270,62 @@
       </div>
       <div class="unit-grid">
 
-        <!-- U1 -->
         <div class="unit-card" data-year="8">
-          <div class="unit-header">
-            <span class="unit-number un-y8">Unit 1</span>
-            <div class="unit-name">Rational Numbers</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y8">Unit 1</span><div class="unit-name">Rational Numbers</div></div>
           <div class="unit-divider"></div>
           <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
+            <a class="tool-item" href="year8/unit1/do-nows.html" target="_blank">
+              <span class="tool-icon">📝</span><span class="tool-label">Do Nows – Warm-Up Slides</span><span class="tool-tag tag-pres">Presentation</span>
+            </a>
           </div>
         </div>
 
-        <!-- U2 -->
         <div class="unit-card" data-year="8">
-          <div class="unit-header">
-            <span class="unit-number un-y8">Unit 2</span>
-            <div class="unit-name">Algebra – Expressions & Equations</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y8">Unit 2</span><div class="unit-name">Algebra – Expressions & Equations</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
-        <!-- U3 -->
         <div class="unit-card" data-year="8">
-          <div class="unit-header">
-            <span class="unit-number un-y8">Unit 3</span>
-            <div class="unit-name">Area & Volume</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y8">Unit 3</span><div class="unit-name">Area & Volume</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
-        <!-- U4 -->
         <div class="unit-card" data-year="8">
-          <div class="unit-header">
-            <span class="unit-number un-y8">Unit 4</span>
-            <div class="unit-name">Angles</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y8">Unit 4</span><div class="unit-name">Angles</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
-        <!-- U5 -->
         <div class="unit-card" data-year="8">
-          <div class="unit-header">
-            <span class="unit-number un-y8">Unit 5</span>
-            <div class="unit-name">Equation of a Line</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y8">Unit 5</span><div class="unit-name">Equation of a Line</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
-        <!-- U6 -->
         <div class="unit-card" data-year="8">
-          <div class="unit-header">
-            <span class="unit-number un-y8">Unit 6</span>
-            <div class="unit-name">Functions & Linear Functions</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y8">Unit 6</span><div class="unit-name">Functions & Linear Functions</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
-        <!-- U7 -->
         <div class="unit-card" data-year="8">
-          <div class="unit-header">
-            <span class="unit-number un-y8">Unit 7</span>
-            <div class="unit-name">Probability of Simple Events</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y8">Unit 7</span><div class="unit-name">Probability of Simple Events</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
-        <!-- U8 -->
         <div class="unit-card" data-year="8">
-          <div class="unit-header">
-            <span class="unit-number un-y8">Unit 8</span>
-            <div class="unit-name">Transformations in the Plane</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y8">Unit 8</span><div class="unit-name">Transformations in the Plane</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
       </div>
     </div>
 
-    <!-- ═══════════════ YEAR 9 ═══════════════ -->
+    <!-- ═══ YEAR 9 ═══ -->
     <div class="year-panel" id="panel-9">
       <div class="year-header">
         <div class="year-badge y9-color">Year 9</div>
@@ -703,91 +333,53 @@
       </div>
       <div class="unit-grid">
 
-        <!-- U1 -->
         <div class="unit-card" data-year="9">
-          <div class="unit-header">
-            <span class="unit-number un-y9">Unit 1</span>
-            <div class="unit-name">Real Numbers, Powers & Radicals</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y9">Unit 1</span><div class="unit-name">Real Numbers, Powers & Radicals</div></div>
           <div class="unit-divider"></div>
           <div class="tools-list">
             <a class="tool-item" href="year9/unit1/do-nows.html" target="_blank">
-              <span class="tool-icon">📝</span>
-              <span class="tool-label">Do Nows 1–9 · Warm-Up Slides</span>
-              <span class="tool-tag tag-pres">Presentation</span>
+              <span class="tool-icon">📝</span><span class="tool-label">Do Nows 1–9 · Warm-Up Slides</span><span class="tool-tag tag-pres">Presentation</span>
             </a>
             <a class="tool-item" href="year9/unit1/estimating-roots.html" target="_blank">
-              <span class="tool-icon">√</span>
-              <span class="tool-label">Estimating Roots · MWB Activity</span>
-              <span class="tool-tag tag-inter">Interactive</span>
+              <span class="tool-icon">√</span><span class="tool-label">Estimating Roots · MWB Activity</span><span class="tool-tag tag-inter">Interactive</span>
             </a>
           </div>
         </div>
 
-        <!-- U2 -->
         <div class="unit-card" data-year="9">
-          <div class="unit-header">
-            <span class="unit-number un-y9">Unit 2</span>
-            <div class="unit-name">Algebra I – Systems of Equations & Inequalities</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y9">Unit 2</span><div class="unit-name">Algebra I – Systems of Equations & Inequalities</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
-        <!-- U3 -->
         <div class="unit-card" data-year="9">
-          <div class="unit-header">
-            <span class="unit-number un-y9">Unit 3</span>
-            <div class="unit-name">Algebra II – Factorisation, Quadratics & Sequences</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y9">Unit 3</span><div class="unit-name">Algebra II – Factorisation, Quadratics & Sequences</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
-        <!-- U4 -->
         <div class="unit-card" data-year="9">
-          <div class="unit-header">
-            <span class="unit-number un-y9">Unit 4</span>
-            <div class="unit-name">Statistics</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y9">Unit 4</span><div class="unit-name">Statistics</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
-        <!-- U5 -->
         <div class="unit-card" data-year="9">
-          <div class="unit-header">
-            <span class="unit-number un-y9">Unit 5</span>
-            <div class="unit-name">Functions & Linear Functions</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y9">Unit 5</span><div class="unit-name">Functions & Linear Functions</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
-        <!-- U6 -->
         <div class="unit-card" data-year="9">
-          <div class="unit-header">
-            <span class="unit-number un-y9">Unit 6</span>
-            <div class="unit-name">Similarity & Trigonometry</div>
-          </div>
+          <div class="unit-header"><span class="unit-number un-y9">Unit 6</span><div class="unit-name">Similarity & Trigonometry</div></div>
           <div class="unit-divider"></div>
-          <div class="tools-list">
-            <div class="empty-slot">📂 No tools yet</div>
-          </div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
         </div>
 
       </div>
     </div>
 
-    <!-- ═══════════════ YEAR 10 ═══════════════ -->
+    <!-- ═══ YEAR 10 ═══ -->
     <div class="year-panel" id="panel-10">
       <div class="year-header">
         <div class="year-badge y10-color">Year 10</div>
@@ -800,19 +392,101 @@
       </div>
     </div>
 
+    <!-- ═══ YEAR 11 ═══ -->
+    <div class="year-panel" id="panel-11">
+      <div class="year-header">
+        <div class="year-badge y11-color">Year 11</div>
+        <div class="year-subtitle">5to año ES · IB Mathematics: Applications & Interpretation SL</div>
+      </div>
+      <div class="unit-grid">
+
+        <div class="unit-card" data-year="11">
+          <div class="unit-header"><span class="unit-number un-y11">Unit 0</span><div class="unit-name">Numbers</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
+        </div>
+
+        <div class="unit-card" data-year="11">
+          <div class="unit-header"><span class="unit-number un-y11">Unit 1</span><div class="unit-name">Geometry & Trigonometry</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
+        </div>
+
+        <div class="unit-card" data-year="11">
+          <div class="unit-header"><span class="unit-number un-y11">Unit 2</span><div class="unit-name">Statistics</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list">
+            <a class="tool-item" href="year11/unit2/do-nows.html" target="_blank">
+              <span class="tool-icon">📝</span><span class="tool-label">Do Nows – Warm-Up Slides</span><span class="tool-tag tag-pres">Presentation</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="unit-card" data-year="11">
+          <div class="unit-header"><span class="unit-number un-y11">Unit 3</span><div class="unit-name">Geometry & Functions</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
+        </div>
+
+        <div class="unit-card" data-year="11">
+          <div class="unit-header"><span class="unit-number un-y11">Unit 4</span><div class="unit-name">Functions</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
+        </div>
+
+        <div class="unit-card" data-year="11">
+          <div class="unit-header"><span class="unit-number un-y11">Unit 5</span><div class="unit-name">Probability</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ YEAR 12 ═══ -->
+    <div class="year-panel" id="panel-12">
+      <div class="year-header">
+        <div class="year-badge y12-color">Year 12</div>
+        <div class="year-subtitle">6to año ES · IB Mathematics: Applications & Interpretation SL</div>
+      </div>
+      <div class="unit-grid">
+
+        <div class="unit-card" data-year="12">
+          <div class="unit-header"><span class="unit-number un-y12">Unit 1</span><div class="unit-name">Probability Distributions</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
+        </div>
+
+        <div class="unit-card" data-year="12">
+          <div class="unit-header"><span class="unit-number un-y12">Unit 2</span><div class="unit-name">Hypothesis Testing</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
+        </div>
+
+        <div class="unit-card" data-year="12">
+          <div class="unit-header"><span class="unit-number un-y12">Unit 3</span><div class="unit-name">Calculus</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
+        </div>
+
+        <div class="unit-card" data-year="12">
+          <div class="unit-header"><span class="unit-number un-y12">Unit 4</span><div class="unit-name">Trigonometric & Modelling Functions</div></div>
+          <div class="unit-divider"></div>
+          <div class="tools-list"><div class="empty-slot">📂 No tools yet</div></div>
+        </div>
+
+      </div>
+    </div>
+
   </main>
 
   <script>
     function showYear(year, tab) {
-      // Update tabs
       document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-
-      // Update panels
       document.querySelectorAll('.year-panel').forEach(p => p.classList.remove('active'));
       document.getElementById('panel-' + year).classList.add('active');
     }
   </script>
 </body>
-
 </html>
