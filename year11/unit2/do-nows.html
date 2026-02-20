@@ -91,8 +91,9 @@
     display:flex;
     flex-direction:column;
     gap:10px;
-    overflow:hidden;
+    overflow-y:auto;
     position:relative;
+    min-height:0;
   }
 
   .card.c1 { background:var(--c1-bg); border-color:var(--c1-bdr); }
@@ -207,6 +208,7 @@
   <div style="display:flex;gap:10px;align-items:center">
     <div style="font-size:0.68rem;opacity:.38;color:white;letter-spacing:.1em;text-transform:uppercase" id="topLesson"></div>
     <button class="toggle-btn" id="masterBtn" onclick="toggleAnswers()">Show Answers</button>
+    <button class="toggle-btn" id="fsBtn" onclick="toggleFS()" title="Fullscreen">⛶ Fullscreen</button>
   </div>
 </div>
 
@@ -323,7 +325,7 @@ const DONOWS = [
         col:'c3', type:'Sig Figs',
         qtext:'Calculate (3.7 × 10<sup>4</sup>) ÷ (1.4 × 10<sup>2</sup>). Give your answer to 3 s.f.', size:'sm',
         ans:'264',
-        note:'37000 ÷ 140 = 264.285... ≈ 264 (3 s.f.)'
+        note:'37 000 ÷ 140 = 264.285... ≈ 264 (3 s.f.)'
       },
       {
         col:'c4', type:'🧩 Puzzle',
@@ -356,7 +358,7 @@ const DONOWS = [
         col:'c3', type:'Bounds',
         qtext:'A value is given as 7.3 × 10<sup>2</sup> (2 s.f.). Find the upper bound.', size:'sm',
         ans:'735',
-        note:'7.3 × 10² = 730. Rounded to 2 s.f. means ±5 in the tens place. UB = 735'
+        note:'7.3 × 10<sup>2</sup> = 730. Rounded to 2 s.f. means ±5 in the tens place. UB = 735'
       },
       {
         col:'c4', type:'🧩 Puzzle',
@@ -386,8 +388,8 @@ const DONOWS = [
       {
         col:'c3', type:'Estimated Mean',
         qtext:'If midpoints are 5, 15, 25, 35 with frequencies 5, 12, 8, 3 — what is the estimated mean?', size:'sm',
-        ans:'≈ 17.4',
-        note:'(25+180+200+105)/28 = 510/28 ≈ 18.2 — check students use correct midpoints!'
+        ans:'&asymp; 18.2',
+        note:'(5&times;5 + 12&times;15 + 8&times;25 + 3&times;35) &divide; 28 = (25+180+200+105)/28 = 510/28 &asymp; 18.2'
       },
       {
         col:'c4', type:'🧩 Puzzle',
@@ -648,6 +650,22 @@ nb.onclick = () => { if(cur<total-1){cur++;update();} };
 document.addEventListener('keydown', e => {
   if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();if(cur<total-1){cur++;update();}}
   if(e.key==='ArrowLeft'){e.preventDefault();if(cur>0){cur--;update();}}
+});
+
+function toggleFS() {
+  const btn = document.getElementById('fsBtn');
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+    btn.textContent = '✕ Exit Full';
+  } else {
+    document.exitFullscreen();
+    btn.textContent = '⛶ Fullscreen';
+  }
+}
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement) {
+    document.getElementById('fsBtn').textContent = '⛶ Fullscreen';
+  }
 });
 
 update();
