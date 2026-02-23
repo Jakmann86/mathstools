@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 11 Recap - Mini Whiteboard Questions</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 60px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .slide.active {
+            display: flex;
+        }
+        
+        /* Title Slide */
+        .title-slide {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        .title-slide h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .title-slide h2 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #aaa;
+        }
+        
+        /* Section Slides */
+        .section-slide {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+        }
+        
+        .section-slide h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: #00d4ff;
+        }
+        
+        /* Question Slides */
+        .question-slide {
+            background: #16213e;
+        }
+        
+        .topic-tag {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 1.2rem;
+            color: #00d4ff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .question-number {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .question {
+            font-size: 3.5rem;
+            font-weight: 600;
+            line-height: 1.4;
+            max-width: 90%;
+            margin-bottom: 60px;
+        }
+        
+        .question .highlight {
+            color: #00ff88;
+        }
+        
+        .question .formula {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 212, 255, 0.1);
+            padding: 5px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        
+        .answer-container {
+            margin-top: 20px;
+        }
+        
+        .toggle-btn {
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .toggle-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        .answer {
+            display: none;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #00ff88;
+            margin-top: 40px;
+            padding: 30px 60px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 20px;
+            border: 3px solid #00ff88;
+        }
+        
+        .answer.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00d4ff;
+        }
+        
+        .slide-counter {
+            position: fixed;
+            bottom: 35px;
+            right: 40px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        /* Keyboard hint */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 35px;
+            left: 40px;
+            font-size: 0.9rem;
+            color: #444;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .question {
+                font-size: 2.5rem;
+            }
+            .answer {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Title Slide -->
+    <div class="slide title-slide active">
+        <h1>Year 11 Recap</h1>
+        <h2>Mini Whiteboard Questions</h2>
+    </div>
+
+    <!-- SECTION: Rounding to Significant Figures -->
+    <div class="slide section-slide">
+        <h1>Rounding to<br>Significant Figures</h1>
+    </div>
+
+    <!-- Rounding Q1 - Small -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Rounding to S.F.</span>
+        <span class="question-number">Q1</span>
+        <div class="question">
+            Round <span class="highlight">0.004572</span> to 3 significant figures
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">0.00457</div>
+        </div>
+    </div>
+
+    <!-- Rounding Q2 - Small -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Rounding to S.F.</span>
+        <span class="question-number">Q2</span>
+        <div class="question">
+            Round <span class="highlight">0.03968</span> to 3 significant figures
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">0.0397</div>
+        </div>
+    </div>
+
+    <!-- Rounding Q3 - Small -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Rounding to S.F.</span>
+        <span class="question-number">Q3</span>
+        <div class="question">
+            Round <span class="highlight">0.0009845</span> to 3 significant figures
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">0.000985</div>
+        </div>
+    </div>
+
+    <!-- Rounding Q4 - Large -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Rounding to S.F.</span>
+        <span class="question-number">Q4</span>
+        <div class="question">
+            Round <span class="highlight">45,678</span> to 3 significant figures
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">45,700</div>
+        </div>
+    </div>
+
+    <!-- Rounding Q5 - Large -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Rounding to S.F.</span>
+        <span class="question-number">Q5</span>
+        <div class="question">
+            Round <span class="highlight">3,456,789</span> to 3 significant figures
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">3,460,000</div>
+        </div>
+    </div>
+
+    <!-- Rounding Q6 - Large -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Rounding to S.F.</span>
+        <span class="question-number">Q6</span>
+        <div class="question">
+            Round <span class="highlight">789,450</span> to 3 significant figures
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">789,000</div>
+        </div>
+    </div>
+
+    <!-- Rounding Q7 - Standard Form -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Rounding to S.F.</span>
+        <span class="question-number">Q7</span>
+        <div class="question">
+            Round <span class="highlight">4.5678 × 10⁵</span> to 3 significant figures
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">4.57 × 10⁵</div>
+        </div>
+    </div>
+
+    <!-- Rounding Q8 - Standard Form -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Rounding to S.F.</span>
+        <span class="question-number">Q8</span>
+        <div class="question">
+            Round <span class="highlight">8.3649 × 10⁻⁴</span> to 3 significant figures
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">8.36 × 10⁻⁴</div>
+        </div>
+    </div>
+
+    <!-- SECTION: Finding Bounds -->
+    <div class="slide section-slide">
+        <h1>Finding Bounds</h1>
+    </div>
+
+    <!-- Bounds Q1 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Finding Bounds</span>
+        <span class="question-number">Q1</span>
+        <div class="question">
+            A length is measured as <span class="highlight">5.8 cm</span> to 1 decimal place.<br><br>
+            Write the upper and lower bounds.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">5.75 ≤ length < 5.85</div>
+        </div>
+    </div>
+
+    <!-- Bounds Q2 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Finding Bounds</span>
+        <span class="question-number">Q2</span>
+        <div class="question">
+            A mass is given as <span class="highlight">340 g</span> to 2 significant figures.<br><br>
+            Write the upper and lower bounds.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">335 ≤ mass < 345</div>
+        </div>
+    </div>
+
+    <!-- Bounds Q3 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Finding Bounds</span>
+        <span class="question-number">Q3</span>
+        <div class="question">
+            A distance is recorded as <span class="highlight">4.63 km</span> to 3 significant figures.<br><br>
+            Write the upper and lower bounds.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">4.625 ≤ distance < 4.635</div>
+        </div>
+    </div>
+
+    <!-- Bounds Q4 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Finding Bounds</span>
+        <span class="question-number">Q4</span>
+        <div class="question">
+            A time is measured as <span class="highlight">12.0 seconds</span> to 3 significant figures.<br><br>
+            Write the upper and lower bounds.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">11.95 ≤ time < 12.05</div>
+        </div>
+    </div>
+
+    <!-- SECTION: Calculating with Bounds -->
+    <div class="slide section-slide">
+        <h1>Calculating<br>with Bounds</h1>
+    </div>
+
+    <!-- Calc Bounds Q1 - Multiplication -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Calculating with Bounds</span>
+        <span class="question-number">Q1</span>
+        <div class="question">
+            A rectangle has length <span class="highlight">12 cm</span> and width <span class="highlight">8 cm</span>, both to the nearest cm.<br><br>
+            Find the <span class="highlight">maximum</span> possible area.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">12.5 × 8.5 = 106.25 cm²</div>
+        </div>
+    </div>
+
+    <!-- Calc Bounds Q2 - Multiplication -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Calculating with Bounds</span>
+        <span class="question-number">Q2</span>
+        <div class="question">
+            A rectangle has length <span class="highlight">12 cm</span> and width <span class="highlight">8 cm</span>, both to the nearest cm.<br><br>
+            Find the <span class="highlight">minimum</span> possible area.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">11.5 × 7.5 = 86.25 cm²</div>
+        </div>
+    </div>
+
+    <!-- Calc Bounds Q3 - Addition -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Calculating with Bounds</span>
+        <span class="question-number">Q3</span>
+        <div class="question">
+            Two parcels weigh <span class="highlight">3.4 kg</span> and <span class="highlight">2.7 kg</span>, both to 1 d.p.<br><br>
+            Find the <span class="highlight">maximum</span> total weight.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">3.45 + 2.75 = 6.2 kg</div>
+        </div>
+    </div>
+
+    <!-- Calc Bounds Q4 - Subtraction -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Calculating with Bounds</span>
+        <span class="question-number">Q4</span>
+        <div class="question">
+            A piece of rope is <span class="highlight">50 m</span> long (nearest metre). A piece <span class="highlight">18 m</span> (nearest metre) is cut off.<br><br>
+            Find the <span class="highlight">minimum</span> length remaining.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">49.5 − 18.5 = 31 m</div>
+        </div>
+    </div>
+
+    <!-- Calc Bounds Q5 - Division -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Calculating with Bounds</span>
+        <span class="question-number">Q5</span>
+        <div class="question">
+            A car travels <span class="highlight">240 km</span> (to 2 s.f.) in <span class="highlight">3.0 hours</span> (to 2 s.f.)<br><br>
+            Find the <span class="highlight">maximum</span> speed.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">245 ÷ 2.95 = 83.1 km/h (3 s.f.)</div>
+        </div>
+    </div>
+
+    <!-- Calc Bounds Q6 - Division -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Calculating with Bounds</span>
+        <span class="question-number">Q6</span>
+        <div class="question">
+            A car travels <span class="highlight">240 km</span> (to 2 s.f.) in <span class="highlight">3.0 hours</span> (to 2 s.f.)<br><br>
+            Find the <span class="highlight">minimum</span> speed.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">235 ÷ 3.05 = 77.0 km/h (3 s.f.)</div>
+        </div>
+    </div>
+
+    <!-- SECTION: Standard Form - Converting -->
+    <div class="slide section-slide">
+        <h1>Standard Form<br>Converting</h1>
+    </div>
+
+    <!-- SF Convert Q1 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Converting</span>
+        <span class="question-number">Q1</span>
+        <div class="question">
+            Write <span class="highlight">0.00047</span> in standard form
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">4.7 × 10⁻⁴</div>
+        </div>
+    </div>
+
+    <!-- SF Convert Q2 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Converting</span>
+        <span class="question-number">Q2</span>
+        <div class="question">
+            Write <span class="highlight">5,830,000</span> in standard form
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">5.83 × 10⁶</div>
+        </div>
+    </div>
+
+    <!-- SF Convert Q3 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Converting</span>
+        <span class="question-number">Q3</span>
+        <div class="question">
+            Write <span class="highlight">0.0000000328</span> in standard form
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">3.28 × 10⁻⁸</div>
+        </div>
+    </div>
+
+    <!-- SF Convert Q4 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Converting</span>
+        <span class="question-number">Q4</span>
+        <div class="question">
+            Write <span class="highlight">3.7 × 10⁵</span> as an ordinary number
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">370,000</div>
+        </div>
+    </div>
+
+    <!-- SF Convert Q5 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Converting</span>
+        <span class="question-number">Q5</span>
+        <div class="question">
+            Write <span class="highlight">8.04 × 10⁻³</span> as an ordinary number
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">0.00804</div>
+        </div>
+    </div>
+
+    <!-- SF Convert Q6 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Converting</span>
+        <span class="question-number">Q6</span>
+        <div class="question">
+            Write <span class="highlight">2.509 × 10⁷</span> as an ordinary number
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">25,090,000</div>
+        </div>
+    </div>
+
+    <!-- SECTION: Standard Form - Worded Problems -->
+    <div class="slide section-slide">
+        <h1>Standard Form<br>Worded Problems</h1>
+    </div>
+
+    <!-- SF Worded Q1 - Addition -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Worded</span>
+        <span class="question-number">Q1</span>
+        <div class="question">
+            The distance from Earth to the Moon is <span class="highlight">3.84 × 10⁵ km</span>.<br>
+            A spacecraft travels an extra <span class="highlight">4.6 × 10⁴ km</span> beyond the Moon.<br><br>
+            What is the total distance from Earth?<br>Give your answer in standard form.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">4.30 × 10⁵ km</div>
+        </div>
+    </div>
+
+    <!-- SF Worded Q2 - Subtraction -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Worded</span>
+        <span class="question-number">Q2</span>
+        <div class="question">
+            A bacteria population starts at <span class="highlight">8.4 × 10⁷</span>.<br>
+            After treatment, <span class="highlight">2.9 × 10⁷</span> bacteria are killed.<br><br>
+            How many bacteria remain?<br>Give your answer in standard form.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">5.5 × 10⁷</div>
+        </div>
+    </div>
+
+    <!-- SF Worded Q3 - Multiplication -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Worded</span>
+        <span class="question-number">Q3</span>
+        <div class="question">
+            Light travels at <span class="highlight">3 × 10⁸ m/s</span>.<br><br>
+            How far does light travel in <span class="highlight">500 seconds</span>?<br>Give your answer in standard form.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">1.5 × 10¹¹ m</div>
+        </div>
+    </div>
+
+    <!-- SF Worded Q4 - Multiplication -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Worded</span>
+        <span class="question-number">Q4</span>
+        <div class="question">
+            A red blood cell has mass <span class="highlight">2.7 × 10⁻¹¹ g</span>.<br><br>
+            Find the total mass of <span class="highlight">4 × 10⁶</span> red blood cells.<br>Give your answer in standard form.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">1.08 × 10⁻⁴ g</div>
+        </div>
+    </div>
+
+    <!-- SF Worded Q5 - Division -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Worded</span>
+        <span class="question-number">Q5</span>
+        <div class="question">
+            The Sun is <span class="highlight">1.5 × 10⁸ km</span> from Earth.<br>
+            Light travels at <span class="highlight">3 × 10⁵ km/s</span>.<br><br>
+            How long does sunlight take to reach Earth?
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">500 seconds (or 5 × 10² s)</div>
+        </div>
+    </div>
+
+    <!-- SF Worded Q6 - Division -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Standard Form - Worded</span>
+        <span class="question-number">Q6</span>
+        <div class="question">
+            A computer can perform <span class="highlight">6.4 × 10¹² calculations</span>.<br>
+            It took <span class="highlight">8 × 10² seconds</span>.<br><br>
+            How many calculations per second?<br>Give your answer in standard form.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">8 × 10⁹ calculations/s</div>
+        </div>
+    </div>
+
+    <!-- SECTION: Percentage Error - Basic -->
+    <div class="slide section-slide">
+        <h1>Percentage Error<br>(Basic)</h1>
+    </div>
+
+    <!-- PE Basic Q1 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Percentage Error</span>
+        <span class="question-number">Q1</span>
+        <div class="question">
+            Estimated value: <span class="highlight">50</span><br>
+            Actual value: <span class="highlight">48</span><br><br>
+            Calculate the percentage error.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">4.17% (3 s.f.)</div>
+        </div>
+    </div>
+
+    <!-- PE Basic Q2 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Percentage Error</span>
+        <span class="question-number">Q2</span>
+        <div class="question">
+            A student estimates there are <span class="highlight">200</span> sweets in a jar.<br>
+            The actual number is <span class="highlight">186</span>.<br><br>
+            Calculate the percentage error.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">7.53% (3 s.f.)</div>
+        </div>
+    </div>
+
+    <!-- PE Basic Q3 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Percentage Error</span>
+        <span class="question-number">Q3</span>
+        <div class="question">
+            A builder estimates a job will cost <span class="highlight">£4,500</span>.<br>
+            The actual cost was <span class="highlight">£5,200</span>.<br><br>
+            Calculate the percentage error to 1 d.p.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">13.5%</div>
+        </div>
+    </div>
+
+    <!-- PE Basic Q4 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Percentage Error</span>
+        <span class="question-number">Q4</span>
+        <div class="question">
+            A weather forecast predicted <span class="highlight">15°C</span>.<br>
+            The actual temperature was <span class="highlight">12°C</span>.<br><br>
+            Calculate the percentage error.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">25%</div>
+        </div>
+    </div>
+
+    <!-- SECTION: Percentage Error - From Bounds -->
+    <div class="slide section-slide">
+        <h1>Percentage Error<br>(from Bounds)</h1>
+    </div>
+
+    <!-- PE Bounds Q1 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Percentage Error - Bounds</span>
+        <span class="question-number">Q1</span>
+        <div class="question">
+            A length is measured as <span class="highlight">25 cm</span> to the nearest cm.<br><br>
+            What is the maximum percentage error?
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">0.5 ÷ 25 × 100 = 2%</div>
+        </div>
+    </div>
+
+    <!-- PE Bounds Q2 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Percentage Error - Bounds</span>
+        <span class="question-number">Q2</span>
+        <div class="question">
+            A mass is given as <span class="highlight">3.5 kg</span> to 1 decimal place.<br><br>
+            What is the maximum percentage error?<br>Give your answer to 3 s.f.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">0.05 ÷ 3.5 × 100 = 1.43%</div>
+        </div>
+    </div>
+
+    <!-- PE Bounds Q3 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Percentage Error - Bounds</span>
+        <span class="question-number">Q3</span>
+        <div class="question">
+            A time is recorded as <span class="highlight">8.40 seconds</span> to 3 significant figures.<br><br>
+            What is the maximum percentage error?<br>Give your answer to 3 s.f.
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">0.005 ÷ 8.40 × 100 = 0.0595%</div>
+        </div>
+    </div>
+
+    <!-- PE Bounds Q4 -->
+    <div class="slide question-slide">
+        <span class="topic-tag">Percentage Error - Bounds</span>
+        <span class="question-number">Q4</span>
+        <div class="question">
+            A distance is measured as <span class="highlight">400 m</span> to 1 significant figure.<br><br>
+            What is the maximum percentage error?
+        </div>
+        <div class="answer-container">
+            <button class="toggle-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">50 ÷ 400 × 100 = 12.5%</div>
+        </div>
+    </div>
+
+    <!-- End Slide -->
+    <div class="slide section-slide">
+        <h1>End of Questions</h1>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <button class="nav-btn" onclick="prevSlide()">← Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+    
+    <div class="slide-counter">
+        <span id="currentSlide">1</span> / <span id="totalSlides"></span>
+    </div>
+    
+    <div class="keyboard-hint">
+        Use ← → arrow keys to navigate
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+        
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            
+            // Hide any visible answers when changing slides
+            const visibleAnswer = slides[currentSlide].querySelector('.answer.show');
+            if (visibleAnswer) {
+                visibleAnswer.classList.remove('show');
+                const btn = slides[currentSlide].querySelector('.toggle-btn');
+                if (btn) btn.textContent = 'Show Answer';
+            }
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+        }
+        
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+        
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+        
+        function toggleAnswer(btn) {
+            const answer = btn.parentElement.querySelector('.answer');
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+                btn.textContent = 'Show Answer';
+            } else {
+                answer.classList.add('show');
+                btn.textContent = 'Hide Answer';
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'Enter') {
+                const btn = slides[currentSlide].querySelector('.toggle-btn');
+                if (btn) btn.click();
+            }
+        });
+    </script>
+</body>
+</html>
