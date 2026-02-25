@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statistics Skills Check · MWB Activity</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0f2044;--teal:#00b4a0;--amber:#f5a623;--coral:#ff6b6b;--purple:#8b5cf6;--green:#22c55e}*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--navy);color:#fff;height:100vh;overflow:hidden;display:flex;flex-direction:column;user-select:none}.slides{flex:1;position:relative;overflow:hidden}.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:36px 60px;opacity:0;transform:translateY(24px);pointer-events:none;transition:opacity .4s,transform .4s;text-align:center}.slide.active{opacity:1;transform:translateY(0);pointer-events:all}.label{font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;opacity:.55;margin-bottom:14px}.title-xl{font-family:'DM Serif Display',serif;font-size:clamp(3rem,6vw,5.2rem);line-height:1.1;margin-bottom:18px}.body-lg{font-size:clamp(1rem,2vw,1.3rem);font-weight:300;line-height:1.65;opacity:.82;max-width:740px}.accent-line{width:56px;height:5px;background:var(--teal);border-radius:3px;margin:0 auto 26px}.highlight-teal{color:var(--teal);font-weight:600}.highlight-amber{color:var(--amber);font-weight:600}.highlight-coral{color:var(--coral);font-weight:600}.highlight-purple{color:var(--purple);font-weight:600}.highlight-green{color:var(--green);font-weight:600}.section-icon{font-size:3.5rem;margin-bottom:16px}.section-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4.5vw,3.5rem);line-height:1.15;margin-bottom:12px}.section-sub{font-size:clamp(.95rem,1.8vw,1.2rem);font-weight:300;opacity:.7;max-width:650px}.q-meta{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.45;margin-bottom:14px}.type-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 16px;border-radius:20px;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}.badge-mean{background:rgba(0,180,160,.18);border:1px solid rgba(0,180,160,.4);color:var(--teal)}.badge-median{background:rgba(139,92,246,.18);border:1px solid rgba(139,92,246,.4);color:var(--purple)}.badge-sd{background:rgba(255,107,107,.18);border:1px solid rgba(255,107,107,.4);color:var(--coral)}.badge-type{background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.4);color:var(--green)}.badge-discuss{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff}.badge-calc{background:rgba(245,166,35,.18);border:1px solid rgba(245,166,35,.4);color:var(--amber)}.badge-tricky{background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.3);color:var(--coral)}.question-text{font-family:'DM Serif Display',serif;font-size:clamp(1.5rem,3.2vw,2.6rem);line-height:1.3;margin-bottom:16px;max-width:900px}.question-sub{font-size:clamp(.9rem,1.6vw,1.1rem);opacity:.65;font-weight:300;margin-bottom:16px;max-width:700px}.data-table-wrap{margin:12px auto 16px;animation:fadeUp .5s ease both}.data-table{border-collapse:collapse;margin:0 auto}.data-table th,.data-table td{padding:10px 18px;text-align:center;font-size:clamp(.85rem,1.4vw,1.05rem)}.data-table th{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.7rem;opacity:.6;border-bottom:2px solid rgba(255,255,255,.15);padding-bottom:8px}.data-table td{border-bottom:1px solid rgba(255,255,255,.06);font-family:'DM Serif Display',serif;font-size:clamp(1.3rem,2.2vw,1.8rem)}.data-table .outlier-cell{color:var(--coral);font-weight:700}.f1-table{border-collapse:collapse;margin:0 auto;min-width:580px}.f1-table th{padding:10px 20px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.7rem;opacity:.6;border-bottom:2px solid rgba(255,255,255,.15);text-align:center}.f1-table td{padding:11px 20px;text-align:center;font-size:clamp(.95rem,1.5vw,1.2rem);border-bottom:1px solid rgba(255,255,255,.06)}.f1-table td:first-child{text-align:left;font-weight:600}.driver-name{display:flex;align-items:center;gap:10px}.driver-color{width:4px;height:26px;border-radius:2px}.dot-plot{display:flex;align-items:flex-end;gap:2px;justify-content:center;margin:14px auto;height:160px;position:relative;padding-bottom:30px}.dot-col{display:flex;flex-direction:column-reverse;align-items:center;gap:4px;position:relative;min-width:34px}.dot{width:18px;height:18px;border-radius:50%;background:var(--teal);opacity:.8}.dot.outlier-dot{background:var(--coral);opacity:1;box-shadow:0 0 12px rgba(255,107,107,.5)}.dot-label{position:absolute;bottom:-28px;font-size:.8rem;font-weight:600;opacity:.6}.hint-box{background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.25);border-radius:12px;padding:12px 24px;font-size:clamp(.85rem,1.4vw,1rem);color:var(--purple);max-width:700px;line-height:1.6;margin-bottom:14px}.discuss-box{background:rgba(245,166,35,.08);border:1.5px solid rgba(245,166,35,.3);border-radius:14px;padding:16px 28px;max-width:720px;font-size:clamp(.9rem,1.4vw,1.05rem);color:var(--amber);line-height:1.6}.calc-steps{text-align:left;max-width:680px;margin:0 auto}.calc-step{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}.calc-num{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:rgba(245,166,35,.2);border:1px solid rgba(245,166,35,.4);color:var(--amber);font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center}.calc-text{font-size:clamp(.9rem,1.5vw,1.1rem);line-height:1.5;padding-top:4px}.calc-key{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:6px;padding:2px 10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.85rem;margin:0 2px}.classify-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:700px;margin:0 auto}.classify-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px 22px;font-family:'DM Serif Display',serif;font-size:clamp(1.05rem,1.8vw,1.4rem);transition:all .3s}.classify-item .item-label{font-family:'DM Sans',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;opacity:0;margin-top:8px;transition:opacity .4s}.classify-item.revealed .item-label{opacity:1}.classify-item.revealed.qt-cont{border-color:var(--teal);background:rgba(0,180,160,.08)}.classify-item.revealed.qt-disc{border-color:var(--purple);background:rgba(139,92,246,.08)}.classify-item.revealed.ql{border-color:var(--amber);background:rgba(245,166,35,.08)}.instruction-strip{display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px 28px;font-size:.95rem;font-weight:500;opacity:.85;animation:fadeUp .5s .1s ease both}@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}.reveal-btn{background:var(--teal);border:none;border-radius:16px;padding:16px 44px;font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--navy);cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 32px rgba(0,180,160,.35);margin-top:10px}.reveal-btn:hover{transform:scale(1.04);box-shadow:0 12px 40px rgba(0,180,160,.5)}.reveal-panel{display:none;flex-direction:column;align-items:center;gap:12px;animation:popReveal .5s cubic-bezier(.34,1.56,.64,1) both}.reveal-panel.show{display:flex}@keyframes popReveal{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}.answer-big{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,7vw,5rem);line-height:1;text-shadow:0 0 60px rgba(0,180,160,.4)}.answer-row{display:flex;gap:50px;align-items:center;flex-wrap:wrap;justify-content:center}.answer-item{text-align:center}.answer-label{font-size:.7rem;opacity:.5;margin-bottom:4px;text-transform:uppercase;letter-spacing:.12em}.answer-val{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.5rem)}.answer-note{font-size:.95rem;opacity:.7;padding:10px 24px;background:rgba(255,255,255,.06);border-radius:10px;border:1px solid rgba(255,255,255,.12);max-width:720px;line-height:1.6}.answer-note strong{color:var(--amber)}.progress-bar{height:4px;background:rgba(255,255,255,.07)}.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--amber));transition:width .4s}.nav{display:flex;align-items:center;justify-content:space-between;padding:13px 32px;background:rgba(0,0,0,.35);backdrop-filter:blur(10px)}.nav-info{font-size:.76rem;letter-spacing:.1em;opacity:.42;text-transform:uppercase}.nav-btns{display:flex;gap:10px}.nav-btn{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:8px;padding:9px 22px;font-size:.83rem;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .2s}.nav-btn:hover{background:rgba(255,255,255,.18)}.nav-btn:disabled{opacity:.28;cursor:default}.nav-btn.primary{background:var(--teal);border-color:var(--teal);color:var(--navy);font-weight:700}
+</style>
+</head>
+<body>
+<div class="slides" id="slides-container">
+
+  <!-- S0: TITLE -->
+  <div class="slide active" id="s0">
+    <div class="label">Year 11 · Unit 2 · Statistics · Mini Whiteboard Activity</div>
+    <div class="title-xl">Statistics<br><span class="highlight-teal">Skills Check</span></div>
+    <div class="accent-line"></div>
+    <div class="body-lg">Quick review before we dive into real data.<br>Write your answers on your whiteboard.</div>
+  </div>
+
+  <!-- S1: SECTION — Mean Median Mode -->
+  <div class="slide" id="s1">
+    <div class="section-icon">📚</div>
+    <div class="section-title">Mean, Median <span class="highlight-teal">&</span> Mode</div>
+    <div class="accent-line"></div>
+    <div class="section-sub">A class of 12 students was asked:<br><em>"How many books did you read over the holiday?"</em></div>
+  </div>
+
+  <!-- S2: All three averages -->
+  <div class="slide" id="s2">
+    <div class="q-meta">Question 1 of 13</div>
+    <div class="type-badge badge-mean">📊 Mean · Median · Mode</div>
+    <div class="question-text">Find the <span class="highlight-teal">mean</span>, <span class="highlight-purple">median</span>, and <span class="highlight-amber">mode</span>.</div>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <tr><th>Student</th><th>Ana</th><th>Ben</th><th>Cleo</th><th>Dan</th><th>Eva</th><th>Finn</th><th>Gabi</th><th>Hugo</th><th>Isla</th><th>Jay</th><th>Kira</th><th>Leo</th></tr>
+        <tr><td style="font-family:'DM Sans';font-weight:600;font-size:.75rem;opacity:.5">BOOKS</td><td>2</td><td>3</td><td>1</td><td>5</td><td>2</td><td>4</td><td>1</td><td>2</td><td>3</td><td>1</td><td>4</td><td>2</td></tr>
+      </table>
+    </div>
+    <div class="hint-box">💡 <strong>Hints:</strong> Mean = sum ÷ count &nbsp;|&nbsp; Median = middle value (order first!) &nbsp;|&nbsp; Mode = most frequent</div>
+    <div class="instruction-strip">✍️ Mean = ___ &nbsp; Median = ___ &nbsp; Mode = ___</div>
+    <div id="pre-s2" style="margin-top:14px"><button class="reveal-btn" onclick="reveal('s2')">Reveal Answer</button></div>
+    <div class="reveal-panel" id="rev-s2">
+      <div class="answer-row">
+        <div class="answer-item"><div class="answer-label">Mean</div><div class="answer-val" style="color:var(--teal)">2.5</div></div>
+        <div class="answer-item"><div class="answer-label">Median</div><div class="answer-val" style="color:var(--purple)">2</div></div>
+        <div class="answer-item"><div class="answer-label">Mode</div><div class="answer-val" style="color:var(--amber)">2</div></div>
+      </div>
+      <div class="answer-note">Sum = 2+3+1+5+2+4+1+2+3+1+4+2 = <strong>30</strong> → Mean = 30 ÷ 12 = <strong>2.5</strong><br>Ordered: 1,1,1, 2,2,2,2, 3,3, 4,4, 5 → Median = (2+2)÷2 = <strong>2</strong><br>Mode = <strong>2</strong> (appears 4 times)</div>
+    </div>
+  </div>
+
+  <!-- S3: SECTION — Outlier -->
+  <div class="slide" id="s3">
+    <div class="section-icon">💥</div>
+    <div class="section-title">The <span class="highlight-coral">Outlier</span> Effect</div>
+    <div class="accent-line"></div>
+    <div class="section-sub">A new student, Iván, joins the class.<br>Iván read <span class="highlight-coral" style="font-size:1.4em">27 books</span> over the holiday.</div>
+  </div>
+
+  <!-- S4: Iván — all three averages -->
+  <div class="slide" id="s4">
+    <div class="q-meta">Question 2 of 13</div>
+    <div class="type-badge badge-mean">📊 Mean · Median · Mode + Outlier</div>
+    <div class="question-text">Iván joins with <span class="highlight-coral">27</span> books.<br>What is the new <span class="highlight-teal">mean</span>, <span class="highlight-purple">median</span>, and <span class="highlight-amber">mode</span>?</div>
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <tr><th>Ana</th><th>Ben</th><th>Cleo</th><th>Dan</th><th>Eva</th><th>Finn</th><th>Gabi</th><th>Hugo</th><th>Isla</th><th>Jay</th><th>Kira</th><th>Leo</th><th style="color:var(--coral)">Iván</th></tr>
+        <tr><td>2</td><td>3</td><td>1</td><td>5</td><td>2</td><td>4</td><td>1</td><td>2</td><td>3</td><td>1</td><td>4</td><td>2</td><td class="outlier-cell">27</td></tr>
+      </table>
+    </div>
+    <div class="instruction-strip">✍️ New Mean = ___ &nbsp; New Median = ___ &nbsp; New Mode = ___</div>
+    <div id="pre-s4" style="margin-top:14px"><button class="reveal-btn" onclick="reveal('s4')">Reveal Answer</button></div>
+    <div class="reveal-panel" id="rev-s4">
+      <div class="answer-row">
+        <div class="answer-item"><div class="answer-label">Old → New Mean</div><div style="display:flex;align-items:center;gap:16px"><span style="font-family:'DM Serif Display';font-size:1.8rem;opacity:.4;text-decoration:line-through">2.5</span><span style="font-size:1.4rem;opacity:.3">→</span><span class="answer-val" style="color:var(--coral)">4.4</span></div></div>
+        <div class="answer-item"><div class="answer-label">Old → New Median</div><div style="display:flex;align-items:center;gap:16px"><span style="font-family:'DM Serif Display';font-size:1.8rem;opacity:.4">2</span><span style="font-size:1.4rem;opacity:.3">→</span><span class="answer-val" style="color:var(--purple)">2</span></div></div>
+        <div class="answer-item"><div class="answer-label">Old → New Mode</div><div style="display:flex;align-items:center;gap:16px"><span style="font-family:'DM Serif Display';font-size:1.8rem;opacity:.4">2</span><span style="font-size:1.4rem;opacity:.3">→</span><span class="answer-val" style="color:var(--amber)">2</span></div></div>
+      </div>
+      <div class="answer-note">New sum = 30 + 27 = <strong>57</strong> → Mean = 57 ÷ 13 ≈ <strong>4.4</strong><br>Ordered: 1,1,1, 2,2,2,2, <strong>2</strong>, 3,3, 4,4, 5, 27 → Median = <strong>2</strong> (7th value of 13)<br>Mode = <strong>2</strong> (still 4 times) — <strong>only the mean changed!</strong></div>
+    </div>
+  </div>
+
+  <!-- S5: Discussion — why only mean? -->
+  <div class="slide" id="s5">
+    <div class="q-meta">Question 3 of 13</div>
+    <div class="type-badge badge-discuss">💬 Discussion</div>
+    <div class="question-text">Why did only the <span class="highlight-teal">mean</span> change?</div>
+    <div class="dot-plot" style="height:140px;gap:5px">
+      <div class="dot-col"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot-label">1</div></div>
+      <div class="dot-col"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot-label">2</div></div>
+      <div class="dot-col"><div class="dot"></div><div class="dot"></div><div class="dot-label">3</div></div>
+      <div class="dot-col"><div class="dot"></div><div class="dot"></div><div class="dot-label">4</div></div>
+      <div class="dot-col"><div class="dot"></div><div class="dot-label">5</div></div>
+      <div class="dot-col" style="min-width:12px"></div><div class="dot-col" style="min-width:12px"></div><div class="dot-col" style="min-width:12px"></div>
+      <div class="dot-col"><div class="dot outlier-dot"></div><div class="dot-label" style="color:var(--coral)">27</div></div>
+    </div>
+    <div class="discuss-box"><strong>Key idea:</strong> The <span style="color:var(--teal)">mean</span> uses every value in its calculation, so one extreme value drags it up.<br>The <span style="color:var(--purple)">median</span> only cares about position — it's <em>resistant</em> to outliers.<br>The <span style="color:var(--amber)">mode</span> only counts frequency — the outlier doesn't affect it at all.</div>
+    <div class="instruction-strip" style="margin-top:12px;flex-direction:column;gap:4px;text-align:center;padding:14px 28px">
+      <span>✍️ On your whiteboard:</span>
+      <span style="font-weight:300;opacity:.8">The mean says <span class="highlight-coral">4.4</span> books. The median says <span class="highlight-purple">2</span>. Which better represents the "typical" student?</span>
+    </div>
+  </div>
+
+  <!-- S6: Skewed right -->
+  <div class="slide" id="s6">
+    <div class="q-meta">Question 4 of 13</div>
+    <div class="type-badge badge-mean">📊 Distribution Shape</div>
+    <div class="question-text">This distribution is <span class="highlight-coral">skewed right</span>.</div>
+    <div class="question-sub">The long tail stretches to the right (towards 27).</div>
+    <div class="dot-plot" style="height:140px;gap:5px">
+      <div class="dot-col"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot-label">1</div></div>
+      <div class="dot-col"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot-label">2</div></div>
+      <div class="dot-col"><div class="dot"></div><div class="dot"></div><div class="dot-label">3</div></div>
+      <div class="dot-col"><div class="dot"></div><div class="dot"></div><div class="dot-label">4</div></div>
+      <div class="dot-col"><div class="dot"></div><div class="dot-label">5</div></div>
+      <div class="dot-col" style="min-width:12px"></div><div class="dot-col" style="min-width:12px"></div><div class="dot-col" style="min-width:12px"></div>
+      <div class="dot-col"><div class="dot outlier-dot"></div><div class="dot-label" style="color:var(--coral)">27</div></div>
+    </div>
+    <div class="discuss-box" style="margin-top:10px"><strong>Key idea:</strong> When data is skewed right, the <span style="color:var(--teal)">mean</span> is pulled towards the tail and becomes <em>higher</em> than the <span style="color:var(--purple)">median</span>. The median is more resistant to outliers.</div>
+    <div class="instruction-strip" style="margin-top:12px">✍️ "In skewed data, the _______ is the better measure of centre."</div>
+  </div>
+
+  <!-- S7: SECTION — F1 -->
+  <div class="slide" id="s7">
+    <div class="section-icon">🏎️</div>
+    <div class="section-title">Standard Deviation<br><span class="highlight-coral">& Consistency</span></div>
+    <div class="accent-line"></div>
+    <div class="section-sub">Four F1 drivers complete 20 laps each at a pre-season test.<br>Here are their <strong>mean lap times</strong> and <strong>standard deviations</strong>.</div>
+  </div>
+
+  <!-- S8: Most consistent -->
+  <div class="slide" id="s8">
+    <div class="q-meta">Question 5 of 13</div>
+    <div class="type-badge badge-sd">🏎️ Standard Deviation</div>
+    <div class="question-text">Which driver is the <span class="highlight-teal">most consistent</span>?</div>
+    <div class="data-table-wrap">
+      <table class="f1-table">
+        <tr><th>Driver</th><th>Mean Lap Time (s)</th><th>Standard Deviation (s)</th></tr>
+        <tr><td><div class="driver-name"><div class="driver-color" style="background:#3671C6"></div>Verstappen</div></td><td>91.3</td><td>0.8</td></tr>
+        <tr><td><div class="driver-name"><div class="driver-color" style="background:#27F4D2"></div>Hamilton</div></td><td>91.5</td><td>2.1</td></tr>
+        <tr><td><div class="driver-name"><div class="driver-color" style="background:#FF8000"></div>Norris</div></td><td>91.8</td><td>1.4</td></tr>
+        <tr><td><div class="driver-name"><div class="driver-color" style="background:#64C4FF"></div>Russell</div></td><td>91.6</td><td>1.0</td></tr>
+      </table>
+    </div>
+    <div class="instruction-strip">✍️ Write the driver's name</div>
+    <div id="pre-s8" style="margin-top:14px"><button class="reveal-btn" onclick="reveal('s8')">Reveal Answer</button></div>
+    <div class="reveal-panel" id="rev-s8">
+      <div class="answer-big" style="color:#3671C6;font-size:clamp(2rem,5vw,3.5rem)">Verstappen</div>
+      <div class="answer-note"><strong>SD = 0.8 s</strong> is the smallest → his lap times vary the least from his mean.<br><strong>Smaller standard deviation = more consistent.</strong></div>
+    </div>
+  </div>
+
+  <!-- S9: Least consistent -->
+  <div class="slide" id="s9">
+    <div class="q-meta">Question 6 of 13</div>
+    <div class="type-badge badge-sd">🏎️ Standard Deviation</div>
+    <div class="question-text">Which driver is the <span class="highlight-coral">least consistent</span>?</div>
+    <div class="data-table-wrap">
+      <table class="f1-table">
+        <tr><th>Driver</th><th>Mean Lap (s)</th><th>SD (s)</th></tr>
+        <tr><td><div class="driver-name"><div class="driver-color" style="background:#3671C6"></div>Verstappen</div></td><td>91.3</td><td>0.8</td></tr>
+        <tr><td><div class="driver-name"><div class="driver-color" style="background:#27F4D2"></div>Hamilton</div></td><td>91.5</td><td>2.1</td></tr>
+        <tr><td><div class="driver-name"><div class="driver-color" style="background:#FF8000"></div>Norris</div></td><td>91.8</td><td>1.4</td></tr>
+        <tr><td><div class="driver-name"><div class="driver-color" style="background:#64C4FF"></div>Russell</div></td><td>91.6</td><td>1.0</td></tr>
+      </table>
+    </div>
+    <div class="instruction-strip">✍️ Write the driver's name</div>
+    <div id="pre-s9" style="margin-top:14px"><button class="reveal-btn" onclick="reveal('s9')">Reveal Answer</button></div>
+    <div class="reveal-panel" id="rev-s9">
+      <div class="answer-big" style="color:#27F4D2;font-size:clamp(2rem,5vw,3.5rem)">Hamilton</div>
+      <div class="answer-note"><strong>SD = 2.1 s</strong> is the largest → his laps vary the most.<br>Some laps much faster or slower than average — <strong>less predictable</strong>.</div>
+    </div>
+  </div>
+
+  <!-- S10: Hamilton outlier -->
+  <div class="slide" id="s10">
+    <div class="q-meta">Question 7 of 13</div>
+    <div class="type-badge badge-sd">🏎️ Outlier Detection</div>
+    <div class="question-text">Hamilton posts a lap of <span class="highlight-coral">96.8 s</span>.<br>Is this <span class="highlight-coral">unusual</span>?</div>
+    <div class="data-table-wrap">
+      <table class="f1-table"><tr><th>Driver</th><th>Mean (s)</th><th>SD (s)</th></tr>
+        <tr><td><div class="driver-name"><div class="driver-color" style="background:#27F4D2"></div>Hamilton</div></td><td>91.5</td><td>2.1</td></tr>
+      </table>
+    </div>
+    <div class="hint-box">💡 <strong>Formula:</strong> Number of SDs = (value − mean) ÷ SD &nbsp;|&nbsp; More than 2 SDs = potential outlier</div>
+    <div class="instruction-strip">✍️ ___ SDs from the mean. Unusual? Yes / No</div>
+    <div id="pre-s10" style="margin-top:14px"><button class="reveal-btn" onclick="reveal('s10')">Reveal Answer</button></div>
+    <div class="reveal-panel" id="rev-s10">
+      <div class="answer-big" style="color:var(--coral);font-size:clamp(1.8rem,4vw,3rem)">2.5 SDs — Yes, unusual</div>
+      <div class="answer-note">(96.8 − 91.5) ÷ 2.1 = <strong>5.3 ÷ 2.1 ≈ 2.5</strong><br>More than 2 SDs from the mean → potential outlier.</div>
+    </div>
+  </div>
+
+  <!-- S11: Norris outlier -->
+  <div class="slide" id="s11">
+    <div class="q-meta">Question 8 of 13</div>
+    <div class="type-badge badge-sd">🏎️ Outlier Detection</div>
+    <div class="question-text">Norris posts a lap of <span class="highlight-amber">93.5 s</span>.<br>Is this unusual?</div>
+    <div class="data-table-wrap">
+      <table class="f1-table"><tr><th>Driver</th><th>Mean (s)</th><th>SD (s)</th></tr>
+        <tr><td><div class="driver-name"><div class="driver-color" style="background:#FF8000"></div>Norris</div></td><td>91.8</td><td>1.4</td></tr>
+      </table>
+    </div>
+    <div class="instruction-strip">✍️ ___ SDs from the mean. Unusual? Yes / No</div>
+    <div id="pre-s11" style="margin-top:14px"><button class="reveal-btn" onclick="reveal('s11')">Reveal Answer</button></div>
+    <div class="reveal-panel" id="rev-s11">
+      <div class="answer-big" style="color:var(--amber);font-size:clamp(1.8rem,4vw,3rem)">1.2 SDs — No, not unusual</div>
+      <div class="answer-note">(93.5 − 91.8) ÷ 1.4 = <strong>1.7 ÷ 1.4 ≈ 1.2</strong><br>Within 2 SDs — <strong>normal variation</strong> for Norris.</div>
+    </div>
+  </div>
+
+  <!-- S12: Russell outlier -->
+  <div class="slide" id="s12">
+    <div class="q-meta">Question 9 of 13</div>
+    <div class="type-badge badge-sd">🏎️ Outlier Detection</div>
+    <div class="question-text">Russell posts a lap of <span class="highlight-purple">94.2 s</span>.<br>Is this unusual?</div>
+    <div class="data-table-wrap">
+      <table class="f1-table"><tr><th>Driver</th><th>Mean (s)</th><th>SD (s)</th></tr>
+        <tr><td><div class="driver-name"><div class="driver-color" style="background:#64C4FF"></div>Russell</div></td><td>91.6</td><td>1.0</td></tr>
+      </table>
+    </div>
+    <div class="instruction-strip">✍️ ___ SDs from the mean. Unusual? Yes / No</div>
+    <div id="pre-s12" style="margin-top:14px"><button class="reveal-btn" onclick="reveal('s12')">Reveal Answer</button></div>
+    <div class="reveal-panel" id="rev-s12">
+      <div class="answer-big" style="color:var(--purple);font-size:clamp(1.8rem,4vw,3rem)">2.6 SDs — Yes, unusual</div>
+      <div class="answer-note">(94.2 − 91.6) ÷ 1.0 = <strong>2.6</strong><br><strong>Unusual for Russell</strong> — his laps are normally very tight (SD = 1.0).<br>Notice: 94.2 is slower than Norris's 93.5, but more unusual <em>for Russell</em> because his SD is smaller.</div>
+    </div>
+  </div>
+
+  <!-- S13: CALCULATOR SLIDE -->
+  <div class="slide" id="s13">
+    <div class="q-meta">Calculator Skills</div>
+    <div class="type-badge badge-calc">🖩 Casio fx-CG50</div>
+    <div class="question-text">Finding Mean & SD on Your <span class="highlight-amber">Calculator</span></div>
+    <div class="calc-steps">
+      <div class="calc-step"><div class="calc-num">1</div><div class="calc-text">From the Main Menu, select <span class="calc-key">Statistics</span> (the bar chart icon)</div></div>
+      <div class="calc-step"><div class="calc-num">2</div><div class="calc-text">Choose <span class="calc-key">1-Variable</span> (or press <span class="calc-key">1</span>)</div></div>
+      <div class="calc-step"><div class="calc-num">3</div><div class="calc-text">Enter your data values into <strong>List 1</strong> — type each value and press <span class="calc-key">EXE</span></div></div>
+      <div class="calc-step"><div class="calc-num">4</div><div class="calc-text">Press <span class="calc-key">F6</span> (SET) → check <strong>1Var XList: List1</strong> and <strong>1Var Freq: 1</strong></div></div>
+      <div class="calc-step"><div class="calc-num">5</div><div class="calc-text">Press <span class="calc-key">F1</span> (1-VAR) to see your results:</div></div>
+    </div>
+    <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:14px">
+      <div style="background:rgba(0,180,160,.1);border:1px solid rgba(0,180,160,.3);border-radius:10px;padding:12px 24px;text-align:center">
+        <div style="font-size:.7rem;opacity:.6;text-transform:uppercase;letter-spacing:.1em">Mean</div>
+        <div style="font-family:'DM Serif Display';font-size:1.5rem;color:var(--teal)">x̄ (x-bar)</div>
+      </div>
+      <div style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:10px;padding:12px 24px;text-align:center">
+        <div style="font-size:.7rem;opacity:.6;text-transform:uppercase;letter-spacing:.1em">Median</div>
+        <div style="font-family:'DM Serif Display';font-size:1.5rem;color:var(--purple)">Med</div>
+      </div>
+      <div style="background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);border-radius:10px;padding:12px 24px;text-align:center">
+        <div style="font-size:.7rem;opacity:.6;text-transform:uppercase;letter-spacing:.1em">Standard Deviation</div>
+        <div style="font-family:'DM Serif Display';font-size:1.5rem;color:var(--coral)">σx (population)</div>
+      </div>
+    </div>
+    <div class="hint-box" style="margin-top:14px">⚠️ The calculator shows <strong>two</strong> SDs: <strong>σx</strong> (population) and <strong>sx</strong> (sample). For IB AI SL, use <strong>σx</strong> unless told otherwise.</div>
+  </div>
+
+  <!-- S14: SECTION — Data Types -->
+  <div class="slide" id="s14">
+    <div class="section-icon">🏷️</div>
+    <div class="section-title">Types of <span class="highlight-teal">Data</span></div>
+    <div class="accent-line"></div>
+    <div class="section-sub"><span class="highlight-teal">Quantitative continuous</span> · <span class="highlight-purple">Quantitative discrete</span> · <span class="highlight-amber">Qualitative</span></div>
+  </div>
+
+  <!-- S15: Classify 1 -->
+  <div class="slide" id="s15">
+    <div class="q-meta">Question 10 of 13</div>
+    <div class="type-badge badge-type">🏷️ Classify the Data</div>
+    <div class="question-text">Quantitative continuous, quantitative discrete, or qualitative?</div>
+    <div class="classify-grid" id="classify-1">
+      <div class="classify-item" data-type="qt-cont"><span style="color:var(--teal)">Height</span> of a student (cm)<div class="item-label" style="color:var(--teal)">Quantitative continuous</div></div>
+      <div class="classify-item" data-type="qt-disc"><span style="color:var(--purple)">Number of siblings</span><div class="item-label" style="color:var(--purple)">Quantitative discrete</div></div>
+      <div class="classify-item" data-type="ql"><span style="color:var(--amber)">Favourite colour</span><div class="item-label" style="color:var(--amber)">Qualitative</div></div>
+      <div class="classify-item" data-type="qt-cont"><span style="color:var(--teal)">Temperature</span> (°C)<div class="item-label" style="color:var(--teal)">Quantitative continuous</div></div>
+    </div>
+    <div class="instruction-strip" style="margin-top:18px">✍️ For each: QC (continuous), QD (discrete), or QL (qualitative)</div>
+    <div id="pre-s15" style="margin-top:14px"><button class="reveal-btn" onclick="revealClassify('classify-1')">Reveal Answers</button></div>
+  </div>
+
+  <!-- S16: Classify 2 -->
+  <div class="slide" id="s16">
+    <div class="q-meta">Question 11 of 13</div>
+    <div class="type-badge badge-type">🏷️ Classify the Data</div>
+    <div class="question-text">Quantitative continuous, quantitative discrete, or qualitative?</div>
+    <div class="classify-grid" id="classify-2">
+      <div class="classify-item" data-type="ql"><span style="color:var(--amber)">Nationality</span><div class="item-label" style="color:var(--amber)">Qualitative</div></div>
+      <div class="classify-item" data-type="qt-disc"><span style="color:var(--purple)">Goals scored</span> in a match<div class="item-label" style="color:var(--purple)">Quantitative discrete</div></div>
+      <div class="classify-item" data-type="qt-cont"><span style="color:var(--teal)">Weight</span> of a package (kg)<div class="item-label" style="color:var(--teal)">Quantitative continuous</div></div>
+      <div class="classify-item" data-type="qt-cont"><span style="color:var(--teal)">Lap time</span> in F1 (seconds)<div class="item-label" style="color:var(--teal)">Quantitative continuous</div></div>
+    </div>
+    <div class="instruction-strip" style="margin-top:18px">✍️ QC, QD, or QL for each</div>
+    <div id="pre-s16" style="margin-top:14px"><button class="reveal-btn" onclick="revealClassify('classify-2')">Reveal Answers</button></div>
+  </div>
+
+  <!-- S17: Classify 3 — Earthquake -->
+  <div class="slide" id="s17">
+    <div class="q-meta">Question 12 of 13</div>
+    <div class="type-badge badge-tricky">⚡ Tricky Ones — Earthquake Data</div>
+    <div class="question-text">What about these?</div>
+    <div class="classify-grid" id="classify-3">
+      <div class="classify-item" data-type="qt-cont"><span style="color:var(--teal)">Magnitude</span> of an earthquake<div class="item-label" style="color:var(--teal)">Quantitative continuous</div></div>
+      <div class="classify-item" data-type="ql"><span style="color:var(--amber)">Type</span> of earthquake (tectonic, volcanic)<div class="item-label" style="color:var(--amber)">Qualitative</div></div>
+      <div class="classify-item" data-type="qt-disc"><span style="color:var(--purple)">Number of earthquakes</span> in a region<div class="item-label" style="color:var(--purple)">Quantitative discrete</div></div>
+      <div class="classify-item" data-type="qt-cont"><span style="color:var(--teal)">Depth</span> of an earthquake (km)<div class="item-label" style="color:var(--teal)">Quantitative continuous</div></div>
+    </div>
+    <div class="instruction-strip" style="margin-top:18px">✍️ QC, QD, or QL</div>
+    <div id="pre-s17" style="margin-top:14px"><button class="reveal-btn" onclick="revealClassify('classify-3')">Reveal Answers</button></div>
+  </div>
+
+  <!-- S18: True / False -->
+  <div class="slide" id="s18">
+    <div class="q-meta">Question 13 of 13</div>
+    <div class="type-badge badge-discuss">💬 Quick Check</div>
+    <div class="question-text">True or False?</div>
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:720px;text-align:left;margin:8px auto">
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 24px;font-size:clamp(.95rem,1.5vw,1.15rem)"><strong>A.</strong> "The mean is always the best measure of centre."</div>
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 24px;font-size:clamp(.95rem,1.5vw,1.15rem)"><strong>B.</strong> "A small standard deviation means the data is tightly clustered around the mean."</div>
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 24px;font-size:clamp(.95rem,1.5vw,1.15rem)"><strong>C.</strong> "Shoe size is quantitative discrete."</div>
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 24px;font-size:clamp(.95rem,1.5vw,1.15rem)"><strong>D.</strong> "If a value is 3 standard deviations from the mean, it is likely an outlier."</div>
+    </div>
+    <div class="instruction-strip" style="margin-top:14px">✍️ Write T or F for each</div>
+    <div id="pre-s18" style="margin-top:14px"><button class="reveal-btn" onclick="reveal('s18')">Reveal Answers</button></div>
+    <div class="reveal-panel" id="rev-s18">
+      <div style="display:flex;gap:36px;flex-wrap:wrap;justify-content:center">
+        <div style="text-align:center"><div style="font-size:.8rem;opacity:.5;margin-bottom:4px">A</div><div style="font-family:'DM Serif Display';font-size:2.2rem;color:var(--coral)">False</div></div>
+        <div style="text-align:center"><div style="font-size:.8rem;opacity:.5;margin-bottom:4px">B</div><div style="font-family:'DM Serif Display';font-size:2.2rem;color:var(--teal)">True</div></div>
+        <div style="text-align:center"><div style="font-size:.8rem;opacity:.5;margin-bottom:4px">C</div><div style="font-family:'DM Serif Display';font-size:2.2rem;color:var(--teal)">True</div></div>
+        <div style="text-align:center"><div style="font-size:.8rem;opacity:.5;margin-bottom:4px">D</div><div style="font-family:'DM Serif Display';font-size:2.2rem;color:var(--teal)">True</div></div>
+      </div>
+      <div class="answer-note"><strong>A:</strong> False — in skewed data, the median is better (we just saw this with books!)<br><strong>B:</strong> True — small SD = less spread = more consistent (like Verstappen)<br><strong>C:</strong> True — shoe sizes are specific values: 36, 37, 38… not 37.4<br><strong>D:</strong> True — 3 SDs from the mean is very rare in most distributions</div>
+    </div>
+  </div>
+
+  <!-- S19: TRANSITION -->
+  <div class="slide" id="s19">
+    <div class="section-icon">🌍</div>
+    <div class="section-title">Now Let's Use <span class="highlight-teal">Real Data</span></div>
+    <div class="accent-line"></div>
+    <div class="body-lg">You're about to explore <strong>300 real earthquakes</strong> from around the world using a tool called <span class="highlight-teal">CODAP</span>.<br><br>Everything we just practised — mean, median, standard deviation, data types, outliers — you'll apply to <strong>actual earthquake data</strong>.</div>
+  </div>
+
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+<div class="nav">
+  <div class="nav-info" id="counter">Intro</div>
+  <div class="nav-btns">
+    <button class="nav-btn" id="prev" disabled>← Back</button>
+    <button class="nav-btn primary" id="next">Next →</button>
+  </div>
+</div>
+
+<script>
+const allSlides=document.querySelectorAll('.slide'),totalSlides=allSlides.length;let current=0;const counter=document.getElementById('counter'),progress=document.getElementById('progress'),prevBtn=document.getElementById('prev'),nextBtn=document.getElementById('next');function update(){allSlides.forEach((s,i)=>s.classList.toggle('active',i===current));const m=allSlides[current].querySelector('.q-meta');counter.textContent=m?m.textContent:current===0?'Intro':`Slide ${current+1} of ${totalSlides}`;progress.style.width=((current+1)/totalSlides*100)+'%';prevBtn.disabled=current===0;nextBtn.textContent=current===totalSlides-1?'Done ✓':'Next →';nextBtn.disabled=current===totalSlides-1}prevBtn.onclick=()=>{if(current>0){current--;update()}};nextBtn.onclick=()=>{if(current<totalSlides-1){current++;update()}};document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nextBtn.click()}if(e.key==='ArrowLeft'){e.preventDefault();prevBtn.click()}});update();function reveal(id){const s=document.getElementById(id),p=s.querySelector('[id^="pre-"]'),r=s.querySelector('.reveal-panel');if(p)p.style.display='none';if(r)r.classList.add('show')}function revealClassify(id){const g=document.getElementById(id);g.querySelectorAll('.classify-item').forEach(i=>i.classList.add('revealed',i.dataset.type));const b=g.parentElement.querySelector('[id^="pre-"]');if(b)b.style.display='none'}
+</script>
+</body>
+</html>

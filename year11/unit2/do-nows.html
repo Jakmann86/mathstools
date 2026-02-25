@@ -3,23 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Y11 · Unit 2 · Statistics · Do Nows</title>
+<title>Do Now · Accuracy &amp; Statistics</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:     #f0ede8;
-    --navy:   #0f2044;
-    --text:   #1a1a2e;
-    --muted:  #6a6a8a;
-
-    --c1-bg:  #dff0ed; --c1-bdr: #9dd4cc; --c1-ink: #0a6b5e;
-    --c2-bg:  #fdf0dc; --c2-bdr: #f0c472; --c2-ink: #7a4800;
-    --c3-bg:  #e8e4f8; --c3-bdr: #b8aeed; --c3-ink: #4c2ea8;
-    --c4-bg:  #fde8e8; --c4-bdr: #f0a8a8; --c4-ink: #9a1f1f;
+    --bg:      #f0ede8;
+    --card-1:  #dff0ed;
+    --card-2:  #fdf0dc;
+    --card-3:  #e8e4f8;
+    --card-4:  #fde8e8;
+    --ink-1:   #0a6b5e;
+    --ink-2:   #8a5500;
+    --ink-3:   #4c2ea8;
+    --ink-4:   #9a1f1f;
+    --border-1:#a8d9d3;
+    --border-2:#f0c878;
+    --border-3:#b8aeed;
+    --border-4:#f0a8a8;
+    --navy:    #0f2044;
+    --text:    #1a1a2e;
+    --muted:   #5a5a7a;
   }
 
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html, body { height:100%; overflow:hidden; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -29,646 +36,335 @@
     flex-direction: column;
   }
 
-  /* ── TOP BAR ── */
-  .topbar {
+  /* ── HEADER ── */
+  .top-bar {
     background: var(--navy);
     color: white;
-    height: 50px;
-    padding: 0 24px;
+    padding: 0 32px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-shrink: 0;
   }
-  .top-left { display:flex; align-items:center; gap:16px; }
-  .top-title { font-family:'DM Serif Display',serif; font-size:1rem; }
-  .top-sub   { font-size:0.68rem; opacity:0.45; letter-spacing:0.13em; text-transform:uppercase; }
+
+  .top-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
+  }
+
+  .top-meta {
+    font-size: 0.72rem;
+    opacity: 0.5;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
   .toggle-btn {
     background: rgba(255,255,255,0.12);
-    border: 1.5px solid rgba(255,255,255,0.28);
+    border: 1.5px solid rgba(255,255,255,0.25);
     color: white;
-    border-radius:8px; padding:6px 18px;
-    font-size:0.78rem; font-family:'DM Sans',sans-serif; font-weight:600;
-    cursor:pointer; transition:all .2s; letter-spacing:0.04em;
+    border-radius: 8px;
+    padding: 7px 20px;
+    font-size: 0.82rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
   }
-  .toggle-btn:hover { background:rgba(255,255,255,.22); }
-  .toggle-btn.on    { background:#00b4a0; border-color:#00b4a0; }
+  .toggle-btn:hover { background: rgba(255,255,255,0.22); }
+  .toggle-btn.shown { background: #00b4a0; border-color: #00b4a0; }
 
-  /* ── SLIDES ── */
-  .slides { flex:1; position:relative; overflow:hidden; min-height:0; }
-  .slide {
-    position:absolute; inset:0;
-    display:flex; flex-direction:column; justify-content:center; align-items:center;
-    padding:14px 20px;
-    opacity:0; transform:translateY(14px); pointer-events:none;
-    transition:opacity .35s, transform .35s;
-  }
-  .slide.active { opacity:1; transform:translateY(0); pointer-events:all; }
-
-  /* ── LESSON LABEL ── */
-  .lesson-tag {
-    font-size:0.65rem; font-weight:700; letter-spacing:0.18em;
-    text-transform:uppercase; color:var(--muted);
-    margin-bottom:10px; text-align:center;
-  }
-
-  /* ── 4-CARD GRID ── */
+  /* ── MAIN GRID ── */
   .grid {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    grid-template-rows:1fr 1fr;
-    gap:13px;
-    width:100%; height:100%;
-    max-width:1200px; max-height:640px;
-    margin:0 auto;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+    padding: 16px;
+    min-height: 0;
   }
 
   /* ── CARD ── */
   .card {
-    border-radius:18px;
-    padding:20px 26px;
-    border:2.5px solid;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    overflow-y:auto;
-    position:relative;
-    min-height:0;
+    border-radius: 20px;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    border: 2.5px solid;
+    min-height: 0;
+    overflow: hidden;
   }
 
-  .card.c1 { background:var(--c1-bg); border-color:var(--c1-bdr); }
-  .card.c2 { background:var(--c2-bg); border-color:var(--c2-bdr); }
-  .card.c3 { background:var(--c3-bg); border-color:var(--c3-bdr); }
-  .card.c4 { background:var(--c4-bg); border-color:var(--c4-bdr); }
+  .card-1 { background: var(--card-1); border-color: var(--border-1); }
+  .card-2 { background: var(--card-2); border-color: var(--border-2); }
+  .card-3 { background: var(--card-3); border-color: var(--border-3); }
+  .card-4 { background: var(--card-4); border-color: var(--border-4); }
 
-  /* ── Q NUMBER DOT ── */
-  .q-row { display:flex; align-items:center; gap:9px; }
+  /* ── QUESTION NUMBER ── */
+  .q-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
   .q-dot {
-    width:26px; height:26px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    font-size:0.82rem; font-weight:800; color:white; flex-shrink:0;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 800;
+    color: white;
+    flex-shrink: 0;
   }
-  .c1 .q-dot { background:var(--c1-ink); }
-  .c2 .q-dot { background:var(--c2-ink); }
-  .c3 .q-dot { background:var(--c3-ink); }
-  .c4 .q-dot { background:var(--c4-ink); }
-
-  .q-type {
-    font-size:0.62rem; font-weight:700; letter-spacing:0.16em;
-    text-transform:uppercase; opacity:0.6;
-  }
-  .c1 .q-type { color:var(--c1-ink); }
-  .c2 .q-type { color:var(--c2-ink); }
-  .c3 .q-type { color:var(--c3-ink); }
-  .c4 .q-type { color:var(--c4-ink); }
+  .card-1 .q-dot { background: var(--ink-1); }
+  .card-2 .q-dot { background: var(--ink-2); }
+  .card-3 .q-dot { background: var(--ink-3); }
+  .card-4 .q-dot { background: var(--ink-4); }
 
   /* ── QUESTION TEXT ── */
   .q-text {
-    font-family:'DM Serif Display',serif;
-    font-size:clamp(1.6rem, 3.8vw, 3rem);
-    line-height:1.2;
-    flex:1;
-    display:flex;
-    align-items:center;
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+    line-height: 1.2;
+    color: var(--text);
+    flex: 1;
+    display: flex;
+    align-items: center;
   }
-  .q-text.sm  { font-size:clamp(1.05rem,2.4vw,1.85rem); }
-  .q-text.med { font-size:clamp(1.25rem,2.8vw,2.2rem); }
 
-  .c1 .q-text { color:var(--c1-ink); }
-  .c2 .q-text { color:var(--c2-ink); }
-  .c3 .q-text { color:var(--c3-ink); }
-  .c4 .q-text { color:var(--c4-ink); }
+  .card-1 .q-text { color: var(--ink-1); }
+  .card-2 .q-text { color: var(--ink-2); }
+  .card-3 .q-text { color: var(--ink-3); }
+  .card-4 .q-text { color: var(--ink-4); }
 
   /* ── HINT ── */
   .q-hint {
-    font-size:0.76rem; color:var(--muted); font-style:italic;
-    line-height:1.45; margin-top:-4px;
+    font-size: 0.82rem;
+    opacity: 0.62;
+    font-style: italic;
+    color: var(--text);
+    margin-top: -4px;
   }
 
   /* ── ANSWER ── */
-  .ans-wrap {
-    display:none; flex-direction:column; gap:4px;
-    border-top:2px dashed rgba(0,0,0,0.13);
-    padding-top:10px; margin-top:4px;
-    animation:fadeUp .25s ease both;
-  }
-  .ans-wrap.on { display:flex; }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-
-  .ans-lbl { font-size:0.6rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; opacity:0.45; }
-  .ans-val {
-    font-family:'DM Serif Display',serif;
-    font-size:clamp(1.1rem,2.6vw,1.9rem);
-    line-height:1.2;
-  }
-  .ans-note { font-size:0.74rem; color:var(--muted); line-height:1.45; }
-
-  .c1 .ans-val { color:var(--c1-ink); }
-  .c2 .ans-val { color:var(--c2-ink); }
-  .c3 .ans-val { color:var(--c3-ink); }
-  .c4 .ans-val { color:var(--c4-ink); }
-
-  sup {
-    font-size: 0.55em;
-    vertical-align: baseline;
-    position: relative;
-    top: -0.55em;
-    line-height: 1;
+  .answer-wrap {
+    border-top: 2px dashed rgba(0,0,0,0.12);
+    padding-top: 12px;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    animation: slideUp 0.3s ease both;
   }
 
-  /* ── PROGRESS + NAV ── */
-  .pbar  { height:4px; background:rgba(0,0,0,.08); flex-shrink:0; }
-  .pfill { height:100%; background:var(--navy); transition:width .4s; }
+  .answer-wrap.visible { display: flex; }
 
-  .bnav {
-    height:44px; background:var(--navy);
-    display:flex; align-items:center; justify-content:space-between;
-    padding:0 24px; flex-shrink:0;
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-  .nav-info { font-size:0.7rem; color:rgba(255,255,255,.38); letter-spacing:0.12em; text-transform:uppercase; }
-  .nbtns { display:flex; gap:8px; }
-  .nb {
-    background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2);
-    color:white; border-radius:7px; padding:6px 18px;
-    font-size:0.78rem; font-family:'DM Sans',sans-serif;
-    cursor:pointer; transition:background .18s;
+
+  .answer-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.5;
   }
-  .nb:hover { background:rgba(255,255,255,.2); }
-  .nb:disabled { opacity:.28; cursor:default; }
-  .nb.prim { background:#00b4a0; border-color:#00b4a0; color:var(--navy); font-weight:700; }
+
+  .answer-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.3rem, 2.8vw, 2rem);
+    font-weight: 700;
+  }
+
+  .card-1 .answer-val { color: var(--ink-1); }
+  .card-2 .answer-val { color: var(--ink-2); }
+  .card-3 .answer-val { color: var(--ink-3); }
+  .card-4 .answer-val { color: var(--ink-4); }
+
+  .answer-note {
+    font-size: 0.78rem;
+    opacity: 0.6;
+    line-height: 1.5;
+    color: var(--text);
+    margin-top: 2px;
+  }
+
+  /* ── BOTTOM BAR ── */
+  .bottom-bar {
+    height: 40px;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .bottom-bar span {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* ── TOPIC LABEL ── */
+  .topic-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    align-self: flex-start;
+    opacity: 0.75;
+  }
+  .card-1 .topic-label { background: rgba(10,107,94,0.15);  color: var(--ink-1); }
+  .card-2 .topic-label { background: rgba(138,85,0,0.12);   color: var(--ink-2); }
+  .card-3 .topic-label { background: rgba(76,46,168,0.12);  color: var(--ink-3); }
+  .card-4 .topic-label { background: rgba(154,31,31,0.12);  color: var(--ink-4); }
+
+  /* ── SUB-PARTS LAYOUT ── */
+  .parts {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .part-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: 'DM Serif Display', serif;
+    line-height: 1.3;
+  }
+
+  .part-letter {
+    font-size: 0.8rem;
+    font-weight: 700;
+    opacity: 0.5;
+    font-family: 'DM Sans', sans-serif;
+    min-width: 18px;
+  }
+
+  .part-text {
+    font-size: clamp(1.3rem, 2.8vw, 2.2rem);
+  }
+
+  .card-1 .part-text { color: var(--ink-1); }
+  .card-2 .part-text { color: var(--ink-2); }
+  .card-3 .part-text { color: var(--ink-3); }
+  .card-4 .part-text { color: var(--ink-4); }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="top-left">
-    <div class="top-title">Y11 · Unit 2 · Statistics Do Nows</div>
-    <div class="top-sub" id="topSub"></div>
+<div class="top-bar">
+  <div>
+    <div class="top-title">Do Now · Accuracy &amp; Statistics</div>
+    <div class="top-meta" style="margin-top:1px">Year 11 · Chapter 1 · Write answers in your notebook</div>
   </div>
-  <div style="display:flex;gap:10px;align-items:center">
-    <div style="font-size:0.68rem;opacity:.38;color:white;letter-spacing:.1em;text-transform:uppercase" id="topLesson"></div>
-    <button class="toggle-btn" id="masterBtn" onclick="toggleAnswers()">Show Answers</button>
-    <button class="toggle-btn" id="fsBtn" onclick="toggleFS()" title="Fullscreen">⛶ Fullscreen</button>
-  </div>
+  <button class="toggle-btn" id="masterToggle" onclick="toggleAll()">Show Answers</button>
 </div>
 
-<div class="slides" id="slideWrap"></div>
+<div class="grid">
 
-<div class="pbar"><div class="pfill" id="pf" style="width:0%"></div></div>
-<div class="bnav">
-  <div class="nav-info" id="navInfo"></div>
-  <div class="nbtns">
-    <button class="nb" id="pb" disabled>← Back</button>
-    <button class="nb prim" id="nb">Next →</button>
+  <!-- Q1: Significant Figures (two parts) -->
+  <div class="card card-1">
+    <div class="q-tag">
+      <div class="q-dot">1</div>
+      <span>Significant Figures</span>
+    </div>
+    <div class="topic-label">Rounding</div>
+    <div class="parts">
+      <div class="part-row"><span class="part-letter">a</span><span class="part-text">Round 47 653 to 3 s.f.</span></div>
+      <div class="part-row"><span class="part-letter">b</span><span class="part-text">Round 0.003 0824 to 3 s.f.</span></div>
+    </div>
+    <div class="answer-wrap" id="a1">
+      <div class="answer-label">Answers</div>
+      <div class="answer-val">a) 47 700 &nbsp;&nbsp; b) 0.003 08</div>
+      <div class="answer-note">a) 4, 7, 6 are the first 3 s.f. → round up.<br>b) Leading zeros don't count — 3, 0, 8 are the first 3 s.f.</div>
+    </div>
   </div>
+
+  <!-- Q2: Standard Form (two parts) -->
+  <div class="card card-2">
+    <div class="q-tag">
+      <div class="q-dot">2</div>
+      <span>Standard Form</span>
+    </div>
+    <div class="topic-label">a × 10ⁿ</div>
+    <div class="parts">
+      <div class="part-row"><span class="part-letter">a</span><span class="part-text">Write 0.000 529 in standard form.</span></div>
+      <div class="part-row"><span class="part-letter">b</span><span class="part-text">Fix: 36.1 × 10⁴ is not standard form. Correct it.</span></div>
+    </div>
+    <div class="answer-wrap" id="a2">
+      <div class="answer-label">Answers</div>
+      <div class="answer-val">a) 5.29 × 10⁻⁴ &nbsp;&nbsp; b) 3.61 × 10⁵</div>
+      <div class="answer-note">a) Move decimal 4 places right → ×10⁻⁴.<br>b) 36.1 is not between 1 and 10 — divide by 10, increase power by 1.</div>
+    </div>
+  </div>
+
+  <!-- Q3: Upper and Lower Bounds -->
+  <div class="card card-3">
+    <div class="q-tag">
+      <div class="q-dot">3</div>
+      <span>Upper &amp; Lower Bounds</span>
+    </div>
+    <div class="topic-label">Bounds</div>
+    <div class="q-text" style="font-size:clamp(1.3rem, 2.8vw, 2rem)">A parcel weighs 4.6 kg, measured to the nearest tenth of a kg.<br>State the upper and lower bounds.</div>
+    <div class="answer-wrap" id="a3">
+      <div class="answer-label">Answer</div>
+      <div class="answer-val">4.55 ≤ w < 4.65</div>
+      <div class="answer-note">Nearest tenth → half unit = 0.05.<br>Lower = 4.6 − 0.05 = 4.55 &nbsp;|&nbsp; Upper = 4.6 + 0.05 = 4.65</div>
+    </div>
+  </div>
+
+  <!-- Q4: Percentage Error -->
+  <div class="card card-4">
+    <div class="q-tag">
+      <div class="q-dot">4</div>
+      <span>Percentage Error</span>
+    </div>
+    <div class="topic-label">% Error</div>
+    <div class="q-text" style="font-size:clamp(1.2rem, 2.6vw, 1.9rem)">A student estimates √50 to be 7.0.<br>The exact value is 7.071…<br>Find the percentage error to 3 s.f.</div>
+    <div class="q-hint">Use the formula from your booklet.</div>
+    <div class="answer-wrap" id="a4">
+      <div class="answer-label">Answer</div>
+      <div class="answer-val">1.00 %</div>
+      <div class="answer-note">|7.0 − 7.071…| ÷ 7.071… × 100 = 0.071… ÷ 7.071… × 100 ≈ 1.00%</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <span>Write your answer · Show all working</span>
 </div>
 
 <script>
-/* ══════════════════════════════════════════
-   Y11 Unit 2 Statistics · Do Nows 1–10
-   Arc:
-     DN 1–2  Prior knowledge (sig figs, bounds, mean/median/mode, basic probability)
-     DN 3    Types of data, sampling — start of IB content
-     DN 4    Frequency tables, grouped data, estimated mean
-     DN 5    Histograms & cumulative frequency
-     DN 6    Box plots, IQR, outliers
-     DN 7    Standard deviation & variance
-     DN 8    Bivariate data, scatter diagrams, correlation
-     DN 9    Pearson's r, regression line
-     DN 10   Full unit review + limitations of correlation
+let shown = false;
 
-   Card colours: c1=teal, c2=amber, c3=purple, c4=coral(always puzzle/stretch)
-══════════════════════════════════════════ */
-
-const DONOWS = [
-
-  // ── DO NOW 1 · Prior Knowledge: Sig Figs, Bounds & Averages ──────────
-  {
-    lesson: 'Lesson 1 · Prior Knowledge — Numbers & Averages',
-    cards: [
-      {
-        col:'c1', type:'Sig Figs',
-        qtext:'Round 0.003 847 to 2 significant figures.', size:'sm',
-        ans:'0.0038',
-        note:'First sig fig is 3, second is 8. Next digit (4) rounds down.'
-      },
-      {
-        col:'c2', type:'Bounds',
-        qtext:'A length is measured as 14 cm (nearest cm). State the upper and lower bounds.', size:'sm',
-        ans:'13.5 cm ≤ l &lt; 14.5 cm',
-        note:'Half of 1 cm either side. UB = 14.5, LB = 13.5'
-      },
-      {
-        col:'c3', type:'Averages',
-        qtext:'Find the mean, median and mode of:<br>3, 7, 7, 9, 4', size:'sm',
-        ans:'Mean = 6, Median = 7, Mode = 7',
-        note:'Sum = 30 ÷ 5 = 6. Ordered: 3,4,7,7,9 → middle = 7'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'A number is rounded to 3 s.f. and gives 4.80. What is the smallest value the number could be?', size:'sm',
-        hint:'Think carefully — the trailing zero is significant!',
-        ans:'4.795',
-        note:'4.80 to 3 s.f. → lower bound is 4.795 (the 0 in 4.80 counts!)'
-      },
-    ]
-  },
-
-  // ── DO NOW 2 · Prior Knowledge: Percentage errors, range, iGCSE recall ──
-  {
-    lesson: 'Lesson 2 · Prior Knowledge — Errors & Data Basics',
-    cards: [
-      {
-        col:'c1', type:'Percentage Error',
-        qtext:'An estimate is 50. The actual value is 48. Find the percentage error.', size:'sm',
-        ans:'≈ 4.17%',
-        note:'|50 − 48| ÷ 48 × 100 = 2/48 × 100 ≈ 4.17%'
-      },
-      {
-        col:'c2', type:'Bounds',
-        qtext:'A = 6.3 cm and B = 2.1 cm, both rounded to 1 d.p. Find the maximum value of A − B.', size:'sm',
-        ans:'4.25 cm',
-        note:'Max A − B = UB(A) − LB(B) = 6.35 − 2.05 = 4.25'
-      },
-      {
-        col:'c3', type:'Data Types',
-        qtext:'Classify each as discrete or continuous:<br>(a) Shoe size &nbsp; (b) Height &nbsp; (c) Number of siblings', size:'sm',
-        ans:'(a) Discrete &nbsp; (b) Continuous &nbsp; (c) Discrete',
-        note:'Discrete = countable exact values. Continuous = measured, takes any value in a range.'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'Five values have a mean of 10. Four of them are 8, 11, 9, 14. What is the fifth?', size:'sm',
-        ans:'8',
-        note:'Total must be 50. 8+11+9+14 = 42. Fifth = 50 − 42 = 8'
-      },
-    ]
-  },
-
-  // ── DO NOW 3 · Populations, Sampling & Data Types (SL 4.1) ───────────
-  {
-    lesson: 'Lesson 3 · Populations, Samples & Bias',
-    cards: [
-      {
-        col:'c1', type:'Recall',
-        qtext:'A researcher surveys every 10th person on a list. What type of sampling is this?', size:'sm',
-        ans:'Systematic sampling',
-        note:'Start at a random point, then take every nth item from an ordered list.'
-      },
-      {
-        col:'c2', type:'Sampling Bias',
-        qtext:'A survey about screen time is posted online and people choose to respond. Identify the bias.', size:'sm',
-        ans:'Self-selection bias (voluntary response bias)',
-        note:'People with strong opinions (e.g. heavy users) are more likely to respond, making results unrepresentative.'
-      },
-      {
-        col:'c3', type:'Sig Figs',
-        qtext:'Calculate (3.7 × 10<sup>4</sup>) ÷ (1.4 × 10<sup>2</sup>). Give your answer to 3 s.f.', size:'sm',
-        ans:'264',
-        note:'37 000 ÷ 140 = 264.285... ≈ 264 (3 s.f.)'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'A school of 800 students is split: 300 in Y11, 300 in Y12, 200 in Y13. A stratified sample of 40 is taken. How many from Y11?', size:'sm',
-        hint:'Proportion must stay the same.',
-        ans:'15 students',
-        note:'300/800 × 40 = 15. Stratified = proportional representation.'
-      },
-    ]
-  },
-
-  // ── DO NOW 4 · Frequency Tables & Estimated Mean (SL 4.2, 4.3) ────────
-  {
-    lesson: 'Lesson 4 · Frequency Tables & Estimated Mean',
-    cards: [
-      {
-        col:'c1', type:'Recall',
-        qtext:'What is the modal class?<br>1≤x&lt;3: 4 &nbsp; 3≤x&lt;5: 11 &nbsp; 5≤x&lt;7: 9 &nbsp; 7≤x&lt;9: 2', size:'sm',
-        ans:'3 ≤ x &lt; 5',
-        note:'The class with the highest frequency (11). This is the modal class — not an exact mode.'
-      },
-      {
-        col:'c2', type:'Estimated Mean',
-        qtext:'Estimate the mean: &nbsp; 0≤x&lt;2: f=3 &nbsp; 2≤x&lt;4: f=7 &nbsp; 4≤x&lt;6: f=5', size:'sm',
-        hint:'Use midpoints: 1, 3, 5',
-        ans:'3.07 (3 s.f.)',
-        note:'(3×1 + 7×3 + 5×5) ÷ 15 = (3+21+25)/15 = 49/15 ≈ 3.07'
-      },
-      {
-        col:'c3', type:'Bounds',
-        qtext:'A value is given as 7.3 × 10<sup>2</sup> (2 s.f.). Find the upper bound.', size:'sm',
-        ans:'735',
-        note:'7.3 × 10<sup>2</sup> = 730. Rounded to 2 s.f. means ±5 in the tens place. UB = 735'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'A class estimates the mean from grouped data and gets 24.5. The actual mean is 23.8. Calculate the percentage error.', size:'sm',
-        ans:'≈ 2.94%',
-        note:'|24.5 − 23.8| / 23.8 × 100 = 0.7/23.8 × 100 ≈ 2.94%'
-      },
-    ]
-  },
-
-  // ── DO NOW 5 · Histograms & Cumulative Frequency (SL 4.2) ─────────────
-  {
-    lesson: 'Lesson 5 · Histograms & Cumulative Frequency',
-    cards: [
-      {
-        col:'c1', type:'Histogram',
-        qtext:'In a histogram, a bar for 10 ≤ x &lt; 20 has frequency density 3.5. What is the frequency?', size:'sm',
-        ans:'35',
-        note:'Frequency = freq. density × class width = 3.5 × 10 = 35'
-      },
-      {
-        col:'c2', type:'Cumulative Frequency',
-        qtext:'Frequencies: 0–10: 5, 10–20: 12, 20–30: 8, 30–40: 3.<br>What is the cumulative frequency at 30?', size:'sm',
-        ans:'25',
-        note:'5 + 12 + 8 = 25. Add up all frequencies up to (and including) the 20–30 class.'
-      },
-      {
-        col:'c3', type:'Estimated Mean',
-        qtext:'If midpoints are 5, 15, 25, 35 with frequencies 5, 12, 8, 3 — what is the estimated mean?', size:'sm',
-        ans:'&asymp; 18.2',
-        note:'(5&times;5 + 12&times;15 + 8&times;25 + 3&times;35) &divide; 28 = (25+180+200+105)/28 = 510/28 &asymp; 18.2'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'A cumulative frequency graph has 60 values. Describe how to find the median, LQ and UQ from the graph.', size:'sm',
-        ans:'Read off at 30, 15, and 45 on the cf-axis',
-        note:'Median = n/2, LQ = n/4, UQ = 3n/4. Read horizontally across then down to the x-axis.'
-      },
-    ]
-  },
-
-  // ── DO NOW 6 · Box Plots, IQR & Outliers (SL 4.2, 4.3) ───────────────
-  {
-    lesson: 'Lesson 6 · Box Plots, IQR & Outliers',
-    cards: [
-      {
-        col:'c1', type:'Box Plot',
-        qtext:'Five-number summary: Min 10, Q1 18, Median 25, Q3 34, Max 50. What is the IQR?', size:'sm',
-        ans:'16',
-        note:'IQR = Q3 − Q1 = 34 − 18 = 16'
-      },
-      {
-        col:'c2', type:'Outliers',
-        qtext:'Using the summary above, show whether 50 is an outlier.<br>(Use: outlier if > Q3 + 1.5 × IQR)', size:'sm',
-        ans:'50 > 58? No — not an outlier',
-        note:'Q3 + 1.5×IQR = 34 + 24 = 58. Since 50 &lt; 58, the max is not an outlier by this rule.'
-      },
-      {
-        col:'c3', type:'Cumulative Frequency',
-        qtext:'How does the shape of a cumulative frequency graph indicate whether data is skewed?', size:'sm',
-        hint:'Think about where the curve rises steeply.',
-        ans:'If the curve rises steeply early → left skew (most data low). Steeply late → right skew.',
-        note:'Symmetrical S-shape → symmetric data. Asymmetry in the S shows the skew direction.'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'Two groups both have IQR = 20 but different medians (Group A: 40, Group B: 65). What can and can\'t you conclude from comparing their box plots?', size:'sm',
-        ans:'Same spread, but B\'s middle 50% is shifted higher',
-        note:'IQR measures spread of the middle 50%, not the full range. Medians tell you about central tendency, not spread.'
-      },
-    ]
-  },
-
-  // ── DO NOW 7 · Standard Deviation & Variance (SL 4.3) ─────────────────
-  {
-    lesson: 'Lesson 7 · Standard Deviation & Variance',
-    cards: [
-      {
-        col:'c1', type:'Recall',
-        qtext:'Data: 2, 4, 4, 6, 4.<br>What is the mean? Then find each deviation from the mean.', size:'sm',
-        ans:'Mean = 4. Deviations: −2, 0, 0, +2, 0',
-        note:'Sum = 20 ÷ 5 = 4. Deviations: (2−4), (4−4), (4−4), (6−4), (4−4)'
-      },
-      {
-        col:'c2', type:'Std Deviation',
-        qtext:'Using the data 2, 4, 4, 6, 4 — calculate the variance and standard deviation.', size:'sm',
-        hint:'Variance = mean of squared deviations',
-        ans:'Variance = 1.6, σ ≈ 1.26',
-        note:'Squared devs: 4, 0, 0, 4, 0. Variance = 8/5 = 1.6. σ = √1.6 ≈ 1.265'
-      },
-      {
-        col:'c3', type:'Effect of Changes',
-        qtext:'Every value in a dataset increases by 5. What happens to (a) the mean, (b) the standard deviation?', size:'sm',
-        ans:'(a) Mean increases by 5 &nbsp; (b) σ stays the same',
-        note:'Adding a constant shifts the data but doesn\'t change spread. Multiplying would change both.'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'Set A has σ = 0. Set B has σ = 12. What can you say about each set? Which would you expect in exam scores?', size:'sm',
-        ans:'Set A: all values identical. Set B: large spread.',
-        note:'σ = 0 means all data points equal the mean. High σ means values are spread far from mean — typical for varied exam results.'
-      },
-    ]
-  },
-
-  // ── DO NOW 8 · Scatter Diagrams & Correlation (SL 4.4) ────────────────
-  {
-    lesson: 'Lesson 8 · Scatter Diagrams & Correlation',
-    cards: [
-      {
-        col:'c1', type:'Recall',
-        qtext:'What does a scatter diagram show? What do we plot on each axis?', size:'sm',
-        ans:'Relationship between two variables. One on x-axis (independent), one on y-axis (dependent).',
-        note:'Each point represents one data item with two values. We look for patterns/trends between the variables.'
-      },
-      {
-        col:'c2', type:'Correlation',
-        qtext:'Describe the correlation: "As hours of revision increase, exam scores tend to increase."', size:'sm',
-        ans:'Positive correlation',
-        note:'Both variables increase together. If one increased while the other decreased, it\'s negative correlation.'
-      },
-      {
-        col:'c3', type:'Std Deviation',
-        qtext:'A dataset has mean 50 and σ = 8. A new value of 80 is added. Will σ increase, decrease or stay the same?', size:'sm',
-        ans:'σ will increase',
-        note:'80 is far from the mean of 50, so it increases the spread. Adding a value far from the mean always increases σ.'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'A study finds that towns with more hospitals have more deaths per year. Does this mean hospitals cause deaths? Explain.', size:'sm',
-        ans:'No — correlation does not imply causation',
-        note:'Larger towns have both more hospitals AND more deaths. Population size is a lurking variable. Classic example of confounding.'
-      },
-    ]
-  },
-
-  // ── DO NOW 9 · Pearson's r & Regression Line (SL 4.4, 4.10) ──────────
-  {
-    lesson: 'Lesson 9 · Pearson\'s r & Regression Line',
-    cards: [
-      {
-        col:'c1', type:'Pearson\'s r',
-        qtext:'Interpret each value of r:<br>(a) r = 0.97 &nbsp; (b) r = −0.3 &nbsp; (c) r = 0', size:'sm',
-        ans:'(a) Strong positive &nbsp; (b) Weak negative &nbsp; (c) No linear correlation',
-        note:'r is always between −1 and 1. Closer to ±1 = stronger linear correlation.'
-      },
-      {
-        col:'c2', type:'Regression Line',
-        qtext:'The regression line of y on x is y = 3.2x + 14.5.<br>Predict y when x = 6.', size:'sm',
-        ans:'y = 33.7',
-        note:'y = 3.2(6) + 14.5 = 19.2 + 14.5 = 33.7. In context, a is the gradient (rate of change) and b is the y-intercept.'
-      },
-      {
-        col:'c3', type:'Scatter Diagrams',
-        qtext:'The mean point on a scatter diagram is (x̄, ȳ) = (5, 32). Does the regression line of y on x always pass through this point?', size:'sm',
-        ans:'Yes — always',
-        note:'The regression line of y on x is forced through (x̄, ȳ). Use this as a check when drawing by eye.'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'r = 0.94 for "shoe size vs maths score" in a primary school. Is this a useful finding? What is the likely explanation?', size:'sm',
-        ans:'Not directly useful — age is the lurking variable',
-        note:'Older children have bigger feet AND better maths skills. Age explains both. This is a classic example of a confounding variable — not causation.'
-      },
-    ]
-  },
-
-  // ── DO NOW 10 · Full Unit Review + Limitations ────────────────────────
-  {
-    lesson: 'Lesson 10 · Full Unit Review',
-    cards: [
-      {
-        col:'c1', type:'Mixed Review',
-        qtext:'Name one advantage and one disadvantage of systematic sampling vs simple random sampling.', size:'sm',
-        ans:'Advantage: easier/quicker. Disadvantage: can miss patterns if list has a repeating structure.',
-        note:'E.g. if a list alternates M/F and you take every 2nd, you might get all of one gender.'
-      },
-      {
-        col:'c2', type:'Mixed Review',
-        qtext:'A regression line gives ŷ = 2.1x + 5 where x = hours studied and y = marks.<br>Interpret the gradient 2.1.', size:'sm',
-        ans:'For every additional hour studied, marks increase by 2.1 on average.',
-        note:'Always interpret in context. The gradient is a rate of change — don\'t just say "rise over run".'
-      },
-      {
-        col:'c3', type:'Mixed Review',
-        qtext:'Give two reasons why Pearson\'s r might not be the best measure of correlation for a given dataset.', size:'sm',
-        ans:'Outliers distort r. The relationship may be non-linear (r only measures linear association).',
-        note:'Also: r requires both variables to be quantitative and approximately normally distributed for full validity.'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'You have r = −0.88 between temperature and hot drink sales. A journalist writes "cold weather causes people to buy hot drinks." Mathematically, what\'s wrong with this statement?', size:'sm',
-        ans:'Correlation is not causation — r shows association, not a causal link.',
-        note:'The relationship may be real and logical here, but r alone cannot prove causation. Context can suggest it, but not prove it.'
-      },
-    ]
-  },
-
-];
-
-/* ── BUILD SLIDES ── */
-const wrap = document.getElementById('slideWrap');
-
-DONOWS.forEach((dn, idx) => {
-  const slide = document.createElement('div');
-  slide.className = 'slide' + (idx === 0 ? ' active' : '');
-  slide.id = 'dn' + idx;
-
-  const tag = document.createElement('div');
-  tag.className = 'lesson-tag';
-  tag.textContent = dn.lesson;
-
-  const grid = document.createElement('div');
-  grid.className = 'grid';
-
-  dn.cards.forEach((c, ci) => {
-    const card = document.createElement('div');
-    card.className = 'card ' + c.col;
-
-    const sizeClass = c.size ? ' ' + c.size : '';
-
-    card.innerHTML = `
-      <div class="q-row">
-        <div class="q-dot">${ci + 1}</div>
-        <div class="q-type">${c.type}</div>
-      </div>
-      <div class="q-text${sizeClass}">${c.qtext.replace(/\n/g,'<br>')}</div>
-      ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
-      <div class="ans-wrap" id="a${idx}-${ci}">
-        <div class="ans-lbl">Answer</div>
-        <div class="ans-val">${c.ans}</div>
-        ${c.note ? `<div class="ans-note">${c.note}</div>` : ''}
-      </div>
-    `;
-    grid.appendChild(card);
+function toggleAll() {
+  shown = !shown;
+  ['a1','a2','a3','a4'].forEach(id => {
+    document.getElementById(id).classList.toggle('visible', shown);
   });
-
-  slide.appendChild(tag);
-  slide.appendChild(grid);
-  wrap.appendChild(slide);
-});
-
-/* ── NAV ── */
-const slides = document.querySelectorAll('.slide');
-const total  = slides.length;
-let cur      = 0;
-let showing  = false;
-
-const topSub    = document.getElementById('topSub');
-const topLesson = document.getElementById('topLesson');
-const navInfo   = document.getElementById('navInfo');
-const pf        = document.getElementById('pf');
-const pb        = document.getElementById('pb');
-const nb        = document.getElementById('nb');
-const masterBtn = document.getElementById('masterBtn');
-
-function update() {
-  slides.forEach((s,i) => s.classList.toggle('active', i===cur));
-  topSub.textContent    = `Do Now ${cur+1} of ${total}`;
-  topLesson.textContent = DONOWS[cur].lesson;
-  navInfo.textContent   = `Do Now ${cur+1} of ${total}`;
-  pf.style.width        = ((cur+1)/total*100) + '%';
-  pb.disabled = cur===0;
-  nb.disabled = cur===total-1;
-  nb.textContent = cur===total-1 ? 'Done ✓' : 'Next →';
-  hideAll();
-  showing = false;
-  masterBtn.textContent = 'Show Answers';
-  masterBtn.classList.remove('on');
+  const btn = document.getElementById('masterToggle');
+  btn.textContent = shown ? 'Hide Answers' : 'Show Answers';
+  btn.classList.toggle('shown', shown);
 }
-
-function hideAll() {
-  document.querySelectorAll('.ans-wrap').forEach(el => el.classList.remove('on'));
-}
-
-function toggleAnswers() {
-  showing = !showing;
-  for(let ci=0; ci<4; ci++) {
-    const el = document.getElementById(`a${cur}-${ci}`);
-    if(el) el.classList.toggle('on', showing);
-  }
-  masterBtn.textContent = showing ? 'Hide Answers' : 'Show Answers';
-  masterBtn.classList.toggle('on', showing);
-}
-
-pb.onclick = () => { if(cur>0){cur--;update();} };
-nb.onclick = () => { if(cur<total-1){cur++;update();} };
-
-document.addEventListener('keydown', e => {
-  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();if(cur<total-1){cur++;update();}}
-  if(e.key==='ArrowLeft'){e.preventDefault();if(cur>0){cur--;update();}}
-});
-
-function toggleFS() {
-  const btn = document.getElementById('fsBtn');
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-    btn.textContent = '✕ Exit Full';
-  } else {
-    document.exitFullscreen();
-    btn.textContent = '⛶ Fullscreen';
-  }
-}
-document.addEventListener('fullscreenchange', () => {
-  if (!document.fullscreenElement) {
-    document.getElementById('fsBtn').textContent = '⛶ Fullscreen';
-  }
-});
-
-update();
 </script>
 </body>
 </html>
