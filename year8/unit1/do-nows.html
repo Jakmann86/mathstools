@@ -235,7 +235,7 @@
 
 <div class="pbar"><div class="pfill" id="pf" style="width:0%"></div></div>
 <div class="bnav">
-  <div class="nav-info" id="navInfo">Do Now 1 of 3</div>
+  <div class="nav-info" id="navInfo">Do Now 1 of 4</div>
   <div class="nbtns">
     <button class="nb" id="pb" disabled>← Back</button>
     <button class="nb prim" id="nb">Next →</button>
@@ -247,6 +247,7 @@
    DO NOW DATA
    DN 1–2: Prior Knowledge (fractions/decimals + integers/powers)
    DN 3: Integer Operations (add/subtract negatives, absolute value, word problem)
+   DN 4: Dividing Integers & Mixed Operations
    Card colours: c1=teal, c2=amber, c3=purple, c4=coral(always puzzle)
 ══════════════════════════════════════════════════════ */
 
@@ -276,7 +277,7 @@ const DONOWS = [
       {
         col:'c4', type:'🧩 Puzzle',
         qtext:'I am a fraction. My numerator is 3 less than my denominator. My decimal is 0.8. What fraction am I?', size:'sm',
-        ans:'4/5', note:'0.8 = 4/5 · Check: denominator − numerator = 5 − 4 = 1… wait: try ⁴⁄₅ · 4 = 5 − 1 · Hmm: 12/15? 12=15−3 ✓ and 12÷15=0.8 ✓',
+        ans:'12/15', note:'0.8 = 4/5 = 12/15 · Check: 15 − 12 = 3 ✓ and 12÷15 = 0.8 ✓',
       },
     ]
   },
@@ -335,6 +336,36 @@ const DONOWS = [
         col:'c4', type:'🧩 Puzzle',
         qtext:'A diver is at −18 metres. She swims up 7 metres, then dives down another 5 metres. What is her new depth?', size:'sm',
         ans:'−16 metres', note:'−18 + 7 = −11 · −11 − 5 = −16 metres'
+      },
+    ]
+  },
+
+  // ── DO NOW 4 · Dividing Integers & Mixed Operations ──────────────────────
+  {
+    lesson: 'Lesson 2 · Dividing Integers & Mixed Operations',
+    cards: [
+      {
+        col:'c1', type:'Integers',
+        instr:'Calculate:',
+        qtext:'−15 + (−7) − (−4) = ?', size:'med',
+        ans:'−18', note:'−15 + (−7) = −22 · −22 − (−4) = −22 + 4 = −18'
+      },
+      {
+        col:'c2', type:'Division',
+        instr:'Find the missing number:',
+        qtext:'? ÷ (−8) = 6',
+        ans:'−48', note:'Rearrange: ? = 6 × (−8) = −48 · Check: −48 ÷ (−8) = 6 ✓ · Neg ÷ Neg = Positive ✓'
+      },
+      {
+        col:'c3', type:'Division',
+        instr:'Find the missing number:',
+        qtext:'(−54) ÷ ? = −9',
+        ans:'6', note:'Rearrange: ? = (−54) ÷ (−9) = 6 · Neg ÷ Neg = Positive · Check: (−54) ÷ 6 = −9 ✓'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'A lift starts at floor 0. It goes down 5 floors, up 3 floors, then down 4 more. What floor is it on? How many floors below the start?', size:'sm',
+        ans:'Floor −6 · 6 floors below', note:'0 − 5 = −5 · −5 + 3 = −2 · −2 − 4 = −6 · The lift is on floor −6, which is 6 floors below floor 0'
       },
     ]
   },

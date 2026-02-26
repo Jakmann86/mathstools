@@ -63,8 +63,8 @@
     gap:13px; width:100%; height:100%; max-width:1200px; max-height:640px; margin:0 auto;
   }
   .card {
-    border-radius:18px; padding:20px 26px; border:2.5px solid;
-    display:flex; flex-direction:column; gap:10px; overflow:hidden; position:relative;
+    border-radius:18px; padding:12px 20px; border:2.5px solid;
+    display:flex; flex-direction:column; gap:4px; overflow:hidden; position:relative;
   }
   .card.c1 { background:var(--c1-bg); border-color:var(--c1-bdr); }
   .card.c2 { background:var(--c2-bg); border-color:var(--c2-bdr); }
@@ -91,7 +91,7 @@
   .q-text {
     font-family:'DM Serif Display',serif;
     font-size:clamp(1.6rem, 3.8vw, 3rem);
-    line-height:1.2; flex:1; display:flex; align-items:center;
+    line-height:1.2; display:flex; align-items:center;
   }
   .q-text.sm { font-size:clamp(1.1rem,2.4vw,1.8rem); }
   .q-text.med { font-size:clamp(1.3rem,3vw,2.4rem); }
@@ -105,8 +105,8 @@
   }
   .q-instr {
     font-family: 'DM Sans', sans-serif;
-    font-size: clamp(0.95rem, 2vw, 1.2rem);
-    line-height: 1.4; margin-top: 2px; font-weight: 600;
+    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+    line-height: 1.3; margin-top: 0; font-weight: 600;
   }
   .c1 .q-instr { color: var(--c1-ink); }
   .c2 .q-instr { color: var(--c2-ink); }
@@ -115,28 +115,30 @@
   .q-eq {
     font-family: 'DM Serif Display', serif;
     font-size: clamp(1.6rem, 3.8vw, 3rem);
-    line-height: 1.3; flex: 1; display: flex; align-items: center;
+    line-height: 1.3; display: flex; align-items: center;
     justify-content: center; flex-wrap: wrap;
     letter-spacing: 0.06em; text-align: center;
+    padding: 0;
   }
   .c1 .q-eq { color: var(--c1-ink); }
   .c2 .q-eq { color: var(--c2-ink); }
   .c3 .q-eq { color: var(--c3-ink); }
   .c4 .q-eq { color: var(--c4-ink); }
   .ans-wrap {
-    display:none; flex-direction:column; gap:4px;
+    display:none; flex-direction:column; gap:1px;
     border-top:2px dashed rgba(0,0,0,0.13);
-    padding-top:10px; margin-top:4px;
+    padding-top:4px; margin-top:auto;
     animation:fadeUp .25s ease both;
+    flex-shrink:0;
   }
   .ans-wrap.on { display:flex; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-  .ans-lbl { font-size:0.6rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; opacity:0.45; }
+  .ans-lbl { font-size:0.55rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; opacity:0.45; }
   .ans-val {
     font-family:'DM Serif Display',serif;
-    font-size:clamp(1.1rem,2.6vw,1.9rem); line-height:1.2;
+    font-size:clamp(0.9rem,2.2vw,1.5rem); line-height:1.2;
   }
-  .ans-note { font-size:0.74rem; color:var(--muted); line-height:1.45; }
+  .ans-note { font-size:0.65rem; color:var(--muted); line-height:1.3; }
   .c1 .ans-val { color:var(--c1-ink); }
   .c2 .ans-val { color:var(--c2-ink); }
   .c3 .ans-val { color:var(--c3-ink); }
@@ -253,9 +255,9 @@ const DONOWS = [
       {
         col:'c4', type:'🧩 Domain → Range',
         instr:'What are the possible values of $y$?',
-        qtext:'$y = x^2 - 6x + 5$<br>$0 \\leq x \\leq 7$',
-        ans:'$-4 \\leq y \\leq 12$',
-        note:'Vertex: $x=3$, $y=-4$. Endpoints: $y(0)=5$, $y(7)=12$.'
+        qtext:'<div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:100%"><div>$y = 0.5x^2 - 3x + 8$</div><div>$5 \\leq x \\leq 9$</div></div>',
+        ans:'$5.5 \\leq y \\leq 21.5$',
+        note:'$y(5) = 0.5(25) - 15 + 8 = 5.5$. &ensp; $y(9) = 0.5(81) - 27 + 8 = 21.5$.'
       },
     ]
   },
