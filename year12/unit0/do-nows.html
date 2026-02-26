@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Y12 · AI SL · Do Nows</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --bg:     #f0ede8;
+    --navy:   #0f2044;
+    --text:   #1a1a2e;
+    --muted:  #6a6a8a;
+    --c1-bg:  #dff0ed; --c1-bdr: #9dd4cc; --c1-ink: #0a6b5e;
+    --c2-bg:  #fdf0dc; --c2-bdr: #f0c472; --c2-ink: #7a4800;
+    --c3-bg:  #e8e4f8; --c3-bdr: #b8aeed; --c3-ink: #4c2ea8;
+    --c4-bg:  #fde8e8; --c4-bdr: #f0a8a8; --c4-ink: #9a1f1f;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; overflow:hidden; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+  }
+  .topbar {
+    background: var(--navy); color: white; height: 50px;
+    padding: 0 24px; display: flex; align-items: center;
+    justify-content: space-between; flex-shrink: 0;
+  }
+  .top-left { display:flex; align-items:center; gap:16px; }
+  .top-title { font-family:'DM Serif Display',serif; font-size:1rem; }
+  .top-sub { font-size:0.68rem; opacity:0.45; letter-spacing:0.13em; text-transform:uppercase; }
+  .toggle-btn {
+    background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.28);
+    color: white; border-radius:8px; padding:6px 18px;
+    font-size:0.78rem; font-family:'DM Sans',sans-serif; font-weight:600;
+    cursor:pointer; transition:all .2s; letter-spacing:0.04em;
+  }
+  .toggle-btn:hover { background:rgba(255,255,255,.22); }
+  .toggle-btn.on { background:#00b4a0; border-color:#00b4a0; }
+  .slides { flex:1; position:relative; overflow:hidden; min-height:0; }
+  .slide {
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    padding:14px 20px;
+    opacity:0; transform:translateY(14px); pointer-events:none;
+    transition:opacity .35s, transform .35s;
+  }
+  .slide.active { opacity:1; transform:translateY(0); pointer-events:all; }
+  .lesson-tag {
+    font-size:0.65rem; font-weight:700; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--muted);
+    margin-bottom:10px; text-align:center;
+  }
+  .grid {
+    display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
+    gap:13px; width:100%; height:100%; max-width:1200px; max-height:640px; margin:0 auto;
+  }
+  .card {
+    border-radius:18px; padding:20px 26px; border:2.5px solid;
+    display:flex; flex-direction:column; gap:10px; overflow:hidden; position:relative;
+  }
+  .card.c1 { background:var(--c1-bg); border-color:var(--c1-bdr); }
+  .card.c2 { background:var(--c2-bg); border-color:var(--c2-bdr); }
+  .card.c3 { background:var(--c3-bg); border-color:var(--c3-bdr); }
+  .card.c4 { background:var(--c4-bg); border-color:var(--c4-bdr); }
+  .q-row { display:flex; align-items:center; gap:9px; }
+  .q-dot {
+    width:26px; height:26px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.82rem; font-weight:800; color:white; flex-shrink:0;
+  }
+  .c1 .q-dot { background:var(--c1-ink); }
+  .c2 .q-dot { background:var(--c2-ink); }
+  .c3 .q-dot { background:var(--c3-ink); }
+  .c4 .q-dot { background:var(--c4-ink); }
+  .q-type {
+    font-size:0.62rem; font-weight:700; letter-spacing:0.16em;
+    text-transform:uppercase; opacity:0.6;
+  }
+  .c1 .q-type { color:var(--c1-ink); }
+  .c2 .q-type { color:var(--c2-ink); }
+  .c3 .q-type { color:var(--c3-ink); }
+  .c4 .q-type { color:var(--c4-ink); }
+  .q-text {
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(1.6rem, 3.8vw, 3rem);
+    line-height:1.2; flex:1; display:flex; align-items:center;
+  }
+  .q-text.sm { font-size:clamp(1.1rem,2.4vw,1.8rem); }
+  .q-text.med { font-size:clamp(1.3rem,3vw,2.4rem); }
+  .c1 .q-text { color:var(--c1-ink); }
+  .c2 .q-text { color:var(--c2-ink); }
+  .c3 .q-text { color:var(--c3-ink); }
+  .c4 .q-text { color:var(--c4-ink); }
+  .q-hint {
+    font-size:0.76rem; color:var(--muted); font-style:italic;
+    line-height:1.45; margin-top:-4px;
+  }
+  .q-instr {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.95rem, 2vw, 1.2rem);
+    line-height: 1.4; margin-top: 2px; font-weight: 600;
+  }
+  .c1 .q-instr { color: var(--c1-ink); }
+  .c2 .q-instr { color: var(--c2-ink); }
+  .c3 .q-instr { color: var(--c3-ink); }
+  .c4 .q-instr { color: var(--c4-ink); }
+  .q-eq {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3.8vw, 3rem);
+    line-height: 1.3; flex: 1; display: flex; align-items: center;
+    justify-content: center; flex-wrap: wrap;
+    letter-spacing: 0.06em; text-align: center;
+  }
+  .c1 .q-eq { color: var(--c1-ink); }
+  .c2 .q-eq { color: var(--c2-ink); }
+  .c3 .q-eq { color: var(--c3-ink); }
+  .c4 .q-eq { color: var(--c4-ink); }
+  .ans-wrap {
+    display:none; flex-direction:column; gap:4px;
+    border-top:2px dashed rgba(0,0,0,0.13);
+    padding-top:10px; margin-top:4px;
+    animation:fadeUp .25s ease both;
+  }
+  .ans-wrap.on { display:flex; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+  .ans-lbl { font-size:0.6rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; opacity:0.45; }
+  .ans-val {
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(1.1rem,2.6vw,1.9rem); line-height:1.2;
+  }
+  .ans-note { font-size:0.74rem; color:var(--muted); line-height:1.45; }
+  .c1 .ans-val { color:var(--c1-ink); }
+  .c2 .ans-val { color:var(--c2-ink); }
+  .c3 .ans-val { color:var(--c3-ink); }
+  .c4 .ans-val { color:var(--c4-ink); }
+  sup { font-size:0.55em; vertical-align:baseline; position:relative; top:-0.55em; line-height:1; }
+  .pbar { height:4px; background:rgba(0,0,0,.08); flex-shrink:0; }
+  .pfill { height:100%; background:var(--navy); transition:width .4s; }
+  .bnav {
+    height:44px; background:var(--navy);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 24px; flex-shrink:0;
+  }
+  .nav-info { font-size:0.7rem; color:rgba(255,255,255,.38); letter-spacing:0.12em; text-transform:uppercase; }
+  .nbtns { display:flex; gap:8px; }
+  .nb {
+    background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2);
+    color:white; border-radius:7px; padding:6px 18px;
+    font-size:0.78rem; font-family:'DM Sans',sans-serif;
+    cursor:pointer; transition:background .18s;
+  }
+  .nb:hover { background:rgba(255,255,255,.2); }
+  .nb:disabled { opacity:.28; cursor:default; }
+  .nb.prim { background:#00b4a0; border-color:#00b4a0; color:var(--navy); font-weight:700; }
+  .katex { font-size: 0.85em; }
+  .q-text .katex { font-size: 0.9em; }
+  .q-text.sm .katex { font-size: 0.8em; }
+  .q-eq .katex { font-size: 0.9em; }
+  .q-instr .katex { font-size: 0.85em; }
+  .ans-val .katex { font-size: 0.85em; }
+  .ans-note .katex { font-size: 0.75em; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="top-left">
+    <div class="top-title">Y12 · AI SL · Do Nows</div>
+    <div class="top-sub" id="topSub">Do Now 1</div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div style="font-size:0.68rem;opacity:.38;color:white;letter-spacing:.1em;text-transform:uppercase" id="topLesson"></div>
+    <button class="toggle-btn" id="masterBtn" onclick="toggleAnswers()">Show Answers</button>
+  </div>
+</div>
+
+<div class="slides" id="slideWrap"></div>
+
+<div class="pbar"><div class="pfill" id="pf" style="width:0%"></div></div>
+<div class="bnav">
+  <div class="nav-info" id="navInfo">Do Now 1 of 1</div>
+  <div class="nbtns">
+    <button class="nb" id="pb" disabled>← Back</button>
+    <button class="nb prim" id="nb">Next →</button>
+  </div>
+</div>
+
+<script>
+const DONOWS = [
+
+  // ── DO NOW 1 · Precursor Skills for Functions ───────────────────────
+  {
+    lesson: 'Precursor Skills · Getting Ready for Functions',
+    cards: [
+      {
+        col:'c1', type:'Substitution',
+        instr:'A ball is thrown. Its height in metres is given by this formula. Find the height when $t = 3$:',
+        qtext:'$$h = -5t^2 + 20t + 2$$',
+        ans:'$h = -5(9) + 20(3) + 2 = 17\\text{ m}$', note:''
+      },
+      {
+        col:'c2', type:'Solve',
+        instr:'Solve for $x$:',
+        qtext:'$$\\dfrac{x + 6}{2} = 10$$',
+        ans:'$x = 14$', note:'$x + 6 = 20 \\Rightarrow x = 14$'
+      },
+      {
+        col:'c3', type:'Rearrange',
+        instr:'Make $x$ the subject:',
+        qtext:'$$y = 5x - 3$$',
+        ans:'$x = \\dfrac{y + 3}{5}$', note:'Add 3, then divide by 5'
+      },
+      {
+        col:'c4', type:'🧩 Puzzle',
+        qtext:'I think of a number, double it, subtract 7, and get 15. What was my number?', size:'med',
+        ans:'$11$', note:'$2x - 7 = 15 \\Rightarrow 2x = 22 \\Rightarrow x = 11$'
+      },
+    ]
+  },
+
+  // ── DO NOW 2 · Building Blocks for Functions ───────────────────────
+  {
+    lesson: 'Building Blocks · Domain, Range & Inverses',
+    cards: [
+      {
+        col:'c1', type:'Substitution',
+        instr:'Using this formula, convert $35°C$ into Fahrenheit:',
+        qtext:'$$F = \\dfrac{9C}{5} + 32$$',
+        ans:'$F = \\dfrac{9(35)}{5} + 32 = 63 + 32 = 95°F$', note:''
+      },
+      {
+        col:'c2', type:'Solve',
+        instr:'Solve for $x$:',
+        qtext:'$$\\dfrac{3x - 1}{4} = 2x + 5$$',
+        ans:'$x = -4.2$',
+        note:'$3x - 1 = 8x + 20 \\Rightarrow -5x = 21$'
+      },
+      {
+        col:'c3', type:'Rearrange',
+        instr:'Make $x$ the subject:',
+        qtext:'$$y = \\dfrac{2x + 7}{3}$$',
+        ans:'$x = \\dfrac{3y - 7}{2}$',
+        note:'Multiply by 3, subtract 7, divide by 2'
+      },
+      {
+        col:'c4', type:'🧩 Domain → Range',
+        instr:'What are the possible values of $y$?',
+        qtext:'$y = x^2 - 6x + 5$<br>$0 \\leq x \\leq 7$',
+        ans:'$-4 \\leq y \\leq 12$',
+        note:'Vertex: $x=3$, $y=-4$. Endpoints: $y(0)=5$, $y(7)=12$.'
+      },
+    ]
+  },
+
+];
+
+/* ── BUILD SLIDES ── */
+const wrap = document.getElementById('slideWrap');
+DONOWS.forEach((dn, idx) => {
+  const slide = document.createElement('div');
+  slide.className = 'slide' + (idx === 0 ? ' active' : '');
+  slide.id = 'dn' + idx;
+  const tag = document.createElement('div');
+  tag.className = 'lesson-tag';
+  tag.textContent = dn.lesson;
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+  dn.cards.forEach((c, ci) => {
+    const card = document.createElement('div');
+    card.className = 'card ' + c.col;
+    const sizeClass = c.size ? ' ' + c.size : '';
+    if (c.instr) {
+      card.innerHTML = `
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="q-instr">${c.instr}</div>
+        <div class="q-eq${sizeClass}">${c.qtext}</div>
+        ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">${c.ans}</div>
+          ${c.note ? `<div class="ans-note">${c.note}</div>` : ''}
+        </div>`;
+    } else {
+      card.innerHTML = `
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="q-text${sizeClass}">${c.qtext}</div>
+        ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">${c.ans}</div>
+          ${c.note ? `<div class="ans-note">${c.note}</div>` : ''}
+        </div>`;
+    }
+    grid.appendChild(card);
+  });
+  slide.appendChild(tag);
+  slide.appendChild(grid);
+  wrap.appendChild(slide);
+});
+
+/* ── NAV ── */
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let cur = 0, showing = false;
+const topSub=document.getElementById('topSub'),topLesson=document.getElementById('topLesson'),
+      navInfo=document.getElementById('navInfo'),pf=document.getElementById('pf'),
+      pb=document.getElementById('pb'),nb=document.getElementById('nb'),
+      masterBtn=document.getElementById('masterBtn');
+
+function update() {
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  topSub.textContent=`Do Now ${cur+1} of ${total}`;
+  topLesson.textContent=DONOWS[cur].lesson;
+  navInfo.textContent=`Do Now ${cur+1} of ${total}`;
+  pf.style.width=((cur+1)/total*100)+'%';
+  pb.disabled=cur===0; nb.disabled=cur===total-1;
+  nb.textContent=cur===total-1?'Done ✓':'Next →';
+  hideAll(); showing=false;
+  masterBtn.textContent='Show Answers'; masterBtn.classList.remove('on');
+  renderMathInElement(document.getElementById('dn'+cur),{
+    delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+    throwOnError:false
+  });
+}
+function hideAll(){document.querySelectorAll('.ans-wrap').forEach(el=>el.classList.remove('on'));}
+function toggleAnswers(){
+  showing=!showing;
+  for(let ci=0;ci<4;ci++){const el=document.getElementById(`a${cur}-${ci}`);if(el)el.classList.toggle('on',showing);}
+  masterBtn.textContent=showing?'Hide Answers':'Show Answers';
+  masterBtn.classList.toggle('on',showing);
+  if(showing) renderMathInElement(document.getElementById('dn'+cur),{
+    delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false
+  });
+}
+pb.onclick=()=>{if(cur>0){cur--;update();}};
+nb.onclick=()=>{if(cur<total-1){cur++;update();}};
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();if(cur<total-1){cur++;update();}}
+  if(e.key==='ArrowLeft'){e.preventDefault();if(cur>0){cur--;update();}}
+});
+update();
+document.addEventListener('DOMContentLoaded',()=>{
+  renderMathInElement(document.body,{
+    delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false
+  });
+});
+</script>
+</body>
+</html>

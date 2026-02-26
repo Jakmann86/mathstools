@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Y12 · Functions Review · Whiteboard Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --bg: #F5F3EE;
+    --navy: #0F2044;
+    --text: #1a1a2e;
+    --muted: #7A7A8A;
+    --divider: #D8D4CC;
+    --teal: #0A6B5E;   --teal-bg: #dff0ed;
+    --amber: #7A4800;   --amber-bg: #fdf0dc;
+    --purple: #4C2EA8;  --purple-bg: #e8e4f8;
+    --coral: #9A1F1F;   --coral-bg: #fde8e8;
+    --blue: #1a5276;    --blue-bg: #d6eaf8;
+    --green: #1e8449;   --green-bg: #d5f5e3;
+    --rose: #922b50;    --rose-bg: #f9e0ea;
+    --slate: #2c3e50;   --slate-bg: #e8ecef;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; overflow:hidden; font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); }
+  body { display:flex; flex-direction:column; }
+
+  /* Top bar */
+  .topbar {
+    background:var(--navy); color:white; height:50px; padding:0 24px;
+    display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+  }
+  .top-title { font-family:'DM Serif Display',serif; font-size:1rem; }
+  .top-sub { font-size:.65rem; opacity:.4; letter-spacing:.12em; text-transform:uppercase; margin-left:16px; }
+  .top-count { font-size:.72rem; opacity:.5; letter-spacing:.08em; }
+
+  /* Slides area */
+  .slides { flex:1; position:relative; overflow:hidden; min-height:0; }
+  .slide {
+    position:absolute; inset:0; display:flex; flex-direction:column;
+    justify-content:center; align-items:center; padding:20px 40px;
+    opacity:0; pointer-events:none; transition:opacity .3s, transform .3s;
+    transform:translateY(10px);
+  }
+  .slide.active { opacity:1; pointer-events:all; transform:translateY(0); }
+
+  /* Section divider slide */
+  .section-slide {
+    background:var(--navy); justify-content:center; align-items:flex-start; padding:0 60px;
+  }
+  .section-slide .accent-bar {
+    width:6px; height:80px; border-radius:3px; margin-bottom:18px;
+  }
+  .section-slide h1 {
+    font-family:'DM Serif Display',serif; font-size:clamp(2rem,4vw,3.2rem);
+    color:white; margin-bottom:10px;
+  }
+  .section-slide p {
+    font-size:clamp(.9rem,1.6vw,1.15rem); color:rgba(255,255,255,.45);
+    max-width:700px; line-height:1.5;
+  }
+  .section-slide .ib-ref {
+    margin-top:16px; font-size:.7rem; letter-spacing:.15em; text-transform:uppercase;
+    color:rgba(255,255,255,.25);
+  }
+
+  /* Hint slide */
+  .hint-slide {
+    background:var(--bg);
+  }
+  .hint-card {
+    max-width:900px; width:100%; border-radius:18px; padding:36px 44px;
+    border:2.5px solid; position:relative;
+  }
+  .hint-label {
+    font-size:.6rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .hint-title {
+    font-family:'DM Serif Display',serif; font-size:clamp(1.3rem,2.8vw,2.2rem);
+    line-height:1.3; margin-bottom:14px;
+  }
+  .hint-body {
+    font-size:clamp(.88rem,1.5vw,1.05rem); line-height:1.6; color:var(--text); opacity:.85;
+  }
+  .hint-body .katex { font-size:.92em; }
+
+  /* Question slide */
+  .q-slide { background:var(--bg); }
+  .q-container { max-width:900px; width:100%; }
+  .q-header { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
+  .q-pill {
+    width:38px; height:38px; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; font-size:1rem; font-weight:800; color:white; flex-shrink:0;
+  }
+  .q-section-label {
+    font-size:.6rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .q-question {
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(1.5rem,3.2vw,2.6rem);
+    line-height:1.3; margin-bottom:4px;
+  }
+  .q-sub {
+    font-size:clamp(.82rem,1.4vw,.95rem); color:var(--muted); line-height:1.5;
+    margin-bottom:4px;
+  }
+  .q-divider { height:2px; background:var(--divider); margin:12px 0; }
+
+  /* Answer reveal */
+  .ans-box {
+    display:none; border-radius:14px; padding:20px 28px; margin-top:14px;
+    border:2px solid; animation:fadeUp .25s ease both;
+  }
+  .ans-box.on { display:block; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  .ans-label {
+    font-size:.55rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+    margin-bottom:6px; opacity:.5;
+  }
+  .ans-text {
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(1.2rem,2.4vw,2rem); line-height:1.3;
+  }
+  .ans-note { font-size:.82rem; color:var(--muted); line-height:1.5; margin-top:6px; }
+
+  /* Bottom bar */
+  .pbar { height:4px; background:rgba(0,0,0,.08); flex-shrink:0; }
+  .pfill { height:100%; background:var(--navy); transition:width .4s; }
+  .bnav {
+    height:48px; background:var(--navy); display:flex; align-items:center;
+    justify-content:space-between; padding:0 24px; flex-shrink:0;
+  }
+  .nav-info { font-size:.7rem; color:rgba(255,255,255,.35); letter-spacing:.1em; }
+  .nbtns { display:flex; gap:8px; }
+  .nb {
+    background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2);
+    color:white; border-radius:7px; padding:6px 18px; font-size:.78rem;
+    font-family:'DM Sans',sans-serif; cursor:pointer; transition:background .18s;
+  }
+  .nb:hover { background:rgba(255,255,255,.2); }
+  .nb:disabled { opacity:.25; cursor:default; }
+  .nb.prim { background:#00b4a0; border-color:#00b4a0; color:var(--navy); font-weight:700; }
+  .nb.ans-btn { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.25); }
+  .nb.ans-btn.on { background:#00b4a0; border-color:#00b4a0; color:var(--navy); }
+
+  .katex { font-size:.88em; }
+  .q-question .katex { font-size:.9em; }
+  .ans-text .katex { font-size:.88em; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div style="display:flex;align-items:center">
+    <div class="top-title">Y12 · Functions Review</div>
+    <div class="top-sub" id="topSub"></div>
+  </div>
+  <div class="top-count" id="topCount"></div>
+</div>
+
+<div class="slides" id="slideWrap"></div>
+
+<div class="pbar"><div class="pfill" id="pf"></div></div>
+<div class="bnav">
+  <div class="nav-info" id="navInfo"></div>
+  <div class="nbtns">
+    <button class="nb" id="pb" onclick="go(-1)">← Back</button>
+    <button class="nb ans-btn" id="ansBtn" onclick="toggleAns()">Show Answer</button>
+    <button class="nb prim" id="nb2" onclick="go(1)">Next →</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+//  SLIDE DATA
+// ═══════════════════════════════════════════════════
+const SLIDES = [
+
+// ── SKILL A: DOMAIN & RANGE ──────────────────────
+{ type:'section', accent:'var(--teal)', title:'Skill A: Domain & Range', desc:'What values can go IN? What values come OUT?', ref:'IB Ref: SL 2.2' },
+
+{ type:'hint', color:'teal', label:'KEY IDEA', title:'Domain & Range',
+  body:`<b>Domain</b> = all allowed $x$-values (inputs).<br><b>Range</b> = all possible $y$-values (outputs).<br><br>Watch for: square roots need expression $\\geq 0$, fractions need denominator $\\neq 0$, restricted domains given in the question.` },
+
+{ type:'q', color:'teal', n:1, section:'DOMAIN & RANGE',
+  q:'State the domain and range of $f(x) = 4x + 3$.', sub:'',
+  ans:'Domain: $x \\in \\mathbb{R}$. Range: $f(x) \\in \\mathbb{R}$.',
+  note:'Linear function — no restrictions on input or output.' },
+
+{ type:'q', color:'teal', n:2, section:'DOMAIN & RANGE',
+  q:'State the domain and range of $f(x) = x^2 - 5$.', sub:'',
+  ans:'Domain: $x \\in \\mathbb{R}$. Range: $f(x) \\geq -5$.',
+  note:'Parabola opens up, vertex at $y = -5$.' },
+
+{ type:'q', color:'teal', n:3, section:'DOMAIN & RANGE',
+  q:'State the domain of $f(x) = \\sqrt{x - 4}$.', sub:'',
+  ans:'$x - 4 \\geq 0 \\Rightarrow x \\geq 4$',
+  note:'Expression inside square root must be non-negative.' },
+
+{ type:'q', color:'teal', n:4, section:'DOMAIN & RANGE',
+  q:'State the domain of $f(x) = \\dfrac{7}{x + 2}$.', sub:'',
+  ans:'$x + 2 \\neq 0 \\Rightarrow x \\neq -2$',
+  note:'Denominator cannot equal zero.' },
+
+{ type:'q', color:'teal', n:5, section:'DOMAIN & RANGE',
+  q:'$f(x) = 3x - 2$ is defined for $1 \\leq x \\leq 8$.', sub:'Find the range.',
+  ans:'$f(1) = 1,\\; f(8) = 22$. Range: $1 \\leq f(x) \\leq 22$.',
+  note:'Evaluate at both endpoints of the restricted domain.' },
+
+// ── SKILL B: EVALUATING FUNCTIONS ────────────────
+{ type:'section', accent:'var(--amber)', title:'Skill B: Evaluating Functions', desc:'Substitute the value into the rule — careful with negatives!', ref:'IB Ref: SL 2.2' },
+
+{ type:'hint', color:'amber', label:'KEY IDEA', title:'Evaluating $f(a)$',
+  body:`$f(a)$ means: replace every $x$ with $a$ in the rule.<br><br>Common mistake: $(-3)^2 = 9$ but $-3^2 = -9$.<br>Always use brackets around negative substitutions!` },
+
+{ type:'q', color:'amber', n:1, section:'EVALUATING FUNCTIONS',
+  q:'$f(x) = 4x - 7$. Find $f(6)$.', sub:'',
+  ans:'$f(6) = 4(6) - 7 = 17$', note:'' },
+
+{ type:'q', color:'amber', n:2, section:'EVALUATING FUNCTIONS',
+  q:'$g(x) = x^2 - 3x + 1$. Find $g(-3)$.', sub:'',
+  ans:'$g(-3) = 9 + 9 + 1 = 19$', note:'$(-3)^2 = 9$ and $-3(-3) = +9$' },
+
+{ type:'q', color:'amber', n:3, section:'EVALUATING FUNCTIONS',
+  q:'$h(x) = \\dfrac{2x + 5}{x - 1}$. Find $h(3)$.', sub:'',
+  ans:'$h(3) = \\dfrac{11}{2} = 5.5$', note:'' },
+
+{ type:'q', color:'amber', n:4, section:'EVALUATING FUNCTIONS',
+  q:'$p(t) = 5 \\times 3^t$. Find $p(4)$.', sub:'',
+  ans:'$p(4) = 5 \\times 81 = 405$', note:'$3^4 = 81$' },
+
+// ── SKILL C: INVERSE — FINDING f⁻¹(a) ──────────
+{ type:'section', accent:'var(--purple)', title:'Skill C: Finding $f^{-1}(a)$', desc:'Set f(x) = a and solve for x. You do NOT need a formula for the inverse.', ref:'IB Ref: SL 2.2' },
+
+{ type:'hint', color:'purple', label:'KEY IDEA', title:'Inverse: Finding $f^{-1}(a)$',
+  body:`$f^{-1}(a)$ means: find the value of $x$ such that $f(x) = a$.<br><br><b>Method:</b> Set $f(x) = a$, then solve for $x$.<br><b>Check:</b> Substitute your answer back into $f$ to verify.` },
+
+{ type:'q', color:'purple', n:1, section:'FINDING f⁻¹(a)',
+  q:'$f(x) = 6x + 5$. Find $f^{-1}(29)$.', sub:'',
+  ans:'$6x + 5 = 29 \\Rightarrow 6x = 24 \\Rightarrow x = 4$', note:'Check: $f(4) = 29$ ✓' },
+
+{ type:'q', color:'purple', n:2, section:'FINDING f⁻¹(a)',
+  q:'$g(x) = \\dfrac{x + 3}{4}$. Find $g^{-1}(5)$.', sub:'',
+  ans:'$\\dfrac{x+3}{4} = 5 \\Rightarrow x + 3 = 20 \\Rightarrow x = 17$', note:'' },
+
+{ type:'q', color:'purple', n:3, section:'FINDING f⁻¹(a)',
+  q:'$h(x) = 10 - 3x$. Find $h^{-1}(-2)$.', sub:'',
+  ans:'$10 - 3x = -2 \\Rightarrow -3x = -12 \\Rightarrow x = 4$', note:'' },
+
+{ type:'q', color:'purple', n:4, section:'FINDING f⁻¹(a)',
+  q:'$f(x) = x^2 - 3$ for $x \\geq 0$. Find $f^{-1}(22)$.', sub:'',
+  ans:'$x^2 - 3 = 22 \\Rightarrow x^2 = 25 \\Rightarrow x = 5$',
+  note:'$x \\geq 0$ so we take the positive root.' },
+
+// ── SKILL D: GRADIENT & PERPENDICULAR ────────────
+{ type:'section', accent:'var(--coral)', title:'Skill D: Gradient & Perpendicular Lines', desc:'Parallel lines share the same gradient. Perpendicular: m₁ × m₂ = −1.', ref:'IB Ref: SL 2.1' },
+
+{ type:'hint', color:'coral', label:'KEY IDEA', title:'Parallel & Perpendicular',
+  body:`<b>Parallel:</b> $m_1 = m_2$<br><b>Perpendicular:</b> $m_1 \\times m_2 = -1$, so $m_2 = -\\dfrac{1}{m_1}$<br><br>If the equation is in the form $ax + by = c$, rearrange to $y = mx + c$ first to find the gradient.` },
+
+{ type:'q', color:'coral', n:1, section:'GRADIENT & PERPENDICULAR',
+  q:'A line has gradient $4$. What is the gradient of a perpendicular line?', sub:'',
+  ans:'$m_{\\perp} = -\\dfrac{1}{4}$', note:'' },
+
+{ type:'q', color:'coral', n:2, section:'GRADIENT & PERPENDICULAR',
+  q:'A line has gradient $-\\dfrac{2}{5}$. What is the gradient of a perpendicular line?', sub:'',
+  ans:'$m_{\\perp} = \\dfrac{5}{2}$', note:'Flip the fraction and change the sign.' },
+
+{ type:'q', color:'coral', n:3, section:'GRADIENT & PERPENDICULAR',
+  q:'The equation of line (AB) is $2x + 3y = 18$.', sub:'Find the gradient of (AB).',
+  ans:'$3y = -2x + 18 \\Rightarrow y = -\\dfrac{2}{3}x + 6$. Gradient $= -\\dfrac{2}{3}$',
+  note:'Rearrange to $y = mx + c$ form.' },
+
+{ type:'q', color:'coral', n:4, section:'GRADIENT & PERPENDICULAR',
+  q:'$L_1$ has equation $5x - 2y + 8 = 0$.', sub:'Find the gradient of $L_1$ and a line perpendicular to it.',
+  ans:'$y = \\dfrac{5}{2}x + 4$. So $m = \\dfrac{5}{2}$, $m_{\\perp} = -\\dfrac{2}{5}$', note:'' },
+
+// ── SKILL E: DISTANCE ────────────────────────────
+{ type:'section', accent:'var(--blue)', title:'Skill E: Distance Between Two Points', desc:'Use the formula from your booklet — don\'t forget to square the differences!', ref:'IB Ref: SL 2.1' },
+
+{ type:'hint', color:'blue', label:'KEY IDEA', title:'Distance Formula',
+  body:`$$d = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$This is in your formula booklet. Subtract coordinates, square each, add, then square root.` },
+
+{ type:'q', color:'blue', n:1, section:'DISTANCE',
+  q:'Find the distance between $A(1, 2)$ and $B(5, 5)$.', sub:'',
+  ans:'$d = \\sqrt{16 + 9} = \\sqrt{25} = 5$', note:'' },
+
+{ type:'q', color:'blue', n:2, section:'DISTANCE',
+  q:'Find the distance between $P(-1, 3)$ and $Q(5, -1)$.', sub:'Give your answer to 3 s.f.',
+  ans:'$d = \\sqrt{36 + 16} = \\sqrt{52} = 7.21$', note:'' },
+
+{ type:'q', color:'blue', n:3, section:'DISTANCE',
+  q:'Show that the distance between $C(2, -3)$ and $D(8, 5)$ is $10$.', sub:'',
+  ans:'$d = \\sqrt{(8-2)^2 + (5-(-3))^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$ ✓', note:'' },
+
+// ── SKILL F: EQUATION OF A LINE ──────────────────
+{ type:'section', accent:'var(--green)', title:'Skill F: Equation of a Line', desc:'Find the gradient, then use point-gradient form.', ref:'IB Ref: SL 2.1' },
+
+{ type:'hint', color:'green', label:'KEY IDEA', title:'Writing the Equation of a Line',
+  body:`<b>Step 1:</b> Find gradient $m = \\dfrac{y_2 - y_1}{x_2 - x_1}$<br><b>Step 2:</b> Use point-gradient form: $y - y_1 = m(x - x_1)$<br><b>Step 3:</b> Rearrange to $y = mx + c$ or $ax + by + d = 0$ as required.` },
+
+{ type:'q', color:'green', n:1, section:'EQUATION OF A LINE',
+  q:'Find the equation of the line through $(1, 3)$ and $(5, 11)$.', sub:'Give your answer as $y = mx + c$.',
+  ans:'$m = \\dfrac{11-3}{5-1} = 2$. $y - 3 = 2(x - 1)$. $y = 2x + 1$', note:'' },
+
+{ type:'q', color:'green', n:2, section:'EQUATION OF A LINE',
+  q:'Find the equation of the line through $(0, 7)$ and $(4, -1)$.', sub:'Give your answer as $y = mx + c$.',
+  ans:'$m = \\dfrac{-1-7}{4-0} = -2$. $y = -2x + 7$', note:'' },
+
+{ type:'q', color:'green', n:3, section:'EQUATION OF A LINE',
+  q:'Find the equation of the line through $(-2, 1)$ and $(4, -5)$.', sub:'Give your answer as $ax + by + d = 0$.',
+  ans:'$m = \\dfrac{-5-1}{4-(-2)} = -1$. $y - 1 = -(x + 2)$. $y = -x - 1$. So $x + y + 1 = 0$.',
+  note:'' },
+
+{ type:'q', color:'green', n:4, section:'EQUATION OF A LINE',
+  q:'A line has gradient $\\dfrac{3}{4}$ and passes through $(8, 2)$.', sub:'Give your answer as $y = mx + c$.',
+  ans:'$y - 2 = \\tfrac{3}{4}(x - 8)$. $y = \\tfrac{3}{4}x - 4$', note:'' },
+
+// ── SKILL G: LINEAR MODELS ──────────────────────
+{ type:'section', accent:'var(--rose)', title:'Skill G: Linear Models in Context', desc:'m = rate of change, c = starting value. Set equal to compare.', ref:'IB Ref: SL 2.3' },
+
+{ type:'hint', color:'rose', label:'KEY IDEA', title:'Linear Models',
+  body:`In $y = mx + c$:<br>$m$ = rate of change (cost per unit, speed, etc.)<br>$c$ = initial / starting value<br><br>To find when two models give the same result: set them equal and solve.` },
+
+{ type:'q', color:'rose', n:1, section:'LINEAR MODELS',
+  q:'A taxi charges $F = 2.5d + 4$ dollars for $d$ km.', sub:'What is the initial charge and the cost per km?',
+  ans:'Initial charge = $\\$4$. Cost per km = $\\$2.50$.',
+  note:'$c = 4$ (starting value), $m = 2.5$ (rate of change).' },
+
+{ type:'q', color:'rose', n:2, section:'LINEAR MODELS',
+  q:'A phone plan: $\\$40$ upfront + $\\$25$/month.', sub:'Write a model for cost $C$ after $t$ months. Find the cost after 10 months.',
+  ans:'$C = 25t + 40$. $C(10) = 250 + 40 = \\$290$', note:'' },
+
+{ type:'q', color:'rose', n:3, section:'LINEAR MODELS',
+  q:'Gym A: $C_A = 50t + 80$. Gym B: $C_B = 30t + 150$.', sub:'After how many months does Gym B become cheaper?',
+  ans:'$50t + 80 = 30t + 150 \\Rightarrow 20t = 70 \\Rightarrow t = 3.5$',
+  note:'Gym B is cheaper after 4 months (first whole month).' },
+
+// ── SKILL H: VERTEX, ROOTS, INTERCEPTS ──────────
+{ type:'section', accent:'var(--slate)', title:'Skill H: Vertex, Roots & Intercepts', desc:'y-intercept = c. Roots: set f(x) = 0. Vertex: x = −b/(2a).', ref:'IB Ref: SL 2.4' },
+
+{ type:'hint', color:'slate', label:'KEY IDEA', title:'Key Features of a Quadratic',
+  body:`For $f(x) = ax^2 + bx + c$:<br><br><b>$y$-intercept:</b> Set $x = 0$, so $y = c$.<br><b>Roots / zeros:</b> Solve $f(x) = 0$ (factorise or GDC).<br><b>Vertex:</b> $x = -\\dfrac{b}{2a}$, then find $y$.<br><b>Axis of symmetry:</b> $x = -\\dfrac{b}{2a}$.` },
+
+{ type:'q', color:'slate', n:1, section:'KEY FEATURES',
+  q:'$f(x) = x^2 - 8x + 12$', sub:'Find the $y$-intercept and the roots.',
+  ans:'$y$-intercept: $(0, 12)$. Roots: $(x-2)(x-6) = 0$, so $x = 2$ and $x = 6$.',
+  note:'' },
+
+{ type:'q', color:'slate', n:2, section:'KEY FEATURES',
+  q:'$f(x) = x^2 - 8x + 12$', sub:'Find the vertex and state the range.',
+  ans:'$x = \\dfrac{8}{2} = 4$. $f(4) = 16 - 32 + 12 = -4$. Vertex: $(4, -4)$. Range: $f(x) \\geq -4$.',
+  note:'Parabola opens upward ($a > 0$).' },
+
+{ type:'q', color:'slate', n:3, section:'KEY FEATURES',
+  q:'$g(x) = -3x^2 + 18x - 15$', sub:'Find the roots, vertex, and range.',
+  ans:'Roots: $-3(x^2 - 6x + 5) = -3(x-1)(x-5) = 0$. $x = 1, x = 5$.<br>Vertex: $x = 3$, $g(3) = -27 + 54 - 15 = 12$. Vertex $(3, 12)$.<br>Range: $g(x) \\leq 12$.',
+  note:'Parabola opens downward ($a < 0$).' },
+
+// ── END ──────────────────────────────────────────
+{ type:'section', accent:'var(--teal)', title:'Great work! 🎯', desc:'Pack away your whiteboards. Now try the Skills Practice sheet on your own.', ref:'' },
+
+];
+
+// ═══════════════════════════════════════════════════
+//  BUILD SLIDES
+// ═══════════════════════════════════════════════════
+const wrap = document.getElementById('slideWrap');
+const colorMap = {
+  teal:   { fg:'var(--teal)',   bg:'var(--teal-bg)',   border:'#9dd4cc' },
+  amber:  { fg:'var(--amber)',  bg:'var(--amber-bg)',  border:'#f0c472' },
+  purple: { fg:'var(--purple)', bg:'var(--purple-bg)', border:'#b8aeed' },
+  coral:  { fg:'var(--coral)',  bg:'var(--coral-bg)',  border:'#f0a8a8' },
+  blue:   { fg:'var(--blue)',   bg:'var(--blue-bg)',   border:'#a9cce3' },
+  green:  { fg:'var(--green)',  bg:'var(--green-bg)',  border:'#a9dfbf' },
+  rose:   { fg:'var(--rose)',   bg:'var(--rose-bg)',   border:'#e8b4c8' },
+  slate:  { fg:'var(--slate)',  bg:'var(--slate-bg)',  border:'#b0bec5' },
+};
+
+SLIDES.forEach((s, i) => {
+  const sl = document.createElement('div');
+  sl.className = 'slide' + (i===0?' active':'');
+  sl.id = 'sl'+i;
+  sl.dataset.type = s.type;
+
+  if (s.type === 'section') {
+    sl.classList.add('section-slide');
+    sl.innerHTML = `
+      <div class="accent-bar" style="background:${s.accent}"></div>
+      <h1>${s.title}</h1>
+      <p>${s.desc}</p>
+      <div class="ib-ref">${s.ref||''}</div>`;
+  }
+  else if (s.type === 'hint') {
+    const c = colorMap[s.color];
+    sl.classList.add('hint-slide');
+    sl.innerHTML = `
+      <div class="hint-card" style="background:${c.bg};border-color:${c.border}">
+        <div class="hint-label" style="color:${c.fg}">${s.label}</div>
+        <div class="hint-title" style="color:${c.fg}">${s.title}</div>
+        <div class="hint-body">${s.body}</div>
+      </div>`;
+  }
+  else if (s.type === 'q') {
+    const c = colorMap[s.color];
+    sl.classList.add('q-slide');
+    sl.innerHTML = `
+      <div class="q-container">
+        <div class="q-header">
+          <div class="q-pill" style="background:${c.fg}">${s.n}</div>
+          <div class="q-section-label">${s.section}</div>
+        </div>
+        <div class="q-question" style="color:${c.fg}">${s.q}</div>
+        ${s.sub?`<div class="q-sub">${s.sub}</div>`:''}
+        <div class="q-divider"></div>
+        <div class="ans-box" id="ans${i}" style="background:white;border-color:${c.border}">
+          <div class="ans-label" style="color:${c.fg}">ANSWER</div>
+          <div class="ans-text" style="color:${c.fg}">${s.ans}</div>
+          ${s.note?`<div class="ans-note">${s.note}</div>`:''}
+        </div>
+      </div>`;
+  }
+  wrap.appendChild(sl);
+});
+
+// ═══════════════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════════════
+const allSlides = document.querySelectorAll('.slide');
+const total = allSlides.length;
+let cur = 0;
+const topSub = document.getElementById('topSub');
+const topCount = document.getElementById('topCount');
+const navInfo = document.getElementById('navInfo');
+const pf = document.getElementById('pf');
+const pbBtn = document.getElementById('pb');
+const nbBtn = document.getElementById('nb2');
+const ansBtn = document.getElementById('ansBtn');
+
+function render() {
+  renderMathInElement(allSlides[cur], {
+    delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+    throwOnError:false
+  });
+}
+
+function update() {
+  allSlides.forEach((s,i) => s.classList.toggle('active', i===cur));
+  topSub.textContent = `Slide ${cur+1} of ${total}`;
+  topCount.textContent = `${cur+1} / ${total}`;
+  navInfo.textContent = `${cur+1} / ${total}`;
+  pf.style.width = ((cur+1)/total*100)+'%';
+  pbBtn.disabled = cur===0;
+  nbBtn.disabled = cur===total-1;
+  nbBtn.textContent = cur===total-1 ? 'Done ✓' : 'Next →';
+  // hide answer
+  const ansEl = document.getElementById('ans'+cur);
+  const isQ = allSlides[cur].dataset.type === 'q';
+  ansBtn.style.display = isQ ? 'inline-block' : 'none';
+  if (ansEl) { ansEl.classList.remove('on'); }
+  ansBtn.textContent = 'Show Answer';
+  ansBtn.classList.remove('on');
+  render();
+}
+
+function go(dir) {
+  const next = cur + dir;
+  if (next >= 0 && next < total) { cur = next; update(); }
+}
+
+function toggleAns() {
+  const ansEl = document.getElementById('ans'+cur);
+  if (!ansEl) return;
+  const showing = ansEl.classList.toggle('on');
+  ansBtn.textContent = showing ? 'Hide Answer' : 'Show Answer';
+  ansBtn.classList.toggle('on', showing);
+  if (showing) render();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); go(1); }
+  if (e.key==='ArrowLeft') { e.preventDefault(); go(-1); }
+  if (e.key==='a'||e.key==='A') { toggleAns(); }
+});
+
+update();
+document.addEventListener('DOMContentLoaded', () => render());
+</script>
+</body>
+</html>
