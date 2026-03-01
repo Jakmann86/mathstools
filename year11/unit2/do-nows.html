@@ -47,19 +47,11 @@
     justify-content: space-between;
     flex-shrink: 0;
   }
-
-  .top-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.1rem;
-    letter-spacing: 0.01em;
-  }
-
-  .top-meta {
-    font-size: 0.72rem;
-    opacity: 0.5;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
+  .top-left { display: flex; flex-direction: column; justify-content: center; }
+  .top-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; letter-spacing: 0.01em; }
+  .top-meta  { font-size: 0.68rem; opacity: 0.42; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 1px; }
+  .top-right { display: flex; align-items: center; gap: 14px; }
+  .slide-counter { font-size: 0.7rem; opacity: 0.38; letter-spacing: 0.12em; text-transform: uppercase; }
 
   .toggle-btn {
     background: rgba(255,255,255,0.12);
@@ -77,294 +69,382 @@
   .toggle-btn:hover { background: rgba(255,255,255,0.22); }
   .toggle-btn.shown { background: #00b4a0; border-color: #00b4a0; }
 
+  /* ── SLIDES WRAPPER ── */
+  .slides-wrap { flex: 1; position: relative; min-height: 0; overflow-y: auto; }
+
+  .do-now-slide {
+    display: none;
+  }
+  .do-now-slide.active { display: block; }
+
   /* ── MAIN GRID ── */
   .grid {
-    flex: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 16px;
-    padding: 16px;
-    min-height: 0;
+    grid-template-rows: auto auto;
+    gap: 14px;
+    padding: 14px;
   }
 
   /* ── CARD ── */
   .card {
     border-radius: 20px;
-    padding: 28px 32px;
+    padding: 22px 28px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     position: relative;
     border: 2.5px solid;
-    min-height: 0;
-    overflow: hidden;
+    overflow: visible;
   }
-
   .card-1 { background: var(--card-1); border-color: var(--border-1); }
   .card-2 { background: var(--card-2); border-color: var(--border-2); }
   .card-3 { background: var(--card-3); border-color: var(--border-3); }
   .card-4 { background: var(--card-4); border-color: var(--border-4); }
 
-  /* ── QUESTION NUMBER ── */
-  .q-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    opacity: 0.7;
-  }
-
-  .q-dot {
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.8rem; font-weight: 800;
-    color: white;
-    flex-shrink: 0;
-  }
+  /* ── Q TAG ── */
+  .q-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.7; }
+  .q-dot { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; color: white; flex-shrink: 0; }
   .card-1 .q-dot { background: var(--ink-1); }
   .card-2 .q-dot { background: var(--ink-2); }
   .card-3 .q-dot { background: var(--ink-3); }
   .card-4 .q-dot { background: var(--ink-4); }
 
-  /* ── QUESTION TEXT ── */
-  .q-text {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
-    line-height: 1.2;
-    color: var(--text);
-    flex: 1;
-    display: flex;
-    align-items: center;
-  }
-
-  .card-1 .q-text { color: var(--ink-1); }
-  .card-2 .q-text { color: var(--ink-2); }
-  .card-3 .q-text { color: var(--ink-3); }
-  .card-4 .q-text { color: var(--ink-4); }
-
-  /* ── HINT ── */
-  .q-hint {
-    font-size: 0.82rem;
-    opacity: 0.62;
-    font-style: italic;
-    color: var(--text);
-    margin-top: -4px;
-  }
-
-  /* ── ANSWER ── */
-  .answer-wrap {
-    border-top: 2px dashed rgba(0,0,0,0.12);
-    padding-top: 12px;
-    display: none;
-    flex-direction: column;
-    gap: 4px;
-    animation: slideUp 0.3s ease both;
-  }
-
-  .answer-wrap.visible { display: flex; }
-
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .answer-label {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    opacity: 0.5;
-  }
-
-  .answer-val {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.3rem, 2.8vw, 2rem);
-    font-weight: 700;
-  }
-
-  .card-1 .answer-val { color: var(--ink-1); }
-  .card-2 .answer-val { color: var(--ink-2); }
-  .card-3 .answer-val { color: var(--ink-3); }
-  .card-4 .answer-val { color: var(--ink-4); }
-
-  .answer-note {
-    font-size: 0.78rem;
-    opacity: 0.6;
-    line-height: 1.5;
-    color: var(--text);
-    margin-top: 2px;
-  }
-
-  /* ── BOTTOM BAR ── */
-  .bottom-bar {
-    height: 40px;
-    background: var(--navy);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .bottom-bar span {
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.35);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
   /* ── TOPIC LABEL ── */
-  .topic-label {
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    padding: 3px 10px;
-    border-radius: 20px;
-    align-self: flex-start;
-    opacity: 0.75;
-  }
+  .topic-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; padding: 3px 10px; border-radius: 20px; align-self: flex-start; opacity: 0.75; }
   .card-1 .topic-label { background: rgba(10,107,94,0.15);  color: var(--ink-1); }
   .card-2 .topic-label { background: rgba(138,85,0,0.12);   color: var(--ink-2); }
   .card-3 .topic-label { background: rgba(76,46,168,0.12);  color: var(--ink-3); }
   .card-4 .topic-label { background: rgba(154,31,31,0.12);  color: var(--ink-4); }
 
-  /* ── SUB-PARTS LAYOUT ── */
-  .parts {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 1;
-    justify-content: center;
-  }
+  /* ── QUESTION TEXT ── */
+  .q-text { font-family: 'DM Serif Display', serif; font-size: clamp(1.3rem, 2.8vw, 2.2rem); line-height: 1.25; color: var(--text); }
+  .card-1 .q-text { color: var(--ink-1); }
+  .card-2 .q-text { color: var(--ink-2); }
+  .card-3 .q-text { color: var(--ink-3); }
+  .card-4 .q-text { color: var(--ink-4); }
 
-  .part-row {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    font-family: 'DM Serif Display', serif;
-    line-height: 1.3;
-  }
+  .q-hint { font-size: 0.8rem; opacity: 0.58; font-style: italic; color: var(--muted); margin-top: -4px; }
 
-  .part-letter {
-    font-size: 0.8rem;
-    font-weight: 700;
-    opacity: 0.5;
-    font-family: 'DM Sans', sans-serif;
-    min-width: 18px;
-  }
-
-  .part-text {
-    font-size: clamp(1.3rem, 2.8vw, 2.2rem);
-  }
-
+  /* ── SUB PARTS ── */
+  .parts { display: flex; flex-direction: column; gap: 6px; }
+  .part-row { display: flex; align-items: baseline; gap: 10px; font-family: 'DM Serif Display', serif; line-height: 1.3; }
+  .part-letter { font-size: 0.78rem; font-weight: 700; opacity: 0.5; font-family: 'DM Sans', sans-serif; min-width: 18px; }
+  .part-text { font-size: clamp(1.1rem, 2.4vw, 1.9rem); }
   .card-1 .part-text { color: var(--ink-1); }
   .card-2 .part-text { color: var(--ink-2); }
   .card-3 .part-text { color: var(--ink-3); }
   .card-4 .part-text { color: var(--ink-4); }
+
+  /* ── DATA STRIP ── */
+  .data-strip {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.1rem, 2.2vw, 1.7rem);
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+    padding: 10px 14px;
+    background: rgba(0,0,0,0.04);
+    border-radius: 10px;
+    text-align: center;
+  }
+  .card-1 .data-strip { color: var(--ink-1); }
+
+  /* ── FREQ TABLE ── */
+  .freq-table { border-collapse: collapse; margin: 4px auto 0; width: 100%; }
+  .freq-table th { font-family: 'DM Sans', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.5; padding: 3px 8px; border-bottom: 2px solid rgba(0,0,0,0.1); text-align: center; }
+  .freq-table td { font-family: 'DM Serif Display', serif; font-size: clamp(0.9rem, 1.5vw, 1.2rem); padding: 4px 8px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .card-2 .freq-table td { color: var(--ink-2); }
+  .freq-table .fx-col { font-size: 0.85em; opacity: 0.55; }
+
+  /* ── MATCHUP GRID ── */
+  .matchup { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; flex: 1; align-content: center; }
+  .match-row { display: flex; align-items: center; gap: 10px; }
+  .match-symbol {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+    font-weight: 700;
+    padding: 5px 8px;
+    background: rgba(76,46,168,0.08);
+    border: 1.5px solid rgba(76,46,168,0.2);
+    border-radius: 8px;
+    text-align: center;
+    color: var(--ink-3);
+  }
+  .match-arrow { opacity: 0.35; font-size: 0.9rem; }
+  .match-meaning { font-size: clamp(0.78rem, 1.4vw, 1rem); color: var(--ink-3); line-height: 1.3; }
+
+  /* ── ANSWER ── */
+  .answer-wrap {
+    border-top: 2px dashed rgba(0,0,0,0.12);
+    padding-top: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    animation: slideUp 0.3s ease both;
+  }
+  .answer-wrap.visible { display: flex; }
+  @keyframes slideUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+  .answer-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.45; }
+  .answer-val { font-family: 'DM Serif Display', serif; font-size: clamp(1rem, 2.2vw, 1.7rem); line-height: 1.25; font-weight: 700; }
+  .answer-note { font-size: 0.74rem; opacity: 0.6; line-height: 1.5; color: var(--text); margin-top: 2px; }
+  .card-1 .answer-val { color: var(--ink-1); }
+  .card-2 .answer-val { color: var(--ink-2); }
+  .card-3 .answer-val { color: var(--ink-3); }
+  .card-4 .answer-val { color: var(--ink-4); }
+
+  /* ── PROGRESS + BOTTOM ── */
+  .pbar { height: 4px; background: rgba(0,0,0,0.08); flex-shrink: 0; }
+  .pfill { height: 100%; background: var(--navy); transition: width 0.4s; }
+
+  .bottom-bar {
+    height: 44px;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    flex-shrink: 0;
+  }
+  .bottom-info { font-size: 0.7rem; color: rgba(255,255,255,0.35); letter-spacing: 0.12em; text-transform: uppercase; }
+  .nav-btns { display: flex; gap: 8px; }
+  .nb {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: white; border-radius: 7px; padding: 6px 18px;
+    font-size: 0.78rem; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: background 0.18s;
+  }
+  .nb:hover { background: rgba(255,255,255,0.2); }
+  .nb:disabled { opacity: 0.28; cursor: default; }
+  .nb.prim { background: #00b4a0; border-color: #00b4a0; color: var(--navy); font-weight: 700; }
 </style>
 </head>
 <body>
 
 <div class="top-bar">
-  <div>
-    <div class="top-title">Do Now · Accuracy &amp; Statistics</div>
-    <div class="top-meta" style="margin-top:1px">Year 11 · Chapter 1 · Write answers in your notebook</div>
+  <div class="top-left">
+    <div class="top-title" id="topTitle">Do Now · Accuracy &amp; Statistics</div>
+    <div class="top-meta">Year 11 · Write answers in your notebook</div>
   </div>
-  <button class="toggle-btn" id="masterToggle" onclick="toggleAll()">Show Answers</button>
+  <div class="top-right">
+    <span class="slide-counter" id="slideCounter">Do Now 1 of 2</span>
+    <button class="toggle-btn" id="masterToggle" onclick="toggleAll()">Show Answers</button>
+  </div>
 </div>
 
-<div class="grid">
+<div class="slides-wrap">
 
-  <!-- Q1: Significant Figures (two parts) -->
-  <div class="card card-1">
-    <div class="q-tag">
-      <div class="q-dot">1</div>
-      <span>Significant Figures</span>
-    </div>
-    <div class="topic-label">Rounding</div>
-    <div class="parts">
-      <div class="part-row"><span class="part-letter">a</span><span class="part-text">Round 47 653 to 3 s.f.</span></div>
-      <div class="part-row"><span class="part-letter">b</span><span class="part-text">Round 0.003 0824 to 3 s.f.</span></div>
-    </div>
-    <div class="answer-wrap" id="a1">
-      <div class="answer-label">Answers</div>
-      <div class="answer-val">a) 47 700 &nbsp;&nbsp; b) 0.003 08</div>
-      <div class="answer-note">a) 4, 7, 6 are the first 3 s.f. → round up.<br>b) Leading zeros don't count — 3, 0, 8 are the first 3 s.f.</div>
+  <!-- ══════════════════════════════════════════
+       DO NOW 1 · Accuracy (existing questions)
+  ═══════════════════════════════════════════ -->
+  <div class="do-now-slide active" id="slide-0">
+    <div class="grid">
+
+      <!-- Q1: Significant Figures -->
+      <div class="card card-1">
+        <div class="q-tag"><div class="q-dot">1</div><span>Significant Figures</span></div>
+        <div class="topic-label">Rounding</div>
+        <div class="parts">
+          <div class="part-row"><span class="part-letter">a</span><span class="part-text">Round 47 653 to 3 s.f.</span></div>
+          <div class="part-row"><span class="part-letter">b</span><span class="part-text">Round 0.003 0824 to 3 s.f.</span></div>
+        </div>
+        <div class="answer-wrap" id="s0-a1">
+          <div class="answer-label">Answers</div>
+          <div class="answer-val">a) 47 700 &nbsp;&nbsp; b) 0.003 08</div>
+          <div class="answer-note">a) 4, 7, 6 are the first 3 s.f. → round up.<br>b) Leading zeros don't count — 3, 0, 8 are the first 3 s.f.</div>
+        </div>
+      </div>
+
+      <!-- Q2: Standard Form -->
+      <div class="card card-2">
+        <div class="q-tag"><div class="q-dot">2</div><span>Standard Form</span></div>
+        <div class="topic-label">a × 10ⁿ</div>
+        <div class="parts">
+          <div class="part-row"><span class="part-letter">a</span><span class="part-text">Write 0.000 529 in standard form.</span></div>
+          <div class="part-row"><span class="part-letter">b</span><span class="part-text">Fix: 36.1 × 10⁴ is not standard form. Correct it.</span></div>
+        </div>
+        <div class="answer-wrap" id="s0-a2">
+          <div class="answer-label">Answers</div>
+          <div class="answer-val">a) 5.29 × 10⁻⁴ &nbsp;&nbsp; b) 3.61 × 10⁵</div>
+          <div class="answer-note">a) Move decimal 4 places right → ×10⁻⁴.<br>b) 36.1 is not between 1 and 10 — divide by 10, increase power by 1.</div>
+        </div>
+      </div>
+
+      <!-- Q3: Bounds -->
+      <div class="card card-3">
+        <div class="q-tag"><div class="q-dot">3</div><span>Upper &amp; Lower Bounds</span></div>
+        <div class="topic-label">Bounds</div>
+        <div class="q-text" style="font-size:clamp(1.1rem,2.4vw,1.85rem)">A parcel weighs 4.6 kg, measured to the nearest tenth of a kg. State the upper and lower bounds.</div>
+        <div class="answer-wrap" id="s0-a3">
+          <div class="answer-label">Answer</div>
+          <div class="answer-val">4.55 ≤ w &lt; 4.65</div>
+          <div class="answer-note">Half unit = 0.05 · Lower = 4.55 &nbsp;|&nbsp; Upper = 4.65</div>
+        </div>
+      </div>
+
+      <!-- Q4: Percentage Error -->
+      <div class="card card-4">
+        <div class="q-tag"><div class="q-dot">4</div><span>Percentage Error</span></div>
+        <div class="topic-label">% Error</div>
+        <div class="q-text" style="font-size:clamp(1.05rem,2.2vw,1.7rem)">A student estimates √50 as 7.0. The exact value is 7.071… Find the percentage error to 3 s.f.</div>
+        <div class="q-hint">% error = |approx − exact| ÷ exact × 100</div>
+        <div class="answer-wrap" id="s0-a4">
+          <div class="answer-label">Answer</div>
+          <div class="answer-val">1.00%</div>
+          <div class="answer-note">|7.0 − 7.071…| ÷ 7.071… × 100 = 0.071… ÷ 7.071… × 100 ≈ 1.00%</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Q2: Standard Form (two parts) -->
-  <div class="card card-2">
-    <div class="q-tag">
-      <div class="q-dot">2</div>
-      <span>Standard Form</span>
-    </div>
-    <div class="topic-label">a × 10ⁿ</div>
-    <div class="parts">
-      <div class="part-row"><span class="part-letter">a</span><span class="part-text">Write 0.000 529 in standard form.</span></div>
-      <div class="part-row"><span class="part-letter">b</span><span class="part-text">Fix: 36.1 × 10⁴ is not standard form. Correct it.</span></div>
-    </div>
-    <div class="answer-wrap" id="a2">
-      <div class="answer-label">Answers</div>
-      <div class="answer-val">a) 5.29 × 10⁻⁴ &nbsp;&nbsp; b) 3.61 × 10⁵</div>
-      <div class="answer-note">a) Move decimal 4 places right → ×10⁻⁴.<br>b) 36.1 is not between 1 and 10 — divide by 10, increase power by 1.</div>
+  <!-- ══════════════════════════════════════════
+       DO NOW 2 · Statistics Recap
+  ═══════════════════════════════════════════ -->
+  <div class="do-now-slide" id="slide-1">
+    <div class="grid">
+
+      <!-- Q1: Mean Median Mode IQR from list -->
+      <div class="card card-1">
+        <div class="q-tag"><div class="q-dot">1</div><span>Averages &amp; Spread</span></div>
+        <div class="topic-label">List of Data</div>
+        <div class="data-strip">3 &ensp; 5 &ensp; 7 &ensp; 4 &ensp; 8 &ensp; 5 &ensp; 6 &ensp; 8 &ensp; 5 &ensp; 9</div>
+        <div class="parts" style="gap:4px">
+          <div class="part-row"><span class="part-letter">a</span><span class="part-text" style="font-size:clamp(1rem,1.9vw,1.5rem)">Find the mean, median and mode.</span></div>
+          <div class="part-row"><span class="part-letter">b</span><span class="part-text" style="font-size:clamp(1rem,1.9vw,1.5rem)">Find the interquartile range.</span></div>
+        </div>
+        <div class="answer-wrap" id="s1-a1">
+          <div class="answer-label">Answers</div>
+          <div class="answer-val">Mean = 6 &nbsp;|&nbsp; Median = 5.5 &nbsp;|&nbsp; Mode = 5</div>
+          <div class="answer-note">Sorted: 3 4 5 5 <strong>5 6</strong> 7 8 8 9 &nbsp;|&nbsp; Sum = 60, n = 10 &nbsp;|&nbsp; Median = (5+6)÷2 = 5.5<br>Q1 = 5 (middle of lower half) &nbsp;|&nbsp; Q3 = 8 (middle of upper half) &nbsp;|&nbsp; IQR = 8 − 5 = <strong>3</strong></div>
+        </div>
+      </div>
+
+      <!-- Q2: Mean from frequency table -->
+      <div class="card card-2">
+        <div class="q-tag"><div class="q-dot">2</div><span>Frequency Table</span></div>
+        <div class="topic-label">Mean from Table</div>
+        <div class="q-text" style="font-size:clamp(0.95rem,1.8vw,1.35rem); flex:0; margin-bottom:2px">Find the mean number of goals scored per match.</div>
+        <table class="freq-table">
+          <thead><tr><th>Goals (x)</th><th>Frequency (f)</th><th class="fx-col">f × x</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>3</td><td class="fx-col">?</td></tr>
+            <tr><td>1</td><td>7</td><td class="fx-col">?</td></tr>
+            <tr><td>2</td><td>8</td><td class="fx-col">?</td></tr>
+            <tr><td>3</td><td>5</td><td class="fx-col">?</td></tr>
+            <tr><td>4</td><td>2</td><td class="fx-col">?</td></tr>
+          </tbody>
+        </table>
+        <div class="answer-wrap" id="s1-a2">
+          <div class="answer-label">Answer</div>
+          <div class="answer-val">Mean = 1.84</div>
+          <div class="answer-note">Σ(f×x) = 0+7+16+15+8 = 46 &nbsp;|&nbsp; Σf = 25 &nbsp;|&nbsp; Mean = 46 ÷ 25 = 1.84</div>
+        </div>
+      </div>
+
+      <!-- Q3: Calculator symbols matchup -->
+      <div class="card card-3">
+        <div class="q-tag"><div class="q-dot">3</div><span>Calculator Symbols</span></div>
+        <div class="topic-label">Match Up</div>
+        <div class="q-text" style="font-size:clamp(0.95rem,1.7vw,1.3rem); margin-bottom:8px">Match each GDC symbol to its meaning. Write the letter next to each symbol.</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;">
+          <div class="match-symbol">x̄</div>
+          <div class="match-symbol">Med</div>
+          <div class="match-symbol">Q₁</div>
+          <div class="match-symbol">Q₃</div>
+          <div class="match-symbol">σx</div>
+          <div class="match-symbol">n</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:clamp(0.78rem,1.3vw,0.95rem);color:var(--ink-3);">
+          <div>A &nbsp; Lower quartile</div>
+          <div>B &nbsp; Mean</div>
+          <div>C &nbsp; Number of values</div>
+          <div>D &nbsp; Upper quartile</div>
+          <div>E &nbsp; Median</div>
+          <div>F &nbsp; Std deviation</div>
+        </div>
+        <div class="answer-wrap" id="s1-a3">
+          <div class="answer-label">Answers</div>
+          <div class="answer-val" style="font-size:clamp(0.82rem,1.4vw,1.05rem); line-height:1.6;">x̄→B &nbsp; Med→E &nbsp; Q₁→A &nbsp; Q₃→D &nbsp; σx→F &nbsp; n→C</div>
+          <div class="answer-note">IQR = Q₃ − Q₁ &nbsp;|&nbsp; In IB use σx (population std dev), not Sx (sample). Check your GDC.</div>
+        </div>
+      </div>
+
+      <!-- Q4: Percentage error -->
+      <div class="card card-4">
+        <div class="q-tag"><div class="q-dot">4</div><span>Percentage Error</span></div>
+        <div class="topic-label">% Error</div>
+        <div class="q-text" style="font-size:clamp(1.05rem,2.1vw,1.65rem)">A bag of rice is labelled 500 g. When weighed, it measures 483 g. Find the percentage error to 3 s.f.</div>
+        <div class="q-hint">% error = |V<sub>A</sub> − V<sub>E</sub>| ÷ V<sub>E</sub> × 100 &nbsp; (V<sub>E</sub> = exact value)</div>
+        <div class="answer-wrap" id="s1-a4">
+          <div class="answer-label">Answer</div>
+          <div class="answer-val">3.40%</div>
+          <div class="answer-note">|483 − 500| ÷ 500 × 100 = 17 ÷ 500 × 100 = 3.4%</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Q3: Upper and Lower Bounds -->
-  <div class="card card-3">
-    <div class="q-tag">
-      <div class="q-dot">3</div>
-      <span>Upper &amp; Lower Bounds</span>
-    </div>
-    <div class="topic-label">Bounds</div>
-    <div class="q-text" style="font-size:clamp(1.3rem, 2.8vw, 2rem)">A parcel weighs 4.6 kg, measured to the nearest tenth of a kg.<br>State the upper and lower bounds.</div>
-    <div class="answer-wrap" id="a3">
-      <div class="answer-label">Answer</div>
-      <div class="answer-val">4.55 ≤ w < 4.65</div>
-      <div class="answer-note">Nearest tenth → half unit = 0.05.<br>Lower = 4.6 − 0.05 = 4.55 &nbsp;|&nbsp; Upper = 4.6 + 0.05 = 4.65</div>
-    </div>
-  </div>
+</div><!-- end slides-wrap -->
 
-  <!-- Q4: Percentage Error -->
-  <div class="card card-4">
-    <div class="q-tag">
-      <div class="q-dot">4</div>
-      <span>Percentage Error</span>
-    </div>
-    <div class="topic-label">% Error</div>
-    <div class="q-text" style="font-size:clamp(1.2rem, 2.6vw, 1.9rem)">A student estimates √50 to be 7.0.<br>The exact value is 7.071…<br>Find the percentage error to 3 s.f.</div>
-    <div class="q-hint">Use the formula from your booklet.</div>
-    <div class="answer-wrap" id="a4">
-      <div class="answer-label">Answer</div>
-      <div class="answer-val">1.00 %</div>
-      <div class="answer-note">|7.0 − 7.071…| ÷ 7.071… × 100 = 0.071… ÷ 7.071… × 100 ≈ 1.00%</div>
-    </div>
-  </div>
-
-</div>
+<div class="pbar"><div class="pfill" id="pfill" style="width:50%"></div></div>
 
 <div class="bottom-bar">
-  <span>Write your answer · Show all working</span>
+  <span class="bottom-info" id="bottomInfo">Do Now 1 of 2</span>
+  <div class="nav-btns">
+    <button class="nb" id="btnPrev" onclick="changeSlide(-1)" disabled>← Back</button>
+    <button class="nb prim" id="btnNext" onclick="changeSlide(1)">Next →</button>
+  </div>
 </div>
 
 <script>
-let shown = false;
+let cur = 0;
+let shown = [false, false];
+const slides = document.querySelectorAll('.do-now-slide');
+const total = slides.length;
+
+const titles = ['Do Now 1 · Accuracy', 'Do Now 2 · Statistics Recap'];
+
+function changeSlide(dir) {
+  slides[cur].classList.remove('active');
+  cur = Math.max(0, Math.min(total - 1, cur + dir));
+  slides[cur].classList.add('active');
+  updateUI();
+}
+
+function updateUI() {
+  document.getElementById('slideCounter').textContent = `Do Now ${cur+1} of ${total}`;
+  document.getElementById('bottomInfo').textContent   = `Do Now ${cur+1} of ${total}`;
+  document.getElementById('topTitle').textContent     = titles[cur];
+  document.getElementById('pfill').style.width        = ((cur+1)/total*100) + '%';
+  document.getElementById('btnPrev').disabled = cur === 0;
+  document.getElementById('btnNext').disabled = cur === total - 1;
+  document.getElementById('btnNext').textContent = cur === total - 1 ? 'Done ✓' : 'Next →';
+
+  // Reset answer toggle state for the new slide
+  const btn = document.getElementById('masterToggle');
+  btn.textContent = shown[cur] ? 'Hide Answers' : 'Show Answers';
+  btn.classList.toggle('shown', shown[cur]);
+}
 
 function toggleAll() {
-  shown = !shown;
+  shown[cur] = !shown[cur];
+  const prefix = cur === 0 ? 's0' : 's1';
   ['a1','a2','a3','a4'].forEach(id => {
-    document.getElementById(id).classList.toggle('visible', shown);
+    const el = document.getElementById(prefix + '-' + id);
+    if (el) el.classList.toggle('visible', shown[cur]);
   });
   const btn = document.getElementById('masterToggle');
-  btn.textContent = shown ? 'Hide Answers' : 'Show Answers';
-  btn.classList.toggle('shown', shown);
+  btn.textContent = shown[cur] ? 'Hide Answers' : 'Show Answers';
+  btn.classList.toggle('shown', shown[cur]);
 }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); if (cur < total-1) changeSlide(1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); if (cur > 0) changeSlide(-1); }
+});
+
+updateUI();
 </script>
 </body>
 </html>
