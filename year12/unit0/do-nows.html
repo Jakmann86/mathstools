@@ -47,10 +47,11 @@
   .slides { flex:1; position:relative; overflow:hidden; min-height:0; }
   .slide {
     position:absolute; inset:0;
-    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    display:flex; flex-direction:column; justify-content:flex-start; align-items:center;
     padding:14px 20px;
     opacity:0; transform:translateY(14px); pointer-events:none;
     transition:opacity .35s, transform .35s;
+    overflow-y:auto;
   }
   .slide.active { opacity:1; transform:translateY(0); pointer-events:all; }
   .lesson-tag {
@@ -59,12 +60,12 @@
     margin-bottom:10px; text-align:center;
   }
   .grid {
-    display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
-    gap:13px; width:100%; height:100%; max-width:1200px; max-height:640px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto;
+    gap:13px; width:100%; max-width:1200px; margin:0 auto;
   }
   .card {
-    border-radius:18px; padding:12px 20px; border:2.5px solid;
-    display:flex; flex-direction:column; gap:4px; overflow:hidden; position:relative;
+    border-radius:18px; padding:16px 22px; border:2.5px solid;
+    display:flex; flex-direction:column; gap:8px; overflow:visible; position:relative;
   }
   .card.c1 { background:var(--c1-bg); border-color:var(--c1-bdr); }
   .card.c2 { background:var(--c2-bg); border-color:var(--c2-bdr); }
@@ -105,8 +106,8 @@
   }
   .q-instr {
     font-family: 'DM Sans', sans-serif;
-    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
-    line-height: 1.3; margin-top: 0; font-weight: 600;
+    font-size: clamp(0.82rem, 1.6vw, 1rem);
+    line-height: 1.35; margin-top: 0; font-weight: 600;
   }
   .c1 .q-instr { color: var(--c1-ink); }
   .c2 .q-instr { color: var(--c2-ink); }
@@ -118,27 +119,26 @@
     line-height: 1.3; display: flex; align-items: center;
     justify-content: center; flex-wrap: wrap;
     letter-spacing: 0.06em; text-align: center;
-    padding: 0;
   }
   .c1 .q-eq { color: var(--c1-ink); }
   .c2 .q-eq { color: var(--c2-ink); }
   .c3 .q-eq { color: var(--c3-ink); }
   .c4 .q-eq { color: var(--c4-ink); }
   .ans-wrap {
-    display:none; flex-direction:column; gap:1px;
+    display:none !important; flex-direction:column; gap:4px;
     border-top:2px dashed rgba(0,0,0,0.13);
-    padding-top:4px; margin-top:auto;
+    padding-top:8px; margin-top:4px;
     animation:fadeUp .25s ease both;
     flex-shrink:0;
   }
-  .ans-wrap.on { display:flex; }
+  .ans-wrap.on { display:flex !important; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-  .ans-lbl { font-size:0.55rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; opacity:0.45; }
+  .ans-lbl { font-size:0.6rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; opacity:0.45; }
   .ans-val {
     font-family:'DM Serif Display',serif;
-    font-size:clamp(0.9rem,2.2vw,1.5rem); line-height:1.2;
+    font-size:clamp(0.95rem,2vw,1.5rem); line-height:1.2;
   }
-  .ans-note { font-size:0.65rem; color:var(--muted); line-height:1.3; }
+  .ans-note { font-size:0.68rem; color:var(--muted); line-height:1.4; }
   .c1 .ans-val { color:var(--c1-ink); }
   .c2 .ans-val { color:var(--c2-ink); }
   .c3 .ans-val { color:var(--c3-ink); }
@@ -258,6 +258,42 @@ const DONOWS = [
         qtext:'<div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:100%"><div>$y = 0.5x^2 - 3x + 8$</div><div>$5 \\leq x \\leq 9$</div></div>',
         ans:'$5.5 \\leq y \\leq 21.5$',
         note:'$y(5) = 0.5(25) - 15 + 8 = 5.5$. &ensp; $y(9) = 0.5(81) - 27 + 8 = 21.5$.'
+      },
+    ]
+  },
+
+  // ── DO NOW 3 · Linear Functions Ready ──────────────────────────────
+  {
+    lesson: 'Linear Functions · Getting Ready for Today',
+    cards: [
+      {
+        col:'c1', type:'Function Evaluation',
+        instr:'Given $f(x) = 3x^2 - 2x + 1$, find:',
+        qtext:'$$f(-2)$$',
+        ans:'$f(-2) = 3(4) - 2(-2) + 1 = 12 + 4 + 1 = 17$', note:''
+      },
+      {
+        col:'c2', type:'Inverse Function',
+        instr:'Given $f(x) = 4x - 3$, find:',
+        qtext:'$$f^{-1}(9)$$',
+        ans:'$f^{-1}(9) = 3$',
+        note:'Let $y = 4x - 3$, so $x = \\dfrac{y+3}{4}$. Then $f^{-1}(9) = \\dfrac{12}{4} = 3$.'
+      },
+      {
+        col:'c3', type:'Which Point Lies on the Line?',
+        instr:'Which of these points lies on $y = 2x - 5$?',
+        qtext:'<div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding-left:8px;font-family:\'DM Serif Display\',serif;font-size:clamp(1.1rem,2.4vw,1.8rem);"><span>A &nbsp;( 0, &thinsp;5 )</span><span>B &nbsp;( 3, &thinsp;1 )</span><span>C &nbsp;( &minus;1, &thinsp;3 )</span><span>D &nbsp;( 4, &thinsp;4 )</span></div>',
+        hint:'Substitute the $x$-coordinate and see what $y$ value it produces.',
+        ans:'$B$ only — $(3,\\,1)$',
+        note:'$A$: $2(0)-5=-5 \\neq 5$ ✗ &ensp; $B$: $2(3)-5=1$ ✓ &ensp; $C$: $2(-1)-5=-7 \\neq 3$ ✗ &ensp; $D$: $2(4)-5=3 \\neq 4$ ✗'
+      },
+      {
+        col:'c4', type:'🧩 Range → Domain',
+        instr:'For the function $f(x) = 3x + 6$, the range is $0 \\leq f(x) \\leq 24$. Find the domain.',
+        qtext:'$$f(x) = 3x + 6$$',
+        hint:'Work backwards — what value of $x$ gives $f(x) = 0$? What gives $f(x) = 24$?',
+        ans:'$-2 \\leq x \\leq 6$',
+        note:'$3x+6=0 \\Rightarrow x=-2$. &ensp; $3x+6=24 \\Rightarrow x=6$.'
       },
     ]
   },
