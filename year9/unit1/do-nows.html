@@ -55,6 +55,14 @@
   .q-instr{font-family:'DM Sans',sans-serif;font-size:clamp(0.82rem,1.6vw,1rem);color:var(--muted);line-height:1.4;margin-top:2px;}
   .q-eq{font-family:'DM Serif Display',serif;font-size:clamp(1.5rem,3.2vw,2.6rem);line-height:1.35;flex:1;display:flex;align-items:center;letter-spacing:0.06em;}
   .c1 .q-eq{color:var(--c1-ink);} .c2 .q-eq{color:var(--c2-ink);} .c3 .q-eq{color:var(--c3-ink);} .c4 .q-eq{color:var(--c4-ink);}
+
+  /* BIDMAS tile bank + empty boxes */
+  .tile-bank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px;}
+  .tile{font-family:'DM Serif Display',serif;font-size:clamp(0.85rem,1.6vw,1.1rem);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:7px;border:2px solid var(--c4-bdr);background:rgba(154,31,31,0.10);color:var(--c4-ink);font-weight:700;flex-shrink:0;}
+  .eq-row{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+  .eq-box{width:36px;height:36px;border-radius:7px;border:2.5px dashed var(--c4-bdr);background:rgba(154,31,31,0.04);flex-shrink:0;}
+  .eq-sep{font-family:'DM Serif Display',serif;font-size:clamp(1rem,2vw,1.3rem);color:var(--c4-ink);font-weight:700;}
+
   .pbar{height:4px;background:rgba(0,0,0,.08);flex-shrink:0;}
   .pfill{height:100%;background:var(--navy);transition:width .4s;}
   .bnav{height:44px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0;}
@@ -81,7 +89,7 @@
 <div class="slides" id="slideWrap"></div>
 <div class="pbar"><div class="pfill" id="pf" style="width:0%"></div></div>
 <div class="bnav">
-  <div class="nav-info" id="navInfo">Do Now 1 of 5</div>
+  <div class="nav-info" id="navInfo"></div>
   <div class="nbtns">
     <button class="nb" id="pb" disabled>← Back</button>
     <button class="nb prim" id="nb">Next →</button>
@@ -154,7 +162,39 @@ const DONOWS = [
     ]
   },
 
-  // ── DO NOW 5 · Equations with Fractions ─────────────────────────────
+  // ── DO NOW 5 · Index Laws, Recurring Decimals & BIDMAS ──────────────
+  {
+    lesson: 'Index Laws, Recurring Decimals & BIDMAS',
+    cards: [
+      // C1: Single index law — find n
+      { col:'c1', type:'Index Laws', instr:'Find the value of $n$:',
+        qtext:'$\\dfrac{x^{n}}{x^{5}} = x^{2}$',
+        hint:'When dividing same bases, subtract the powers.',
+        ans:'$n = 7$',
+        note:'xⁿ ÷ x⁵ = xⁿ⁻⁵ · n − 5 = 2 · n = 7' },
+
+      // C2: Fractional equation
+      { col:'c2', type:'Equations', instr:'Solve for $x$:',
+        qtext:'$\\dfrac{x}{3} + 5 = 11$',
+        hint:'Subtract 5 from both sides first, then multiply.',
+        ans:'$x = 18$',
+        note:'x/3 = 6 · x = 6 × 3 = 18' },
+
+      // C3: Two-dot recurring decimal to fraction
+      { col:'c3', type:'Recurring Decimal', instr:'Write as a fraction in simplest form:',
+        qtext:'$0.\\dot{1}\\dot{8}$',
+        hint:'The dots show the first AND last digit of the repeating block — so 18 repeats.',
+        ans:'$\\dfrac{2}{11}$',
+        note:'Let x = 0.1818… · 100x = 18.1818… · 99x = 18 · x = 18/99 = 2/11' },
+
+      // C4: BIDMAS puzzle — tiles + empty boxes
+      { col:'c4', type:'🧩 BIDMAS Puzzle', bidmas: true,
+        ans:'$(2 + 4)^{2} - 9 \\ × \\ 3 = 9$',
+        note:'Brackets first: (2+4)² = 36 · then 9×3 = 27 · 36 − 27 = 9 ✓' },
+    ]
+  },
+
+  // ── DO NOW 6 · Equations with Fractions ─────────────────────────────
   {
     lesson: 'Equations with Fractions',
     cards: [
@@ -192,11 +232,43 @@ DONOWS.forEach((dn, idx) => {
   tag.textContent = dn.lesson;
   const grid = document.createElement('div');
   grid.className = 'grid';
+
   dn.cards.forEach((c, ci) => {
     const card = document.createElement('div');
     card.className = 'card '+c.col;
     const sizeClass = c.size?' '+c.size:'';
-    if(c.instr){
+
+    if (c.bidmas) {
+      // BIDMAS puzzle: number tiles above, fixed equation with empty boxes below
+      card.innerHTML = `
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="q-instr" style="color:var(--c4-ink);font-weight:600;font-size:clamp(0.78rem,1.5vw,0.95rem);">
+          Place each number card to make the equation equal <span style="font-family:'DM Serif Display',serif;font-size:1.3em;">9</span>
+        </div>
+        <div class="tile-bank">
+          <span class="tile">2</span>
+          <span class="tile">3</span>
+          <span class="tile">4</span>
+          <span class="tile">9</span>
+        </div>
+        <div class="eq-row">
+          <span class="eq-sep">(</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">+</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">)<sup style="font-size:0.7em">2</sup> −</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">×</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">= 9</span>
+        </div>
+        <div class="q-hint">Remember: brackets and powers before multiply before subtract</div>
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">$(2 + 4)^{2} - 9 \\times 3 = 9$</div>
+          <div class="ans-note">Brackets: $(2+4)^2 = 36$ &ensp;·&ensp; $9 \\times 3 = 27$ &ensp;·&ensp; $36 - 27 = 9$ ✓</div>
+        </div>`;
+    } else if(c.instr){
       card.innerHTML = `
         <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
         <div class="q-instr">${c.instr}</div>
@@ -220,6 +292,7 @@ DONOWS.forEach((dn, idx) => {
     }
     grid.appendChild(card);
   });
+
   slide.appendChild(tag); slide.appendChild(grid); wrap.appendChild(slide);
 });
 
@@ -229,6 +302,12 @@ const topSub=document.getElementById('topSub'),topLesson=document.getElementById
       navInfo=document.getElementById('navInfo'),pf=document.getElementById('pf'),
       pb=document.getElementById('pb'),nb=document.getElementById('nb'),
       masterBtn=document.getElementById('masterBtn');
+
+function renderSlide(i){
+  renderMathInElement(document.getElementById('dn'+i),{
+    delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false
+  });
+}
 
 function update(){
   slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
@@ -240,9 +319,7 @@ function update(){
   nb.textContent=cur===total-1?'Done ✓':'Next →';
   hideAll(); showing=false;
   masterBtn.textContent='Show Answers'; masterBtn.classList.remove('on');
-  renderMathInElement(document.getElementById('dn'+cur),{
-    delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false
-  });
+  renderSlide(cur);
 }
 function hideAll(){document.querySelectorAll('.ans-wrap').forEach(el=>el.classList.remove('on'));}
 function toggleAnswers(){
@@ -250,9 +327,7 @@ function toggleAnswers(){
   for(let ci=0;ci<4;ci++){const el=document.getElementById(`a${cur}-${ci}`);if(el)el.classList.toggle('on',showing);}
   masterBtn.textContent=showing?'Hide Answers':'Show Answers';
   masterBtn.classList.toggle('on',showing);
-  if(showing) renderMathInElement(document.getElementById('dn'+cur),{
-    delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false
-  });
+  if(showing) renderSlide(cur);
 }
 pb.onclick=()=>{if(cur>0){cur--;update();}};
 nb.onclick=()=>{if(cur<total-1){cur++;update();}};
@@ -261,11 +336,6 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft'){e.preventDefault();if(cur>0){cur--;update();}}
 });
 update();
-document.addEventListener('DOMContentLoaded',()=>{
-  renderMathInElement(document.body,{
-    delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false
-  });
-});
 </script>
 </body>
 </html>

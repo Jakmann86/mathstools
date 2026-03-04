@@ -197,6 +197,46 @@
   .c3 .pk-badge { background: rgba(76,46,168,0.12); color: var(--c3-ink); }
   .c4 .pk-badge { background: rgba(154,31,31,0.12); color: var(--c4-ink); }
 
+  /* BIDMAS tile bank */
+  .tile-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tile {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(0.85rem, 1.6vw, 1.1rem);
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 7px;
+    border: 2px solid var(--c4-bdr);
+    background: rgba(154,31,31,0.10);
+    color: var(--c4-ink);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  /* equation row with empty boxes */
+  .eq-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+  }
+  .eq-box {
+    width: 34px; height: 34px;
+    border-radius: 7px;
+    border: 2.5px dashed var(--c4-bdr);
+    background: rgba(154,31,31,0.04);
+    flex-shrink: 0;
+  }
+  .eq-sep {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--c4-ink);
+    font-weight: 700;
+  }
+
   .pbar  { height:4px; background:rgba(0,0,0,.08); flex-shrink:0; }
   .pfill { height:100%; background:var(--navy); transition:width .4s; }
 
@@ -235,7 +275,7 @@
 
 <div class="pbar"><div class="pfill" id="pf" style="width:0%"></div></div>
 <div class="bnav">
-  <div class="nav-info" id="navInfo">Do Now 1 of 4</div>
+  <div class="nav-info" id="navInfo"></div>
   <div class="nbtns">
     <button class="nb" id="pb" disabled>← Back</button>
     <button class="nb prim" id="nb">Next →</button>
@@ -243,14 +283,6 @@
 </div>
 
 <script>
-/* ══════════════════════════════════════════════════════
-   DO NOW DATA
-   DN 1–2: Prior Knowledge (fractions/decimals + integers/powers)
-   DN 3: Integer Operations (add/subtract negatives, absolute value, word problem)
-   DN 4: Dividing Integers & Mixed Operations
-   Card colours: c1=teal, c2=amber, c3=purple, c4=coral(always puzzle)
-══════════════════════════════════════════════════════ */
-
 const DONOWS = [
 
   // ── DO NOW 1 · Prior Knowledge: Fractions & Decimals ─────────────────────
@@ -261,7 +293,7 @@ const DONOWS = [
         col:'c1', type:'Fractions', badge:'prior knowledge',
         instr:'Simplify:',
         qtext:'36/48',
-        ans:'3/4', note:'HCF(36,48) = 12 · 36÷12 = 3 · 48÷12 = 4 · Answer: 3/4'
+        ans:'3/4', note:'HCF(36,48) = 12 · 36÷12 = 3 · 48÷12 = 4'
       },
       {
         col:'c2', type:'Fractions', badge:'prior knowledge',
@@ -272,7 +304,7 @@ const DONOWS = [
         col:'c3', type:'Decimals', badge:'prior knowledge',
         instr:'Write as a fraction in simplest form:',
         qtext:'0.65',
-        ans:'13/20', note:'0.65 = 65/100 · HCF(65,100) = 5 · 65÷5=13 · 100÷5=20'
+        ans:'13/20', note:'0.65 = 65/100 · HCF = 5 · 65÷5=13 · 100÷5=20'
       },
       {
         col:'c4', type:'🧩 Puzzle',
@@ -295,7 +327,7 @@ const DONOWS = [
         col:'c2', type:'Integers', badge:'prior knowledge',
         instr:'Find the missing number:',
         qtext:'? × (−6) = 42',
-        ans:'−7', note:'42 ÷ (−6) = −7 · Negative × Negative = Positive ✓'
+        ans:'−7', note:'42 ÷ (−6) = −7 · Neg × Neg = Pos ✓'
       },
       {
         col:'c3', type:'Powers', badge:'prior knowledge',
@@ -354,18 +386,18 @@ const DONOWS = [
         col:'c2', type:'Division',
         instr:'Find the missing number:',
         qtext:'? ÷ (−8) = 6',
-        ans:'−48', note:'Rearrange: ? = 6 × (−8) = −48 · Check: −48 ÷ (−8) = 6 ✓ · Neg ÷ Neg = Positive ✓'
+        ans:'−48', note:'? = 6 × (−8) = −48 · Check: −48 ÷ (−8) = 6 ✓'
       },
       {
         col:'c3', type:'Division',
         instr:'Find the missing number:',
         qtext:'(−54) ÷ ? = −9',
-        ans:'6', note:'Rearrange: ? = (−54) ÷ (−9) = 6 · Neg ÷ Neg = Positive · Check: (−54) ÷ 6 = −9 ✓'
+        ans:'6', note:'? = (−54) ÷ (−9) = 6 · Check: (−54) ÷ 6 = −9 ✓'
       },
       {
         col:'c4', type:'🧩 Puzzle',
         qtext:'A lift starts at floor 0. It goes down 5 floors, up 3 floors, then down 4 more. What floor is it on? How many floors below the start?', size:'sm',
-        ans:'Floor −6 · 6 floors below', note:'0 − 5 = −5 · −5 + 3 = −2 · −2 − 4 = −6 · The lift is on floor −6, which is 6 floors below floor 0'
+        ans:'Floor −6 · 6 floors below', note:'0 − 5 = −5 · −5 + 3 = −2 · −2 − 4 = −6'
       },
     ]
   },
@@ -401,6 +433,39 @@ const DONOWS = [
     ]
   },
 
+  // ── DO NOW 6 · Roots, Conversions & BIDMAS ───────────────────────────────
+  {
+    lesson: 'Lesson 4 · Roots, Conversions & BIDMAS',
+    cards: [
+      {
+        col:'c1', type:'Roots',
+        instr:'Calculate both:',
+        qtext:'√81 and ∛(−125)', size:'med',
+        hint:'One has two answers. Does the other?',
+        ans:'±9 and −5', note:'√81 = +9 and −9 · ∛(−125) = −5 only · (−5)³ = −125 ✓'
+      },
+      {
+        col:'c2', type:'Conversions',
+        instr:'Write as a percentage AND as a fraction in its simplest form:',
+        qtext:'0.35', size:'med',
+        ans:'35%  and  7/20', note:'0.35 × 100 = 35% · 35/100 → HCF = 5 → 7/20'
+      },
+      {
+        col:'c3', type:'Conversions',
+        instr:'Write as a decimal AND as a percentage:',
+        qtext:'9/25', size:'med',
+        ans:'0.36  and  36%', note:'9 ÷ 25 = 0.36 · 0.36 × 100 = 36%'
+      },
+      {
+        col:'c4', type:'🧩 BIDMAS Puzzle',
+        qtext:'', size:'sm',
+        hint:'Use each of these once. You may use brackets.',
+        ans:'(3 + 7) × 4 − 2 = 38', note:'Brackets first: (3+7)=10 · 10×4=40 · 40−2=38 · Other arrangements also work — discuss!',
+        bidmas: true
+      },
+    ]
+  },
+
 ];
 
 /* ── BUILD SLIDES ── */
@@ -424,7 +489,39 @@ DONOWS.forEach((dn, idx) => {
 
     const sizeClass = c.size ? ' ' + c.size : '';
 
-    if (c.instr) {
+    // Special render for BIDMAS puzzle card
+    if (c.bidmas) {
+      card.innerHTML = `
+        <div class="q-row">
+          <div class="q-dot">${ci + 1}</div>
+          <div class="q-type">${c.type}</div>
+        </div>
+        <div class="q-instr" style="color:var(--c4-ink);font-weight:600;font-size:clamp(0.78rem,1.5vw,0.95rem);">Place each number card into the correct box to make <span style="font-family:'DM Serif Display',serif;font-size:1.3em;">38</span></div>
+        <div class="tile-bank">
+          <span class="tile">2</span>
+          <span class="tile">3</span>
+          <span class="tile">4</span>
+          <span class="tile">7</span>
+        </div>
+        <div class="eq-row">
+          <span class="eq-sep">(</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">+</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">) ×</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">−</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">= 38</span>
+        </div>
+        <div class="q-hint">Think about BIDMAS — which operation happens first?</div>
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">One solution</div>
+          <div class="ans-val" style="font-size:clamp(1rem,2vw,1.5rem)">${c.ans}</div>
+          <div class="ans-note">${c.note}</div>
+        </div>
+      `;
+    } else if (c.instr) {
       card.innerHTML = `
         <div class="q-row">
           <div class="q-dot">${ci + 1}</div>
