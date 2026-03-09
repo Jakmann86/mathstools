@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Y8 · Unit 1 · Do Nows</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -12,10 +14,10 @@
     --text:   #1a1a2e;
     --muted:  #6a6a8a;
 
-    --c1-bg:  #dff0ed; --c1-bdr: #9dd4cc; --c1-ink: #0a6b5e;
-    --c2-bg:  #fdf0dc; --c2-bdr: #f0c472; --c2-ink: #7a4800;
-    --c3-bg:  #e8e4f8; --c3-bdr: #b8aeed; --c3-ink: #4c2ea8;
-    --c4-bg:  #fde8e8; --c4-bdr: #f0a8a8; --c4-ink: #9a1f1f;
+    --c1-bg:  #dff0ed; --c1-bdr: #9dd4cc; --c1-ink: #064d43;
+    --c2-bg:  #fdf0dc; --c2-bdr: #f0c472; --c2-ink: #5c3600;
+    --c3-bg:  #e8e4f8; --c3-bdr: #b8aeed; --c3-ink: #3a2080;
+    --c4-bg:  #fde8e8; --c4-bdr: #f0a8a8; --c4-ink: #7a1818;
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -53,13 +55,14 @@
   .toggle-btn:hover { background:rgba(255,255,255,.22); }
   .toggle-btn.on    { background:#00b4a0; border-color:#00b4a0; }
 
-  .slides { flex:1; position:relative; overflow:hidden; min-height:0; }
+  .slides { flex:1; position:relative; overflow:auto; min-height:0; }
   .slide {
     position:absolute; inset:0;
     display:flex; flex-direction:column; justify-content:center; align-items:center;
     padding:14px 20px;
     opacity:0; transform:translateY(14px); pointer-events:none;
     transition:opacity .35s, transform .35s;
+    overflow-y:auto;
   }
   .slide.active { opacity:1; transform:translateY(0); pointer-events:all; }
 
@@ -86,8 +89,9 @@
     display:flex;
     flex-direction:column;
     gap:10px;
-    overflow:hidden;
+    overflow:visible;
     position:relative;
+    min-height:0;
   }
 
   .card.c1 { background:var(--c1-bg); border-color:var(--c1-bdr); }
@@ -235,6 +239,61 @@
     font-size: clamp(1rem, 2vw, 1.3rem);
     color: var(--c4-ink);
     font-weight: 700;
+  }
+
+  /* KaTeX sizing */
+  .katex { font-size: 1em; }
+  .sub-expr .katex { font-size: 1em; }
+  .frac-tile .katex { font-size: 1em; }
+  .ans-val .katex { font-size: 0.85em; }
+  .ans-note .katex { font-size: 0.75em; }
+
+  /* Sub-question layout for multi-part cards */
+  .sub-q {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+  }
+  .sub-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+    font-weight: 700;
+    color: inherit;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+  .sub-expr {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.5rem, 3.4vw, 2.8rem);
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  /* Ordering fraction tiles — large, no blank slots */
+  .frac-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+  .frac-tile {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+    padding: 12px 22px;
+    border-radius: 14px;
+    border: 2.5px solid var(--c3-bdr);
+    background: rgba(58,32,128,0.08);
+    color: var(--c3-ink);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .pbar  { height:4px; background:rgba(0,0,0,.08); flex-shrink:0; }
@@ -466,7 +525,78 @@ const DONOWS = [
     ]
   },
 
+  // ── DO NOW 7 · Adding & Subtracting Fractions (with negatives) ───────────
+  {
+    lesson: 'Lesson 5 · Adding & Subtracting Negative Fractions',
+    cards: [
+      {
+        col:'c1', type:'Same Denominator',
+        instr:'Calculate:',
+        qtext:'', size:'sm',
+        ans:'a) −3/5     b) 1/2',
+        ansFracs: [
+          { label:'a)', sign:'−', num:'3', den:'5' },
+          { label:'b)', num:'1', den:'2' }
+        ],
+        note:'a) 1/5 + (−4/5) = 1/5 − 4/5 = −3/5 · b) (−3/8) − (−7/8) = −3/8 + 7/8 = 4/8 = 1/2',
+        subqs: [
+          { label:'a)', num1:'1', den1:'5', op:'+', sign2:'−', num2:'4', den2:'5' },
+          { label:'b)', sign1:'−', num1:'3', den1:'8', op:'−', sign2:'−', num2:'7', den2:'8' }
+        ]
+      },
+      {
+        col:'c2', type:'Different Denominators',
+        instr:'Calculate:',
+        qtext:'', size:'sm',
+        ans:'a) −5/6     b) 1 3/20',
+        ansFracs: [
+          { label:'a)', sign:'−', num:'5', den:'6' },
+          { label:'b)', whole:'1', num:'3', den:'20' }
+        ],
+        note:'a) −4/6 + (−1/6) = −5/6 · b) 15/20 − (−8/20) = 15/20 + 8/20 = 23/20 = 1 3/20',
+        subqs: [
+          { label:'a)', sign1:'−', num1:'2', den1:'3', op:'+', sign2:'−', num2:'1', den2:'6' },
+          { label:'b)', num1:'3', den1:'4', op:'−', sign2:'−', num2:'2', den2:'5' }
+        ]
+      },
+      {
+        col:'c3', type:'Ordering Fractions',
+        qtext:'', size:'sm',
+        hint:'Convert them all to the same form first.',
+        ans:'1/2 , 3/4 , 7/5 , 2 , 9/4',
+        ansOrder: [
+          {num:'1', den:'2'},
+          {num:'3', den:'4'},
+          {num:'7', den:'5'},
+          {whole:'2'},
+          {num:'9', den:'4'}
+        ],
+        note:'As decimals: 1/2 = 0.5 · 3/4 = 0.75 · 7/5 = 1.4 · 2 = 2 · 9/4 = 2.25',
+        ordering: true,
+        fracs: [
+          {num:'3', den:'4'},
+          {whole:'2'},
+          {num:'7', den:'5'},
+          {num:'1', den:'2'},
+          {num:'9', den:'4'}
+        ]
+      },
+      {
+        col:'c4', type:'🧩 BIDMAS Puzzle',
+        qtext:'', size:'sm',
+        hint:'Remember: multiplication before addition!',
+        ans:'5 + 4 × (8 − 3) = 25', note:'BIDMAS: brackets first (8−3)=5 · then multiply 4×5=20 · then add 5+20=25',
+        bidmas2: true
+      },
+    ]
+  },
+
 ];
+
+/* ── HELPER: KaTeX fraction HTML ── */
+function frac(num, den) {
+  return katex.renderToString(`\\frac{${num}}{${den}}`, { throwOnError: false });
+}
 
 /* ── BUILD SLIDES ── */
 const wrap = document.getElementById('slideWrap');
@@ -489,7 +619,7 @@ DONOWS.forEach((dn, idx) => {
 
     const sizeClass = c.size ? ' ' + c.size : '';
 
-    // Special render for BIDMAS puzzle card
+    // Special render for BIDMAS puzzle card (Do Now 6 style)
     if (c.bidmas) {
       card.innerHTML = `
         <div class="q-row">
@@ -497,31 +627,129 @@ DONOWS.forEach((dn, idx) => {
           <div class="q-type">${c.type}</div>
         </div>
         <div class="q-instr" style="color:var(--c4-ink);font-weight:600;font-size:clamp(0.78rem,1.5vw,0.95rem);">Place each number card into the correct box to make <span style="font-family:'DM Serif Display',serif;font-size:1.3em;">38</span></div>
-        <div class="tile-bank">
-          <span class="tile">2</span>
-          <span class="tile">3</span>
-          <span class="tile">4</span>
-          <span class="tile">7</span>
+        <div class="tile-bank" style="gap:12px; margin-top:6px;">
+          <span class="tile" style="width:52px;height:52px;font-size:clamp(1.3rem,2.6vw,1.8rem);">2</span>
+          <span class="tile" style="width:52px;height:52px;font-size:clamp(1.3rem,2.6vw,1.8rem);">3</span>
+          <span class="tile" style="width:52px;height:52px;font-size:clamp(1.3rem,2.6vw,1.8rem);">4</span>
+          <span class="tile" style="width:52px;height:52px;font-size:clamp(1.3rem,2.6vw,1.8rem);">7</span>
         </div>
-        <div class="eq-row">
-          <span class="eq-sep">(</span>
-          <span class="eq-box"></span>
-          <span class="eq-sep">+</span>
-          <span class="eq-box"></span>
-          <span class="eq-sep">) ×</span>
-          <span class="eq-box"></span>
-          <span class="eq-sep">−</span>
-          <span class="eq-box"></span>
-          <span class="eq-sep">= 38</span>
+        <div class="eq-row" style="gap:8px; margin-top:10px; flex:1; align-items:center;">
+          <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">(</span>
+          <span class="eq-box" style="width:52px;height:52px;"></span>
+          <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">+</span>
+          <span class="eq-box" style="width:52px;height:52px;"></span>
+          <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">) ×</span>
+          <span class="eq-box" style="width:52px;height:52px;"></span>
+          <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">−</span>
+          <span class="eq-box" style="width:52px;height:52px;"></span>
+          <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">= 38</span>
         </div>
-        <div class="q-hint">Think about BIDMAS — which operation happens first?</div>
         <div class="ans-wrap" id="a${idx}-${ci}">
           <div class="ans-lbl">One solution</div>
           <div class="ans-val" style="font-size:clamp(1rem,2vw,1.5rem)">${c.ans}</div>
           <div class="ans-note">${c.note}</div>
         </div>
       `;
-    } else if (c.instr) {
+    }
+    // Special render for BIDMAS2 puzzle card (Do Now 7 — brackets on right, no instruction text)
+    else if (c.bidmas2) {
+      card.innerHTML = `
+        <div class="q-row">
+          <div class="q-dot">${ci + 1}</div>
+          <div class="q-type">${c.type}</div>
+        </div>
+        <div class="tile-bank" style="gap:12px; margin-top:8px;">
+          <span class="tile" style="width:56px;height:56px;font-size:clamp(1.4rem,2.8vw,2rem);">3</span>
+          <span class="tile" style="width:56px;height:56px;font-size:clamp(1.4rem,2.8vw,2rem);">4</span>
+          <span class="tile" style="width:56px;height:56px;font-size:clamp(1.4rem,2.8vw,2rem);">5</span>
+          <span class="tile" style="width:56px;height:56px;font-size:clamp(1.4rem,2.8vw,2rem);">8</span>
+        </div>
+        <div class="eq-row" style="gap:8px; margin-top:12px; flex:1; align-items:center;">
+          <span class="eq-box" style="width:56px;height:56px;"></span>
+          <span class="eq-sep" style="font-size:clamp(1.6rem,3.4vw,2.6rem);">+</span>
+          <span class="eq-box" style="width:56px;height:56px;"></span>
+          <span class="eq-sep" style="font-size:clamp(1.6rem,3.4vw,2.6rem);">× (</span>
+          <span class="eq-box" style="width:56px;height:56px;"></span>
+          <span class="eq-sep" style="font-size:clamp(1.6rem,3.4vw,2.6rem);">−</span>
+          <span class="eq-box" style="width:56px;height:56px;"></span>
+          <span class="eq-sep" style="font-size:clamp(1.6rem,3.4vw,2.6rem);">) = 25</span>
+        </div>
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">One solution</div>
+          <div class="ans-val" style="font-size:clamp(1rem,2vw,1.5rem)">${c.ans}</div>
+          <div class="ans-note">${c.note}</div>
+        </div>
+      `;
+    }
+    // Special render for sub-questions with KaTeX fractions
+    else if (c.subqs) {
+      const subHTML = c.subqs.map(sq => {
+        // Build full LaTeX: (\sign1 \frac{n1}{d1}) op (\sign2 \frac{n2}{d2}) = ?
+        const s1 = sq.sign1 ? sq.sign1 : '';
+        const s2 = sq.sign2 ? sq.sign2 : '';
+        const latex = `\\left(${s1}\\frac{${sq.num1}}{${sq.den1}}\\right) ${sq.op} \\left(${s2}\\frac{${sq.num2}}{${sq.den2}}\\right) = \\;?`;
+        const rendered = katex.renderToString(latex, { throwOnError: false });
+        return `<div class="sub-q">
+          <span class="sub-label">${sq.label}</span>
+          <span class="sub-expr">${rendered}</span>
+        </div>`;
+      }).join('');
+      // Build answer with KaTeX fractions
+      const ansHTML = c.ansFracs ? c.ansFracs.map(af => {
+        let latex = '';
+        if (af.sign) latex += af.sign;
+        if (af.whole && af.num) {
+          latex += af.whole + '\\,' + `\\frac{${af.num}}{${af.den}}`;
+        } else if (af.whole) {
+          latex += af.whole;
+        } else if (af.num) {
+          latex += `\\frac{${af.num}}{${af.den}}`;
+        }
+        return af.label + ' ' + katex.renderToString(latex, { throwOnError: false });
+      }).join('&nbsp;&nbsp;&nbsp;&nbsp;') : c.ans;
+      card.innerHTML = `
+        <div class="q-row">
+          <div class="q-dot">${ci + 1}</div>
+          <div class="q-type">${c.type}</div>
+        </div>
+        <div class="q-instr">${c.instr}</div>
+        ${subHTML}
+        ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answers</div>
+          <div class="ans-val" style="font-size:clamp(0.95rem,2.2vw,1.6rem)">${ansHTML}</div>
+          <div class="ans-note">${c.note}</div>
+        </div>
+      `;
+    }
+    // Special render for ordering fractions — large tiles, no blank slots
+    else if (c.ordering) {
+      const fracTiles = c.fracs.map(f => {
+        if (f.whole) return `<span class="frac-tile">${f.whole}</span>`;
+        return `<span class="frac-tile">${frac(f.num, f.den)}</span>`;
+      }).join('');
+      // Build answer with KaTeX fractions and < signs
+      const ansHTML = c.ansOrder ? c.ansOrder.map(af => {
+        if (af.whole) return katex.renderToString(af.whole, { throwOnError: false });
+        return frac(af.num, af.den);
+      }).join(' <span style="opacity:0.5; font-size:0.85em; margin:0 4px;">&lt;</span> ') : c.ans;
+      card.innerHTML = `
+        <div class="q-row">
+          <div class="q-dot">${ci + 1}</div>
+          <div class="q-type">${c.type}</div>
+        </div>
+        <div class="q-instr" style="color:var(--c3-ink);font-weight:600;font-size:clamp(0.82rem,1.6vw,1rem);">Order from smallest to largest:</div>
+        <div class="frac-bank">${fracTiles}</div>
+        ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val" style="font-size:clamp(0.95rem,2.2vw,1.5rem)">${ansHTML}</div>
+          <div class="ans-note">${c.note}</div>
+        </div>
+      `;
+    }
+    // Standard card with instruction line
+    else if (c.instr) {
       card.innerHTML = `
         <div class="q-row">
           <div class="q-dot">${ci + 1}</div>
@@ -537,7 +765,9 @@ DONOWS.forEach((dn, idx) => {
           ${c.note ? `<div class="ans-note">${c.note}</div>` : ''}
         </div>
       `;
-    } else {
+    }
+    // Default card
+    else {
       card.innerHTML = `
         <div class="q-row">
           <div class="q-dot">${ci + 1}</div>
