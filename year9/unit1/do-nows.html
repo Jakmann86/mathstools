@@ -3,86 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Y9 · Rational Numbers · Do Nows</title>
+<title>Y9 · Unit 1 · Do Nows · Complete</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 <style>
   :root {
-    --bg:#f0ede8; --navy:#0f2044; --text:#1a1a2e; --muted:#6a6a8a;
-    --c1-bg:#dff0ed; --c1-bdr:#9dd4cc; --c1-ink:#0a6b5e;
-    --c2-bg:#fdf0dc; --c2-bdr:#f0c472; --c2-ink:#7a4800;
-    --c3-bg:#e8e4f8; --c3-bdr:#b8aeed; --c3-ink:#4c2ea8;
-    --c4-bg:#fde8e8; --c4-bdr:#f0a8a8; --c4-ink:#9a1f1f;
+    --bg:#f0ede8; --navy:#0f2044; --text:#111122; --muted:#3e3e5c;
+    --c1-bg:#dff0ed; --c1-bdr:#7ac4b8; --c1-ink:#043d35;
+    --c2-bg:#fdf0dc; --c2-bdr:#dba840; --c2-ink:#422400;
+    --c3-bg:#e8e4f8; --c3-bdr:#9688dd; --c3-ink:#2a1660;
+    --c4-bg:#fde8e8; --c4-bdr:#e08080; --c4-ink:#5c1010;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html,body{height:100%;overflow:hidden;}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;}
-  .topbar{background:var(--navy);color:white;height:50px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .topbar{background:var(--navy);color:white;height:54px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
   .top-left{display:flex;align-items:center;gap:16px;}
-  .top-title{font-family:'DM Serif Display',serif;font-size:1rem;}
-  .top-sub{font-size:0.68rem;opacity:0.45;letter-spacing:0.13em;text-transform:uppercase;}
-  .toggle-btn{background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.28);color:white;border-radius:8px;padding:6px 18px;font-size:0.78rem;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:0.04em;}
+  .top-title{font-family:'DM Serif Display',serif;font-size:1.15rem;}
+  .top-sub{font-size:0.78rem;opacity:0.5;letter-spacing:0.13em;text-transform:uppercase;}
+  .toggle-btn{background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.28);color:white;border-radius:8px;padding:7px 20px;font-size:0.88rem;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:0.04em;}
   .toggle-btn:hover{background:rgba(255,255,255,.22);}
   .toggle-btn.on{background:#00b4a0;border-color:#00b4a0;}
   .slides{flex:1;position:relative;overflow:hidden;min-height:0;}
   .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:14px 20px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .35s,transform .35s;}
   .slide.active{opacity:1;transform:translateY(0);pointer-events:all;}
-  .lesson-tag{font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;text-align:center;}
-  .grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:13px;width:100%;height:100%;max-width:1200px;max-height:640px;margin:0 auto;}
-  .card{border-radius:18px;padding:20px 26px;border:2.5px solid;display:flex;flex-direction:column;gap:10px;overflow:hidden;position:relative;}
+  .lesson-tag{font-size:0.78rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;text-align:center;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:14px;width:100%;height:100%;max-width:1200px;max-height:660px;margin:0 auto;}
+  .card{border-radius:18px;padding:22px 28px;border:2.5px solid;display:flex;flex-direction:column;gap:10px;overflow:visible;position:relative;}
   .card.c1{background:var(--c1-bg);border-color:var(--c1-bdr);}
   .card.c2{background:var(--c2-bg);border-color:var(--c2-bdr);}
   .card.c3{background:var(--c3-bg);border-color:var(--c3-bdr);}
   .card.c4{background:var(--c4-bg);border-color:var(--c4-bdr);}
-  .q-row{display:flex;align-items:center;gap:9px;}
-  .q-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:800;color:white;flex-shrink:0;}
+  .q-row{display:flex;align-items:center;gap:10px;}
+  .q-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.95rem;font-weight:800;color:white;flex-shrink:0;}
   .c1 .q-dot{background:var(--c1-ink);} .c2 .q-dot{background:var(--c2-ink);} .c3 .q-dot{background:var(--c3-ink);} .c4 .q-dot{background:var(--c4-ink);}
-  .q-type{font-size:0.62rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;opacity:0.6;}
+  .q-type{font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;opacity:0.75;}
   .c1 .q-type{color:var(--c1-ink);} .c2 .q-type{color:var(--c2-ink);} .c3 .q-type{color:var(--c3-ink);} .c4 .q-type{color:var(--c4-ink);}
-  .q-text{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,3.8vw,3rem);line-height:1.2;flex:1;display:flex;align-items:center;}
-  .q-text.sm{font-size:clamp(1.15rem,2.6vw,2rem);} .q-text.med{font-size:clamp(1.3rem,3vw,2.4rem);}
+  .q-text{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.2;flex:1;display:flex;align-items:center;}
+  .q-text.sm{font-size:clamp(1.5rem,3.2vw,2.5rem);} .q-text.med{font-size:clamp(1.7rem,3.6vw,2.8rem);}
   .c1 .q-text{color:var(--c1-ink);} .c2 .q-text{color:var(--c2-ink);} .c3 .q-text{color:var(--c3-ink);} .c4 .q-text{color:var(--c4-ink);}
-  .q-hint{font-size:0.76rem;color:var(--muted);font-style:italic;line-height:1.45;margin-top:-4px;}
-  .ans-wrap{display:none !important;flex-direction:column;gap:4px;border-top:2px dashed rgba(0,0,0,0.13);padding-top:10px;margin-top:4px;animation:fadeUp .25s ease both;}
+  .q-hint{font-size:0.92rem;color:var(--muted);font-style:italic;line-height:1.45;margin-top:-4px;}
+  .q-instr{font-family:'DM Sans',sans-serif;font-size:clamp(1rem,1.8vw,1.2rem);color:var(--muted);font-weight:500;line-height:1.4;margin-top:2px;}
+  .q-eq{font-family:'DM Serif Display',serif;font-size:clamp(1.9rem,3.8vw,3.2rem);line-height:1.35;flex:1;display:flex;align-items:center;letter-spacing:0.04em;}
+  .c1 .q-eq{color:var(--c1-ink);} .c2 .q-eq{color:var(--c2-ink);} .c3 .q-eq{color:var(--c3-ink);} .c4 .q-eq{color:var(--c4-ink);}
+  .ans-wrap{display:none !important;flex-direction:column;gap:5px;border-top:2.5px dashed rgba(0,0,0,0.18);padding-top:10px;margin-top:4px;animation:fadeUp .25s ease both;}
   .ans-wrap.on{display:flex !important;}
   @keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-  .ans-lbl{font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;opacity:0.45;}
-  .ans-val{font-family:'DM Serif Display',serif;font-size:clamp(1.1rem,2.6vw,1.9rem);line-height:1.2;}
-  .ans-note{font-size:0.74rem;color:var(--muted);line-height:1.45;}
+  .ans-lbl{font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;opacity:0.55;}
+  .ans-val{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3vw,2.3rem);line-height:1.2;}
+  .ans-note{font-size:0.9rem;color:var(--muted);line-height:1.45;}
   .c1 .ans-val{color:var(--c1-ink);} .c2 .ans-val{color:var(--c2-ink);} .c3 .ans-val{color:var(--c3-ink);} .c4 .ans-val{color:var(--c4-ink);}
-  .q-instr{font-family:'DM Sans',sans-serif;font-size:clamp(0.82rem,1.6vw,1rem);color:var(--muted);line-height:1.4;margin-top:2px;}
-  .q-eq{font-family:'DM Serif Display',serif;font-size:clamp(1.5rem,3.2vw,2.6rem);line-height:1.35;flex:1;display:flex;align-items:center;letter-spacing:0.06em;}
-  .c1 .q-eq{color:var(--c1-ink);} .c2 .q-eq{color:var(--c2-ink);} .c3 .q-eq{color:var(--c3-ink);} .c4 .q-eq{color:var(--c4-ink);}
 
   /* BIDMAS tile bank + empty boxes */
-  .tile-bank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px;}
-  .tile{font-family:'DM Serif Display',serif;font-size:clamp(0.85rem,1.6vw,1.1rem);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:7px;border:2px solid var(--c4-bdr);background:rgba(154,31,31,0.10);color:var(--c4-ink);font-weight:700;flex-shrink:0;}
-  .eq-row{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
-  .eq-box{width:36px;height:36px;border-radius:7px;border:2.5px dashed var(--c4-bdr);background:rgba(154,31,31,0.04);flex-shrink:0;}
-  .eq-sep{font-family:'DM Serif Display',serif;font-size:clamp(1rem,2vw,1.3rem);color:var(--c4-ink);font-weight:700;}
+  .tile-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
+  .tile{font-family:'DM Serif Display',serif;font-size:clamp(1rem,1.8vw,1.3rem);width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:2px solid var(--c4-bdr);background:rgba(92,16,16,0.10);color:var(--c4-ink);font-weight:700;flex-shrink:0;}
+  .eq-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .eq-box{width:42px;height:42px;border-radius:8px;border:2.5px dashed var(--c4-bdr);background:rgba(92,16,16,0.04);flex-shrink:0;}
+  .eq-sep{font-family:'DM Serif Display',serif;font-size:clamp(1.2rem,2.4vw,1.6rem);color:var(--c4-ink);font-weight:700;}
 
   .pbar{height:4px;background:rgba(0,0,0,.08);flex-shrink:0;}
   .pfill{height:100%;background:var(--navy);transition:width .4s;}
-  .bnav{height:44px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0;}
-  .nav-info{font-size:0.7rem;color:rgba(255,255,255,.38);letter-spacing:0.12em;text-transform:uppercase;}
+  .bnav{height:46px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 28px;flex-shrink:0;}
+  .nav-info{font-size:0.8rem;color:rgba(255,255,255,.45);letter-spacing:0.12em;text-transform:uppercase;}
   .nbtns{display:flex;gap:8px;}
-  .nb{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;border-radius:7px;padding:6px 18px;font-size:0.78rem;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .18s;}
+  .nb{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;border-radius:7px;padding:7px 20px;font-size:0.88rem;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .18s;}
   .nb:hover{background:rgba(255,255,255,.2);} .nb:disabled{opacity:.28;cursor:default;}
   .nb.prim{background:#00b4a0;border-color:#00b4a0;color:var(--navy);font-weight:700;}
-  .katex{font-size:0.85em;} .q-text .katex{font-size:0.9em;} .q-text.sm .katex{font-size:0.75em;}
-  .q-eq .katex{font-size:1em;} .ans-val .katex{font-size:0.85em;} .ans-note .katex{font-size:0.75em;}
+  .katex{font-size:1em;} .q-text .katex{font-size:1em;} .q-text.sm .katex{font-size:0.9em;}
+  .q-eq .katex{font-size:1.1em;} .ans-val .katex{font-size:0.95em;} .ans-note .katex{font-size:0.82em;}
 </style>
 </head>
 <body>
 <div class="topbar">
   <div class="top-left">
-    <div class="top-title">Y9 · Rational Numbers · Do Nows</div>
+    <div class="top-title">Y9 · Unit 1 · Do Nows</div>
     <div class="top-sub" id="topSub">Do Now 1</div>
   </div>
   <div style="display:flex;gap:10px;align-items:center">
-    <div style="font-size:0.68rem;opacity:.38;color:white;letter-spacing:.1em;text-transform:uppercase" id="topLesson"></div>
+    <div style="font-size:0.72rem;opacity:.42;color:white;letter-spacing:.1em;text-transform:uppercase" id="topLesson"></div>
     <button class="toggle-btn" id="masterBtn" onclick="toggleAnswers()">Show Answers</button>
   </div>
 </div>
@@ -98,7 +98,11 @@
 <script>
 const DONOWS = [
 
-  // ── DO NOW 1 · Rational Numbers: Fractions Review ───────────────────
+  // ═══════════════════════════════════════════════════════════════════
+  //  RATIONAL NUMBERS BLOCK (original Do Nows 1–6)
+  // ═══════════════════════════════════════════════════════════════════
+
+  // ── DO NOW 1 · Fractions Review ─────────────────────────────────────
   {
     lesson: 'Rational Numbers · Fractions Review',
     cards: [
@@ -144,7 +148,7 @@ const DONOWS = [
     ]
   },
 
-  // ── DO NOW 4 · Conversions, Fraction Ops & BIDMAS ───────────────────
+  // ── DO NOW 4 · Conversions & Operations ─────────────────────────────
   {
     lesson: 'Rational Numbers · Conversions & Operations',
     cards: [
@@ -158,7 +162,7 @@ const DONOWS = [
         ans:'$-\\dfrac{7}{15}$', note:'4/12 = 1/3 · 28/20 = 7/5 · 1/3 × (−7/5) = −7/15' },
       { col:'c4', type:'🧩 Puzzle', instr:'Use BIDMAS — separate into terms first:',
         qtext:'$\\left(\\dfrac{2}{3}\\right)^{2} + \\left(-\\dfrac{7}{9}\\right) \\times \\dfrac{15}{2}$', size:'sm',
-        ans:'$-\\dfrac{97}{18}$', note:'(2/3)² = 4/9 · (−7/9)×(15/2) = −35/6 · LCD=18: 4/9 = 8/18, −35/6 = −105/18 · 8/18 + (−105/18) = −97/18' },
+        ans:'$-\\dfrac{97}{18}$', note:'(2/3)² = 4/9 · (−7/9)×(15/2) = −35/6 · LCD=18 → −97/18' },
     ]
   },
 
@@ -166,31 +170,21 @@ const DONOWS = [
   {
     lesson: 'Index Laws, Recurring Decimals & BIDMAS',
     cards: [
-      // C1: Single index law — find n
       { col:'c1', type:'Index Laws', instr:'Find the value of $n$:',
         qtext:'$\\dfrac{x^{n}}{x^{5}} = x^{2}$',
         hint:'When dividing same bases, subtract the powers.',
-        ans:'$n = 7$',
-        note:'xⁿ ÷ x⁵ = xⁿ⁻⁵ · n − 5 = 2 · n = 7' },
-
-      // C2: Fractional equation
+        ans:'$n = 7$', note:'xⁿ ÷ x⁵ = xⁿ⁻⁵ · n − 5 = 2 · n = 7' },
       { col:'c2', type:'Equations', instr:'Solve for $x$:',
         qtext:'$\\dfrac{x}{3} + 5 = 11$',
         hint:'Subtract 5 from both sides first, then multiply.',
-        ans:'$x = 18$',
-        note:'x/3 = 6 · x = 6 × 3 = 18' },
-
-      // C3: Two-dot recurring decimal to fraction
+        ans:'$x = 18$', note:'x/3 = 6 · x = 6 × 3 = 18' },
       { col:'c3', type:'Recurring Decimal', instr:'Write as a fraction in simplest form:',
         qtext:'$0.\\dot{1}\\dot{8}$',
         hint:'The dots show the first AND last digit of the repeating block — so 18 repeats.',
-        ans:'$\\dfrac{2}{11}$',
-        note:'Let x = 0.1818… · 100x = 18.1818… · 99x = 18 · x = 18/99 = 2/11' },
-
-      // C4: BIDMAS puzzle — tiles + empty boxes
+        ans:'$\\dfrac{2}{11}$', note:'Let x = 0.1818… · 100x = 18.1818… · 99x = 18 · x = 18/99 = 2/11' },
       { col:'c4', type:'🧩 BIDMAS Puzzle', bidmas: true,
-        ans:'$(2 + 4)^{2} - 9 \\ × \\ 3 = 9$',
-        note:'Brackets first: (2+4)² = 36 · then 9×3 = 27 · 36 − 27 = 9 ✓' },
+        ans:'$(2 + 4)^{2} - 9 \\times 3 = 9$',
+        note:'Brackets: $(2+4)^2 = 36$ · $9 \\times 3 = 27$ · $36 - 27 = 9$ ✓' },
     ]
   },
 
@@ -200,27 +194,207 @@ const DONOWS = [
     cards: [
       { col:'c1', type:'BIDMAS', instr:'Calculate — show each step:',
         qtext:'$(3-7)^2 - \\sqrt[3]{125} + 2^3$',
-        ans:'$19$',
-        note:'$(3-7)^2 = (-4)^2 = 16$ &ensp; $\\sqrt[3]{125} = 5$ &ensp; $2^3 = 8$ &ensp; $16 - 5 + 8 = 19$' },
+        ans:'$19$', note:'$(3-7)^2 = (-4)^2 = 16$ · $\\sqrt[3]{125} = 5$ · $2^3 = 8$ · $16 - 5 + 8 = 19$' },
       { col:'c2', type:'Solve', instr:'Solve for $x$:',
         qtext:'$\\dfrac{3}{4}x - 2 = 7$',
         hint:'Multiply both sides by the reciprocal of the coefficient.',
-        ans:'$x = 12$',
-        note:'$\\tfrac{3}{4}x = 9$ &ensp; $x = 9 \\times \\tfrac{4}{3} = 12$' },
+        ans:'$x = 12$', note:'$\\tfrac{3}{4}x = 9$ · $x = 9 \\times \\tfrac{4}{3} = 12$' },
       { col:'c3', type:'Collect Like Terms', instr:'Solve for $x$ — collect $x$-terms first:',
         qtext:'$\\dfrac{3}{4}x - 1 = \\dfrac{1}{4}x + 5$',
         hint:'Subtract $\\tfrac{1}{4}x$ from both sides, then solve.',
-        ans:'$x = 12$',
-        note:'$\\tfrac{3}{4}x - \\tfrac{1}{4}x = 5 + 1$ &ensp; $\\tfrac{1}{2}x = 6$ &ensp; $x = 12$' },
+        ans:'$x = 12$', note:'$\\tfrac{3}{4}x - \\tfrac{1}{4}x = 5 + 1$ · $\\tfrac{1}{2}x = 6$ · $x = 12$' },
       { col:'c4', type:'🧩 Expand & Solve', instr:'Expand the bracket, collect like terms, solve:',
         qtext:'$\\tfrac{2}{3}(3x + 6) - \\tfrac{1}{2}x = x + 5$',
         hint:'Expand first: $\\tfrac{2}{3} \\times 3x + \\tfrac{2}{3} \\times 6$',
-        ans:'$x = 2$',
-        note:'$2x + 4 - \\tfrac{1}{2}x = x + 5$ &ensp; $\\tfrac{3}{2}x + 4 = x + 5$ &ensp; $\\tfrac{1}{2}x = 1$ &ensp; $x = 2$' },
+        ans:'$x = 2$', note:'$2x + 4 - \\tfrac{1}{2}x = x + 5$ · $\\tfrac{3}{2}x + 4 = x + 5$ · $\\tfrac{1}{2}x = 1$ · $x = 2$' },
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  BASIC INDICES BLOCK (Do Nows 7–10)
+  // ═══════════════════════════════════════════════════════════════════
+
+  // ── DO NOW 7 · Product & Quotient Rules ─────────────────────────────
+  {
+    lesson: 'Index Laws · Product & Quotient',
+    cards: [
+      { col:'c1', type:'Product Rule', instr:'Simplify — write as a single power:',
+        qtext:'$a^{3} \\times a^{5}$',
+        hint:'When multiplying same bases, what happens to the powers?',
+        ans:'$a^{8}$', note:'Same base → add the exponents: 3 + 5 = 8' },
+      { col:'c2', type:'Quotient Rule', instr:'Simplify — write as a single power:',
+        qtext:'$m^{10} \\div m^{4}$',
+        hint:'When dividing same bases, what happens to the powers?',
+        ans:'$m^{6}$', note:'Same base → subtract the exponents: 10 − 4 = 6' },
+      { col:'c3', type:'Combined', instr:'Simplify — write as a single power:',
+        qtext:'$\\dfrac{x^{7} \\times x^{3}}{x^{2}}$', size:'sm',
+        hint:'Simplify the top first, then divide.',
+        ans:'$x^{8}$', note:'Top: 7 + 3 = 10 · Then 10 − 2 = 8' },
+      { col:'c4', type:'🧩 Find the Missing Power', instr:'Find the value of $n$:',
+        qtext:'$p^{n} \\times p^{4} = p^{11}$',
+        hint:'What number added to 4 gives 11?',
+        ans:'$n = 7$', note:'n + 4 = 11 · n = 7' },
+    ]
+  },
+
+  // ── DO NOW 8 · Power of a Power & Zero Exponent ─────────────────────
+  {
+    lesson: 'Index Laws · Power of a Power & Zero Exponent',
+    cards: [
+      { col:'c1', type:'Power of a Power', instr:'Simplify — write as a single power:',
+        qtext:'$(y^{4})^{3}$',
+        hint:'When raising a power to a power, what do you do?',
+        ans:'$y^{12}$', note:'Multiply the exponents: 4 × 3 = 12' },
+      { col:'c2', type:'Zero Exponent', qtext:'Evaluate $7^{0}$',
+        hint:'Think about the pattern: 7³ = 343, 7² = 49, 7¹ = 7, 7⁰ = ?',
+        ans:'$1$', note:'Any non-zero base to the power 0 equals 1' },
+      { col:'c3', type:'Combined', instr:'Simplify:',
+        qtext:'$(k^{5})^{2} \\div k^{3}$', size:'sm',
+        hint:'Deal with the bracket first, then divide.',
+        ans:'$k^{7}$', note:'$(k^5)^2 = k^{10}$ · then $k^{10} \\div k^{3} = k^{7}$' },
+      { col:'c4', type:'🧩 True or False?', qtext:'$5^{0} + 3^{0} = 8^{0}$', size:'med',
+        hint:'Work out each side separately.',
+        ans:'False', note:'LHS: 5⁰ + 3⁰ = 1 + 1 = 2 · RHS: 8⁰ = 1 · 2 ≠ 1' },
+    ]
+  },
+
+  // ── DO NOW 9 · Mixed Index Laws ─────────────────────────────────────
+  {
+    lesson: 'Index Laws · Mixed Practice',
+    cards: [
+      { col:'c1', type:'Evaluate', qtext:'$2^{3} \\times 2^{2}$',
+        hint:'Simplify using the product rule, then evaluate.',
+        ans:'$32$', note:'$2^{3} \\times 2^{2} = 2^{5} = 32$' },
+      { col:'c2', type:'Find the Error', instr:'Amir wrote: &ensp;$(x^{3})^{4} = x^{7}$',
+        qtext:'What is wrong?', size:'sm',
+        hint:'Should you add or multiply the exponents here?',
+        ans:'Should be $x^{12}$', note:'Power of a power → multiply: 3 × 4 = 12, not add' },
+      { col:'c3', type:'Simplify', instr:'Write as a single power of 3:',
+        qtext:'$\\dfrac{3^{8}}{3^{5} \\times 3}$', size:'sm',
+        hint:'Remember: 3 = 3¹',
+        ans:'$3^{2}$', note:'Bottom: $3^5 \\times 3^1 = 3^{6}$ · then $3^{8} \\div 3^{6} = 3^{2}$' },
+      { col:'c4', type:'🧩 Puzzle', instr:'Find the value of $n$:',
+        qtext:'$(2^{n})^{3} = 2^{12}$',
+        hint:'If multiplying by 3 gives 12…',
+        ans:'$n = 4$', note:'n × 3 = 12 · n = 4' },
+    ]
+  },
+
+  // ── DO NOW 10 · Problem Solving with Indices ────────────────────────
+  {
+    lesson: 'Index Laws · Problem Solving',
+    cards: [
+      { col:'c1', type:'Evaluate', instr:'Work out — give a numerical answer:',
+        qtext:'$\\dfrac{5^{6}}{5^{4}}$',
+        ans:'$25$', note:'$5^{6} \\div 5^{4} = 5^{2} = 25$' },
+      { col:'c2', type:'Simplify', instr:'Simplify fully:',
+        qtext:'$\\dfrac{a^{3} \\times a^{5}}{(a^{2})^{3}}$', size:'sm',
+        hint:'Simplify top and bottom separately first.',
+        ans:'$a^{2}$', note:'Top: $a^{8}$ · Bottom: $a^{6}$ · $a^{8} \\div a^{6} = a^{2}$' },
+      { col:'c3', type:'Write as a Power', instr:'Write 64 as a power of 2:',
+        qtext:'$64 = 2^{\\,?}$',
+        hint:'Keep halving: 64, 32, 16, 8, 4, 2 …',
+        ans:'$2^{6}$', note:'2 × 2 × 2 × 2 × 2 × 2 = 64' },
+      { col:'c4', type:'🧩 Puzzle', instr:'A cell divides in two every hour. You start with one cell.',
+        qtext:'How many cells after 10 hours?<br>Write as a power, then evaluate.', size:'sm',
+        hint:'Each hour the number doubles…',
+        ans:'$2^{10} = 1024$', note:'After n hours: $2^{n}$ cells · $2^{10} = 1024$' },
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  COEFFICIENTS & HARDER INDICES (Do Now 11)
+  // ═══════════════════════════════════════════════════════════════════
+
+  // ── DO NOW 11 · Coefficients, Brackets, Negative & Fractional ───────
+  {
+    lesson: 'Indices · Coefficients, Brackets, Negative & Fractional',
+    cards: [
+      { col:'c1', type:'Multiply', instr:'Simplify fully:',
+        qtext:'$4a^{3} \\times 5a^{2}$',
+        hint:'Multiply the numbers, then use the index law for the letters.',
+        ans:'$20a^{5}$', note:'4 × 5 = 20 · $a^3 \\times a^2 = a^5$' },
+      { col:'c2', type:'Brackets', instr:'Simplify fully:',
+        qtext:'$(3x^{4})^{2}$',
+        hint:'The power applies to everything inside the bracket.',
+        ans:'$9x^{8}$', note:'$3^2 = 9$ · $(x^4)^2 = x^{8}$' },
+      { col:'c3', type:'Negative & Fractional', instr:'Evaluate:',
+        qtext:'$8^{-\\frac{2}{3}}$', size:'med',
+        hint:'Deal with the fraction first (root), then the negative (reciprocal).',
+        ans:'$\\dfrac{1}{4}$', note:'$8^{\\frac{1}{3}} = 2$ · $2^{2} = 4$ · negative → $\\dfrac{1}{4}$' },
+      { col:'c4', type:'🧩 Puzzle', instr:'Simplify fully:',
+        qtext:'$\\dfrac{(2y^{3})^{3}}{4y^{5}}$', size:'sm',
+        hint:'Expand the top bracket first, then simplify.',
+        ans:'$2y^{4}$', note:'$(2y^3)^3 = 8y^{9}$ · $\\dfrac{8y^{9}}{4y^{5}} = 2y^{4}$' },
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  CHALLENGE: EXPONENTIAL EQUATIONS (Do Now 12)
+  // ═══════════════════════════════════════════════════════════════════
+
+  // ── DO NOW 12 · Exponential Equations — Change the Base ─────────────
+  {
+    lesson: 'Exponential Equations · Change the Base',
+    cards: [
+      { col:'c1', type:'Solve', instr:'Solve for $x$:',
+        qtext:'$4^{x} = 8^{2}$',
+        hint:'Rewrite both sides as powers of 2.',
+        ans:'$x = 3$', note:'$2^{2x} = 2^{6}$ · so $2x = 6$' },
+      { col:'c2', type:'Solve', instr:'Solve for $x$:',
+        qtext:'$9^{x+1} = 27^{x}$',
+        hint:'Rewrite both sides as powers of 3.',
+        ans:'$x = 2$', note:'$3^{2(x+1)} = 3^{3x}$ · $2x+2 = 3x$' },
+      { col:'c3', type:'Solve', instr:'Solve for $x$:',
+        qtext:'$8^{x-1} = 4^{x+2}$',
+        hint:'Rewrite both sides as powers of 2.',
+        ans:'$x = 7$', note:'$2^{3(x-1)} = 2^{2(x+2)}$ · $3x-3 = 2x+4$' },
+      { col:'c4', type:'🧩 Solve', instr:'Solve for $x$:',
+        qtext:'$25^{x+1} = \\dfrac{1}{125^{x}}$',
+        hint:'Rewrite as powers of 5. What does $\\frac{1}{125^x}$ become?',
+        ans:'$x = -\\dfrac{2}{5}$', note:'$5^{2(x+1)} = 5^{-3x}$ · $2x+2 = -3x$ · $5x = -2$' },
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  MIXED ADVANCED (Do Now 13) — NEW
+  // ═══════════════════════════════════════════════════════════════════
+
+  // ── DO NOW 13 · Negative Powers, Fractional Powers, Equations ───────
+  {
+    lesson: 'Indices · Negative, Fractional, Equations & Puzzle',
+    cards: [
+      // C1: Negative power applied to a fraction
+      { col:'c1', type:'Negative Power', instr:'Evaluate:',
+        qtext:'$\\left(\\dfrac{3}{5}\\right)^{-2}$',
+        hint:'A negative power means flip the fraction, then apply the power.',
+        ans:'$\\dfrac{25}{9}$', note:'Flip: $\\left(\\frac{5}{3}\\right)^{2}$ · $= \\frac{25}{9}$' },
+
+      // C2: Fractional power with coefficient
+      { col:'c2', type:'Fractional Power', instr:'Simplify fully:',
+        qtext:'$\\left(27x^{6}\\right)^{\\frac{2}{3}}$', size:'sm',
+        hint:'Apply the ⅔ power to 27 and to $x^6$ separately.',
+        ans:'$9x^{4}$', note:'$27^{\\frac{2}{3}} = (\\sqrt[3]{27})^2 = 3^2 = 9$ · $(x^6)^{\\frac{2}{3}} = x^{4}$' },
+
+      // C3: Equation — change the base on both sides
+      { col:'c3', type:'Solve', instr:'Solve for $x$:',
+        qtext:'$8^{2x} = 16^{x+1}$', size:'sm',
+        hint:'Rewrite both sides as powers of 2.',
+        ans:'$x = 2$', note:'$2^{6x} = 2^{4(x+1)}$ · $6x = 4x + 4$ · $2x = 4$' },
+
+      // C4: Puzzle — roots, multiplication, division, base changes
+      { col:'c4', type:'🧩 Puzzle', instr:'Find the value of $n$:',
+        qtext:'$\\dfrac{\\sqrt{8}\\;\\times\\;\\sqrt[3]{125}}{2 \\times 5} = 2^{n}$', size:'sm',
+        hint:'Write $\\sqrt{8}$ and $\\sqrt[3]{125}$ as powers of primes first.',
+        ans:'$n = \\dfrac{1}{2}$', note:'$\\sqrt{8} = 2^{\\frac{3}{2}}$ · $\\sqrt[3]{125} = 5$ · $\\frac{2^{\\frac{3}{2}} \\times 5}{2 \\times 5} = 2^{\\frac{1}{2}}$' },
     ]
   },
 
 ];
+
+// ═══════════════════════════════════════════════════════════════════
+//  BUILD SLIDES
+// ═══════════════════════════════════════════════════════════════════
 
 const wrap = document.getElementById('slideWrap');
 DONOWS.forEach((dn, idx) => {
@@ -239,10 +413,9 @@ DONOWS.forEach((dn, idx) => {
     const sizeClass = c.size?' '+c.size:'';
 
     if (c.bidmas) {
-      // BIDMAS puzzle: number tiles above, fixed equation with empty boxes below
       card.innerHTML = `
         <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
-        <div class="q-instr" style="color:var(--c4-ink);font-weight:600;font-size:clamp(0.78rem,1.5vw,0.95rem);">
+        <div class="q-instr" style="color:var(--c4-ink);font-weight:600;font-size:clamp(0.9rem,1.6vw,1.1rem);">
           Place each number card to make the equation equal <span style="font-family:'DM Serif Display',serif;font-size:1.3em;">9</span>
         </div>
         <div class="tile-bank">
@@ -266,7 +439,7 @@ DONOWS.forEach((dn, idx) => {
         <div class="ans-wrap" id="a${idx}-${ci}">
           <div class="ans-lbl">Answer</div>
           <div class="ans-val">$(2 + 4)^{2} - 9 \\times 3 = 9$</div>
-          <div class="ans-note">Brackets: $(2+4)^2 = 36$ &ensp;·&ensp; $9 \\times 3 = 27$ &ensp;·&ensp; $36 - 27 = 9$ ✓</div>
+          <div class="ans-note">Brackets: $(2+4)^2 = 36$ · $9 \\times 3 = 27$ · $36 - 27 = 9$ ✓</div>
         </div>`;
     } else if(c.instr){
       card.innerHTML = `
