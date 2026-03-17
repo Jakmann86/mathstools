@@ -27,10 +27,10 @@
   .toggle-btn:hover{background:rgba(255,255,255,.22);}
   .toggle-btn.on{background:#00b4a0;border-color:#00b4a0;}
   .slides{flex:1;position:relative;overflow:hidden;min-height:0;}
-  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:14px 20px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .35s,transform .35s;}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:14px 20px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .35s,transform .35s;overflow-y:auto;}
   .slide.active{opacity:1;transform:translateY(0);pointer-events:all;}
-  .lesson-tag{font-size:0.78rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;text-align:center;}
-  .grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:14px;width:100%;height:100%;max-width:1200px;max-height:660px;margin:0 auto;}
+  .lesson-tag{font-size:0.78rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:10px;text-align:center;flex-shrink:0;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:14px;width:100%;max-width:1200px;min-height:min(100%,660px);margin:0 auto;padding-bottom:10px;}
   .card{border-radius:18px;padding:22px 28px;border:2.5px solid;display:flex;flex-direction:column;gap:10px;overflow:visible;position:relative;}
   .card.c1{background:var(--c1-bg);border-color:var(--c1-bdr);}
   .card.c2{background:var(--c2-bg);border-color:var(--c2-bdr);}
@@ -387,6 +387,70 @@ const DONOWS = [
         qtext:'$\\dfrac{\\sqrt{8}\\;\\times\\;\\sqrt[3]{125}}{2 \\times 5} = 2^{n}$', size:'sm',
         hint:'Write $\\sqrt{8}$ and $\\sqrt[3]{125}$ as powers of primes first.',
         ans:'$n = \\dfrac{1}{2}$', note:'$\\sqrt{8} = 2^{\\frac{3}{2}}$ · $\\sqrt[3]{125} = 5$ · $\\frac{2^{\\frac{3}{2}} \\times 5}{2 \\times 5} = 2^{\\frac{1}{2}}$' },
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  //  INDEX LAWS + EQUATIONS MIXED (Do Nows 14–15)
+  // ═══════════════════════════════════════════════════════════════════
+
+  // ── DO NOW 14 · Negative/Fractional Powers + Equations (i) ──────────
+  {
+    lesson: 'Indices · Laws & Equations Mixed (i)',
+    cards: [
+      // C1: Negative power on a fraction — gentle
+      { col:'c1', type:'Negative Power', instr:'Evaluate:',
+        qtext:'$\\left(\\dfrac{2}{7}\\right)^{-1}$',
+        hint:'A negative power flips the fraction.',
+        ans:'$\\dfrac{7}{2}$', note:'Flip the fraction: $\\left(\\frac{7}{2}\\right)^{1} = \\frac{7}{2}$' },
+
+      // C2: Fractional power with coefficient in front
+      { col:'c2', type:'Fractional Power', instr:'Simplify fully:',
+        qtext:'$\\left(16a^{8}\\right)^{\\frac{3}{4}}$', size:'sm',
+        hint:'Apply the ¾ power to 16 and to $a^8$ separately.',
+        ans:'$8a^{6}$', note:'$16^{\\frac{3}{4}} = (\\sqrt[4]{16})^3 = 2^3 = 8$ · $(a^8)^{\\frac{3}{4}} = a^{6}$' },
+
+      // C3: Solve — change base, positive answer
+      { col:'c3', type:'Solve', instr:'Solve for $x$:',
+        qtext:'$2^{3x} = 4^{x+5}$', size:'sm',
+        hint:'Rewrite 4 as a power of 2.',
+        ans:'$x = 10$', note:'$2^{3x} = 2^{2(x+5)}$ · $3x = 2x + 10$' },
+
+      // C4: Solve — change base, negative answer
+      { col:'c4', type:'🧩 Solve', instr:'Solve for $x$:',
+        qtext:'$27^{x-1} = 9^{2x}$', size:'sm',
+        hint:'Rewrite both sides as powers of 3.',
+        ans:'$x = -3$', note:'$3^{3(x-1)} = 3^{2(2x)}$ · $3x - 3 = 4x$ · $x = -3$' },
+    ]
+  },
+
+  // ── DO NOW 15 · Negative/Fractional Powers + Equations (ii) ─────────
+  {
+    lesson: 'Indices · Laws & Equations Mixed (ii)',
+    cards: [
+      // C1: Negative fractional power on a fraction
+      { col:'c1', type:'Negative & Fractional', instr:'Evaluate:',
+        qtext:'$\\left(\\dfrac{4}{9}\\right)^{-\\frac{1}{2}}$',
+        hint:'Negative → flip. Fraction ½ → square root.',
+        ans:'$\\dfrac{3}{2}$', note:'Flip: $\\left(\\frac{9}{4}\\right)^{\\frac{1}{2}} = \\frac{\\sqrt{9}}{\\sqrt{4}} = \\frac{3}{2}$' },
+
+      // C2: Simplify with coefficient and negative exponent in denominator
+      { col:'c2', type:'Simplify', instr:'Simplify fully:',
+        qtext:'$\\dfrac{(3m^{4})^{2}}{9m^{-2}}$', size:'sm',
+        hint:'Expand the top first. Dividing by $m^{-2}$ is the same as…?',
+        ans:'$m^{10}$', note:'Top: $9m^{8}$ · $\\frac{9m^{8}}{9m^{-2}} = m^{8-(-2)} = m^{10}$' },
+
+      // C3: Solve — change base, positive answer
+      { col:'c3', type:'Solve', instr:'Solve for $x$:',
+        qtext:'$125^{x} = 25^{x+2}$', size:'sm',
+        hint:'Rewrite both sides as powers of 5.',
+        ans:'$x = 4$', note:'$5^{3x} = 5^{2(x+2)}$ · $3x = 2x + 4$' },
+
+      // C4: Solve — reciprocal base, negative fractional answer
+      { col:'c4', type:'🧩 Solve', instr:'Solve for $x$:',
+        qtext:'$\\left(\\dfrac{1}{4}\\right)^{x+1} = 8^{x}$', size:'sm',
+        hint:'Rewrite both sides as powers of 2. What is $\\frac{1}{4}$ as a power of 2?',
+        ans:'$x = -\\dfrac{2}{5}$', note:'$2^{-2(x+1)} = 2^{3x}$ · $-2x - 2 = 3x$ · $5x = -2$' },
     ]
   },
 
