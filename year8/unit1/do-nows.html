@@ -13,305 +13,108 @@
     --navy:   #0f2044;
     --text:   #1a1a2e;
     --muted:  #6a6a8a;
-
     --c1-bg:  #dff0ed; --c1-bdr: #9dd4cc; --c1-ink: #064d43;
     --c2-bg:  #fdf0dc; --c2-bdr: #f0c472; --c2-ink: #5c3600;
     --c3-bg:  #e8e4f8; --c3-bdr: #b8aeed; --c3-ink: #3a2080;
     --c4-bg:  #fde8e8; --c4-bdr: #f0a8a8; --c4-ink: #7a1818;
   }
-
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body { height:100%; overflow:hidden; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .topbar {
-    background: var(--navy);
-    color: white;
-    height: 50px;
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); display:flex; flex-direction:column; }
+  .topbar { background:var(--navy); color:white; height:50px; padding:0 24px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
   .top-left { display:flex; align-items:center; gap:16px; }
   .top-title { font-family:'DM Serif Display',serif; font-size:1rem; }
-  .top-sub   { font-size:0.68rem; opacity:0.45; letter-spacing:0.13em; text-transform:uppercase; }
-  .toggle-btn {
-    background: rgba(255,255,255,0.12);
-    border: 1.5px solid rgba(255,255,255,0.28);
-    color: white;
-    border-radius:8px; padding:6px 18px;
-    font-size:0.78rem; font-family:'DM Sans',sans-serif; font-weight:600;
-    cursor:pointer; transition:all .2s; letter-spacing:0.04em;
-  }
+  .top-sub { font-size:0.68rem; opacity:0.45; letter-spacing:0.13em; text-transform:uppercase; }
+  .toggle-btn { background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.28); color:white; border-radius:8px; padding:6px 18px; font-size:0.78rem; font-family:'DM Sans',sans-serif; font-weight:600; cursor:pointer; transition:all .2s; letter-spacing:0.04em; }
   .toggle-btn:hover { background:rgba(255,255,255,.22); }
-  .toggle-btn.on    { background:#00b4a0; border-color:#00b4a0; }
-
+  .toggle-btn.on { background:#00b4a0; border-color:#00b4a0; }
   .slides { flex:1; position:relative; overflow:auto; min-height:0; }
-  .slide {
-    position:absolute; inset:0;
-    display:flex; flex-direction:column; justify-content:center; align-items:center;
-    padding:14px 20px;
-    opacity:0; transform:translateY(14px); pointer-events:none;
-    transition:opacity .35s, transform .35s;
-    overflow-y:auto;
-  }
+  .slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:14px 20px; opacity:0; transform:translateY(14px); pointer-events:none; transition:opacity .35s, transform .35s; overflow-y:auto; }
   .slide.active { opacity:1; transform:translateY(0); pointer-events:all; }
-
-  .lesson-tag {
-    font-size:0.65rem; font-weight:700; letter-spacing:0.18em;
-    text-transform:uppercase; color:var(--muted);
-    margin-bottom:10px; text-align:center;
-  }
-
-  .grid {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    grid-template-rows:1fr 1fr;
-    gap:13px;
-    width:100%; height:100%;
-    max-width:1200px; max-height:640px;
-    margin:0 auto;
-  }
-
-  .card {
-    border-radius:18px;
-    padding:20px 26px;
-    border:2.5px solid;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    overflow:visible;
-    position:relative;
-    min-height:0;
-  }
-
+  .lesson-tag { font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; text-align:center; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:13px; width:100%; height:100%; max-width:1200px; max-height:640px; margin:0 auto; }
+  .card { border-radius:18px; padding:20px 26px; border:2.5px solid; display:flex; flex-direction:column; gap:10px; overflow:visible; position:relative; min-height:0; }
   .card.c1 { background:var(--c1-bg); border-color:var(--c1-bdr); }
   .card.c2 { background:var(--c2-bg); border-color:var(--c2-bdr); }
   .card.c3 { background:var(--c3-bg); border-color:var(--c3-bdr); }
   .card.c4 { background:var(--c4-bg); border-color:var(--c4-bdr); }
-
   .q-row { display:flex; align-items:center; gap:9px; }
-  .q-dot {
-    width:26px; height:26px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    font-size:0.82rem; font-weight:800; color:white; flex-shrink:0;
-  }
+  .q-dot { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.82rem; font-weight:800; color:white; flex-shrink:0; }
   .c1 .q-dot { background:var(--c1-ink); }
   .c2 .q-dot { background:var(--c2-ink); }
   .c3 .q-dot { background:var(--c3-ink); }
   .c4 .q-dot { background:var(--c4-ink); }
-
-  .q-type {
-    font-size:0.62rem; font-weight:700; letter-spacing:0.16em;
-    text-transform:uppercase; opacity:0.6;
-  }
+  .q-type { font-size:0.62rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; opacity:0.6; }
   .c1 .q-type { color:var(--c1-ink); }
   .c2 .q-type { color:var(--c2-ink); }
   .c3 .q-type { color:var(--c3-ink); }
   .c4 .q-type { color:var(--c4-ink); }
-
-  .q-text {
-    font-family:'DM Serif Display',serif;
-    font-size:clamp(1.6rem, 3.8vw, 3rem);
-    line-height:1.2;
-    flex:1;
-    display:flex;
-    align-items:center;
-  }
-  .q-text.sm  { font-size:clamp(1.15rem,2.6vw,2rem); }
+  .q-text { font-family:'DM Serif Display',serif; font-size:clamp(1.6rem,3.8vw,3rem); line-height:1.2; flex:1; display:flex; align-items:center; }
+  .q-text.sm { font-size:clamp(1.15rem,2.6vw,2rem); }
   .q-text.med { font-size:clamp(1.3rem,3vw,2.4rem); }
-
   .c1 .q-text { color:var(--c1-ink); }
   .c2 .q-text { color:var(--c2-ink); }
   .c3 .q-text { color:var(--c3-ink); }
   .c4 .q-text { color:var(--c4-ink); }
-
-  .q-hint {
-    font-size:0.76rem; color:var(--muted); font-style:italic;
-    line-height:1.45; margin-top:-4px;
-  }
-
-  .ans-wrap {
-    display:none; flex-direction:column; gap:4px;
-    border-top:2px dashed rgba(0,0,0,0.13);
-    padding-top:10px; margin-top:4px;
-    animation:fadeUp .25s ease both;
-  }
+  .q-hint { font-size:0.76rem; color:var(--muted); font-style:italic; line-height:1.45; margin-top:-4px; }
+  .ans-wrap { display:none; flex-direction:column; gap:4px; border-top:2px dashed rgba(0,0,0,0.13); padding-top:10px; margin-top:4px; animation:fadeUp .25s ease both; }
   .ans-wrap.on { display:flex; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-
   .ans-lbl { font-size:0.6rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; opacity:0.45; }
-  .ans-val {
-    font-family:'DM Serif Display',serif;
-    font-size:clamp(1.1rem,2.6vw,1.9rem);
-    line-height:1.2;
-  }
+  .ans-val { font-family:'DM Serif Display',serif; font-size:clamp(1.1rem,2.6vw,1.9rem); line-height:1.2; }
   .ans-note { font-size:0.74rem; color:var(--muted); line-height:1.45; }
-
   .c1 .ans-val { color:var(--c1-ink); }
   .c2 .ans-val { color:var(--c2-ink); }
   .c3 .ans-val { color:var(--c3-ink); }
   .c4 .ans-val { color:var(--c4-ink); }
+  .q-instr { font-family:'DM Sans',sans-serif; font-size:clamp(0.82rem,1.6vw,1rem); color:var(--muted); line-height:1.4; margin-top:2px; }
+  .q-eq { font-family:'DM Serif Display',serif; font-size:clamp(1.6rem,3.8vw,3rem); line-height:1.2; flex:1; display:flex; align-items:center; letter-spacing:0.06em; }
+  .c1 .q-eq { color:var(--c1-ink); }
+  .c2 .q-eq { color:var(--c2-ink); }
+  .c3 .q-eq { color:var(--c3-ink); }
+  .c4 .q-eq { color:var(--c4-ink); }
+  sup { font-size:0.55em; vertical-align:baseline; position:relative; top:-0.55em; line-height:1; }
+  .pk-badge { font-size:0.6rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; padding:2px 9px; border-radius:20px; align-self:flex-start; opacity:0.7; }
+  .c1 .pk-badge { background:rgba(10,107,94,0.15); color:var(--c1-ink); }
+  .c2 .pk-badge { background:rgba(122,72,0,0.12); color:var(--c2-ink); }
+  .c3 .pk-badge { background:rgba(76,46,168,0.12); color:var(--c3-ink); }
+  .c4 .pk-badge { background:rgba(154,31,31,0.12); color:var(--c4-ink); }
+  .tile-bank { display:flex; flex-wrap:wrap; gap:6px; }
+  .tile { font-family:'DM Serif Display',serif; font-size:clamp(0.85rem,1.6vw,1.1rem); width:34px; height:34px; display:flex; align-items:center; justify-content:center; border-radius:7px; border:2px solid var(--c4-bdr); background:rgba(154,31,31,0.10); color:var(--c4-ink); font-weight:700; flex-shrink:0; }
+  .eq-row { display:flex; align-items:center; gap:5px; flex-wrap:wrap; margin-top:2px; }
+  .eq-box { width:34px; height:34px; border-radius:7px; border:2.5px dashed var(--c4-bdr); background:rgba(154,31,31,0.04); flex-shrink:0; }
+  .eq-sep { font-family:'DM Serif Display',serif; font-size:clamp(1rem,2vw,1.3rem); color:var(--c4-ink); font-weight:700; }
+  .katex { font-size:1em; }
+  .sub-expr .katex { font-size:1em; }
+  .frac-tile .katex { font-size:1em; }
+  .ans-val .katex { font-size:0.85em; }
+  .ans-note .katex { font-size:0.75em; }
+  .sub-q { display:flex; align-items:center; gap:10px; flex:1; }
+  .sub-label { font-family:'DM Sans',sans-serif; font-size:clamp(0.9rem,1.6vw,1.1rem); font-weight:700; color:inherit; opacity:0.5; flex-shrink:0; }
+  .sub-expr { font-family:'DM Serif Display',serif; font-size:clamp(1.5rem,3.4vw,2.8rem); line-height:1.4; display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+  .frac-bank { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; align-items:center; flex:1; }
+  .frac-tile { font-family:'DM Serif Display',serif; font-size:clamp(1.6rem,3.4vw,2.6rem); padding:12px 22px; border-radius:14px; border:2.5px solid var(--c3-bdr); background:rgba(58,32,128,0.08); color:var(--c3-ink); font-weight:700; display:inline-flex; align-items:center; justify-content:center; }
 
-  .q-instr {
-    font-family: 'DM Sans', sans-serif;
-    font-size: clamp(0.82rem, 1.6vw, 1rem);
-    color: var(--muted);
-    line-height: 1.4;
-    margin-top: 2px;
-  }
-  .q-eq {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.6rem, 3.8vw, 3rem);
-    line-height: 1.2;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    letter-spacing: 0.06em;
-  }
-  .c1 .q-eq { color: var(--c1-ink); }
-  .c2 .q-eq { color: var(--c2-ink); }
-  .c3 .q-eq { color: var(--c3-ink); }
-  .c4 .q-eq { color: var(--c4-ink); }
+  /* ── Do Now 8: KaTeX question cards ── */
+  .q-katex { font-family:'DM Serif Display',serif; flex:1; display:flex; align-items:center; line-height:1.3; }
+  .q-katex .katex { font-size:clamp(1.5rem,3.5vw,3rem); }
+  .q-katex.sm .katex { font-size:clamp(1.15rem,2.6vw,2.2rem); }
+  .c1 .q-katex { color:var(--c1-ink); }
+  .c2 .q-katex { color:var(--c2-ink); }
+  .c3 .q-katex { color:var(--c3-ink); }
+  .c4 .q-katex { color:var(--c4-ink); }
+  .star-badge { font-size:0.62rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:2px 9px; border-radius:20px; align-self:flex-start; opacity:0.75; }
+  .c1 .star-badge { background:rgba(6,77,67,0.12); color:var(--c1-ink); }
+  .c2 .star-badge { background:rgba(92,54,0,0.12); color:var(--c2-ink); }
+  .c3 .star-badge { background:rgba(58,32,128,0.12); color:var(--c3-ink); }
+  .c4 .star-badge { background:rgba(122,24,24,0.12); color:var(--c4-ink); }
 
-  sup {
-    font-size: 0.55em;
-    vertical-align: baseline;
-    position: relative;
-    top: -0.55em;
-    line-height: 1;
-  }
-
-  .pk-badge {
-    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
-    text-transform: uppercase; padding: 2px 9px; border-radius: 20px;
-    align-self: flex-start; opacity: 0.7;
-  }
-  .c1 .pk-badge { background: rgba(10,107,94,0.15); color: var(--c1-ink); }
-  .c2 .pk-badge { background: rgba(122,72,0,0.12);  color: var(--c2-ink); }
-  .c3 .pk-badge { background: rgba(76,46,168,0.12); color: var(--c3-ink); }
-  .c4 .pk-badge { background: rgba(154,31,31,0.12); color: var(--c4-ink); }
-
-  /* BIDMAS tile bank */
-  .tile-bank {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .tile {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(0.85rem, 1.6vw, 1.1rem);
-    width: 34px; height: 34px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 7px;
-    border: 2px solid var(--c4-bdr);
-    background: rgba(154,31,31,0.10);
-    color: var(--c4-ink);
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  /* equation row with empty boxes */
-  .eq-row {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
-    margin-top: 2px;
-  }
-  .eq-box {
-    width: 34px; height: 34px;
-    border-radius: 7px;
-    border: 2.5px dashed var(--c4-bdr);
-    background: rgba(154,31,31,0.04);
-    flex-shrink: 0;
-  }
-  .eq-sep {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    color: var(--c4-ink);
-    font-weight: 700;
-  }
-
-  /* KaTeX sizing */
-  .katex { font-size: 1em; }
-  .sub-expr .katex { font-size: 1em; }
-  .frac-tile .katex { font-size: 1em; }
-  .ans-val .katex { font-size: 0.85em; }
-  .ans-note .katex { font-size: 0.75em; }
-
-  /* Sub-question layout for multi-part cards */
-  .sub-q {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-  }
-  .sub-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: clamp(0.9rem, 1.6vw, 1.1rem);
-    font-weight: 700;
-    color: inherit;
-    opacity: 0.5;
-    flex-shrink: 0;
-  }
-  .sub-expr {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.5rem, 3.4vw, 2.8rem);
-    line-height: 1.4;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
-  }
-
-  /* Ordering fraction tiles — large, no blank slots */
-  .frac-bank {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-  }
-  .frac-tile {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
-    padding: 12px 22px;
-    border-radius: 14px;
-    border: 2.5px solid var(--c3-bdr);
-    background: rgba(58,32,128,0.08);
-    color: var(--c3-ink);
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .pbar  { height:4px; background:rgba(0,0,0,.08); flex-shrink:0; }
+  .pbar { height:4px; background:rgba(0,0,0,.08); flex-shrink:0; }
   .pfill { height:100%; background:var(--navy); transition:width .4s; }
-
-  .bnav {
-    height:44px; background:var(--navy);
-    display:flex; align-items:center; justify-content:space-between;
-    padding:0 24px; flex-shrink:0;
-  }
+  .bnav { height:44px; background:var(--navy); display:flex; align-items:center; justify-content:space-between; padding:0 24px; flex-shrink:0; }
   .nav-info { font-size:0.7rem; color:rgba(255,255,255,.38); letter-spacing:0.12em; text-transform:uppercase; }
   .nbtns { display:flex; gap:8px; }
-  .nb {
-    background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2);
-    color:white; border-radius:7px; padding:6px 18px;
-    font-size:0.78rem; font-family:'DM Sans',sans-serif;
-    cursor:pointer; transition:background .18s;
-  }
+  .nb { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); color:white; border-radius:7px; padding:6px 18px; font-size:0.78rem; font-family:'DM Sans',sans-serif; cursor:pointer; transition:background .18s; }
   .nb:hover { background:rgba(255,255,255,.2); }
   .nb:disabled { opacity:.28; cursor:default; }
   .nb.prim { background:#00b4a0; border-color:#00b4a0; color:var(--navy); font-weight:700; }
@@ -321,7 +124,7 @@
 
 <div class="topbar">
   <div class="top-left">
-    <div class="top-title">Y8 · Unit 1 Do Nows</div>
+    <div class="top-title">Y8 &middot; Unit 1 Do Nows</div>
     <div class="top-sub" id="topSub">Do Now 1</div>
   </div>
   <div style="display:flex;gap:10px;align-items:center">
@@ -336,311 +139,114 @@
 <div class="bnav">
   <div class="nav-info" id="navInfo"></div>
   <div class="nbtns">
-    <button class="nb" id="pb" disabled>← Back</button>
-    <button class="nb prim" id="nb">Next →</button>
+    <button class="nb" id="pb" disabled>&larr; Back</button>
+    <button class="nb prim" id="nb">Next &rarr;</button>
   </div>
 </div>
 
 <script>
 const DONOWS = [
-
-  // ── DO NOW 1 · Prior Knowledge: Fractions & Decimals ─────────────────────
-  {
-    lesson: 'Prior Knowledge · Fractions & Decimals',
-    cards: [
-      {
-        col:'c1', type:'Fractions', badge:'prior knowledge',
-        instr:'Simplify:',
-        qtext:'36/48',
-        ans:'3/4', note:'HCF(36,48) = 12 · 36÷12 = 3 · 48÷12 = 4'
-      },
-      {
-        col:'c2', type:'Fractions', badge:'prior knowledge',
-        qtext:'¾ + ⅝ = ?', size:'med',
-        ans:'11/8 = 1⅜', note:'LCD = 8 · 6/8 + 5/8 = 11/8'
-      },
-      {
-        col:'c3', type:'Decimals', badge:'prior knowledge',
-        instr:'Write as a fraction in simplest form:',
-        qtext:'0.65',
-        ans:'13/20', note:'0.65 = 65/100 · HCF = 5 · 65÷5=13 · 100÷5=20'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'I am a fraction. My numerator is 3 less than my denominator. My decimal is 0.8. What fraction am I?', size:'sm',
-        ans:'12/15', note:'0.8 = 4/5 = 12/15 · Check: 15 − 12 = 3 ✓ and 12÷15 = 0.8 ✓',
-      },
-    ]
-  },
-
-  // ── DO NOW 2 · Prior Knowledge: Integers & Powers ────────────────────────
-  {
-    lesson: 'Prior Knowledge · Integers & Powers',
-    cards: [
-      {
-        col:'c1', type:'Integers', badge:'prior knowledge',
-        qtext:'−12 + 7 − (−5) = ?', size:'med',
-        ans:'0', note:'−12 + 7 = −5 · −5 − (−5) = −5 + 5 = 0'
-      },
-      {
-        col:'c2', type:'Integers', badge:'prior knowledge',
-        instr:'Find the missing number:',
-        qtext:'? × (−6) = 42',
-        ans:'−7', note:'42 ÷ (−6) = −7 · Neg × Neg = Pos ✓'
-      },
-      {
-        col:'c3', type:'Powers', badge:'prior knowledge',
-        qtext:'2<sup>4</sup> × 3<sup>2</sup> = ?', size:'med',
-        ans:'144', note:'2⁴ = 16 · 3² = 9 · 16 × 9 = 144'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'The temperature drops 3°C each hour. It is 8°C at noon. At what time does it reach −4°C?', size:'sm',
-        ans:'4pm', note:'Need to drop 12°C · 12 ÷ 3 = 4 hours · Noon + 4h = 4pm'
-      },
-    ]
-  },
-
-  // ── DO NOW 3 · Integer Operations ────────────────────────────────────────
-  {
-    lesson: 'Lesson 1 · Adding & Subtracting Integers',
-    cards: [
-      {
-        col:'c1', type:'Integers',
-        instr:'Calculate:',
-        qtext:'(−9) + (+3) − (−4) = ?', size:'med',
-        ans:'−2', note:'(−9) + (+3) = −6 · −6 − (−4) = −6 + 4 = −2'
-      },
-      {
-        col:'c2', type:'Integers',
-        instr:'Calculate:',
-        qtext:'(+5) − (−13) + (−8) = ?', size:'med',
-        ans:'10', note:'(+5) − (−13) = 5 + 13 = 18 · 18 + (−8) = 10'
-      },
-      {
-        col:'c3', type:'Absolute Value',
-        instr:'Calculate:',
-        qtext:'|−14| − |+6| + (−3) = ?', size:'med',
-        ans:'5', note:'|−14| = 14 · |+6| = 6 · 14 − 6 = 8 · 8 + (−3) = 5'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'A diver is at −18 metres. She swims up 7 metres, then dives down another 5 metres. What is her new depth?', size:'sm',
-        ans:'−16 metres', note:'−18 + 7 = −11 · −11 − 5 = −16 metres'
-      },
-    ]
-  },
-
-  // ── DO NOW 4 · Dividing Integers & Mixed Operations ──────────────────────
-  {
-    lesson: 'Lesson 2 · Dividing Integers & Mixed Operations',
-    cards: [
-      {
-        col:'c1', type:'Integers',
-        instr:'Calculate:',
-        qtext:'−15 + (−7) − (−4) = ?', size:'med',
-        ans:'−18', note:'−15 + (−7) = −22 · −22 − (−4) = −22 + 4 = −18'
-      },
-      {
-        col:'c2', type:'Division',
-        instr:'Find the missing number:',
-        qtext:'? ÷ (−8) = 6',
-        ans:'−48', note:'? = 6 × (−8) = −48 · Check: −48 ÷ (−8) = 6 ✓'
-      },
-      {
-        col:'c3', type:'Division',
-        instr:'Find the missing number:',
-        qtext:'(−54) ÷ ? = −9',
-        ans:'6', note:'? = (−54) ÷ (−9) = 6 · Check: (−54) ÷ 6 = −9 ✓'
-      },
-      {
-        col:'c4', type:'🧩 Puzzle',
-        qtext:'A lift starts at floor 0. It goes down 5 floors, up 3 floors, then down 4 more. What floor is it on? How many floors below the start?', size:'sm',
-        ans:'Floor −6 · 6 floors below', note:'0 − 5 = −5 · −5 + 3 = −2 · −2 − 4 = −6'
-      },
-    ]
-  },
-
-  // ── DO NOW 5 · Square Roots & Cube Roots ─────────────────────────────────
-  {
-    lesson: 'Lesson 3 · Square Roots & Cube Roots',
-    cards: [
-      {
-        col:'c1', type:'Square Roots',
-        qtext:'√144 = ?',
-        hint:'(Could there be more than one answer?)',
-        ans:'+12 and −12', note:'(+12)² = 144 ✓ · (−12)² = 144 ✓'
-      },
-      {
-        col:'c2', type:'Negative Cube Root',
-        qtext:'∛(−64) = ?',
-        hint:'Can you cube root a negative? What × itself × itself = −64?',
-        ans:'−4', note:'(−4)³ = −64 ✓ · Cube roots of negatives are real numbers.'
-      },
-      {
-        col:'c3', type:'Cube Root',
-        qtext:'∛216 = ?',
-        hint:'Which number multiplied by itself three times gives 216?',
-        ans:'6', note:'6 × 6 × 6 = 216 ✓'
-      },
-      {
-        col:'c4', type:'🔍 Which is NOT real?',
-        qtext:'∛(−8) , √(−9) , −√25 , ∛(−1)', size:'med',
-        hint:'Think: what is different about square roots vs cube roots of negatives?',
-        ans:'√(−9)', note:'∛(−8)=−2 ✓ · −√25=−5 ✓ · ∛(−1)=−1 ✓ · You cannot square-root a negative.'
-      },
-    ]
-  },
-
-  // ── DO NOW 6 · Roots, Conversions & BIDMAS ───────────────────────────────
-  {
-    lesson: 'Lesson 4 · Roots, Conversions & BIDMAS',
-    cards: [
-      {
-        col:'c1', type:'Roots',
-        instr:'Calculate both:',
-        qtext:'√81 and ∛(−125)', size:'med',
-        hint:'One has two answers. Does the other?',
-        ans:'±9 and −5', note:'√81 = +9 and −9 · ∛(−125) = −5 only · (−5)³ = −125 ✓'
-      },
-      {
-        col:'c2', type:'Conversions',
-        instr:'Write as a percentage AND as a fraction in its simplest form:',
-        qtext:'0.35', size:'med',
-        ans:'35%  and  7/20', note:'0.35 × 100 = 35% · 35/100 → HCF = 5 → 7/20'
-      },
-      {
-        col:'c3', type:'Conversions',
-        instr:'Write as a decimal AND as a percentage:',
-        qtext:'9/25', size:'med',
-        ans:'0.36  and  36%', note:'9 ÷ 25 = 0.36 · 0.36 × 100 = 36%'
-      },
-      {
-        col:'c4', type:'🧩 BIDMAS Puzzle',
-        qtext:'', size:'sm',
-        hint:'Use each of these once. You may use brackets.',
-        ans:'(3 + 7) × 4 − 2 = 38', note:'Brackets first: (3+7)=10 · 10×4=40 · 40−2=38 · Other arrangements also work — discuss!',
-        bidmas: true
-      },
-    ]
-  },
-
-  // ── DO NOW 7 · Adding & Subtracting Fractions (with negatives) ───────────
-  {
-    lesson: 'Lesson 5 · Adding & Subtracting Negative Fractions',
-    cards: [
-      {
-        col:'c1', type:'Same Denominator',
-        instr:'Calculate:',
-        qtext:'', size:'sm',
-        ans:'a) −3/5     b) 1/2',
-        ansFracs: [
-          { label:'a)', sign:'−', num:'3', den:'5' },
-          { label:'b)', num:'1', den:'2' }
-        ],
-        note:'a) 1/5 + (−4/5) = 1/5 − 4/5 = −3/5 · b) (−3/8) − (−7/8) = −3/8 + 7/8 = 4/8 = 1/2',
-        subqs: [
-          { label:'a)', num1:'1', den1:'5', op:'+', sign2:'−', num2:'4', den2:'5' },
-          { label:'b)', sign1:'−', num1:'3', den1:'8', op:'−', sign2:'−', num2:'7', den2:'8' }
-        ]
-      },
-      {
-        col:'c2', type:'Different Denominators',
-        instr:'Calculate:',
-        qtext:'', size:'sm',
-        ans:'a) −5/6     b) 1 3/20',
-        ansFracs: [
-          { label:'a)', sign:'−', num:'5', den:'6' },
-          { label:'b)', whole:'1', num:'3', den:'20' }
-        ],
-        note:'a) −4/6 + (−1/6) = −5/6 · b) 15/20 − (−8/20) = 15/20 + 8/20 = 23/20 = 1 3/20',
-        subqs: [
-          { label:'a)', sign1:'−', num1:'2', den1:'3', op:'+', sign2:'−', num2:'1', den2:'6' },
-          { label:'b)', num1:'3', den1:'4', op:'−', sign2:'−', num2:'2', den2:'5' }
-        ]
-      },
-      {
-        col:'c3', type:'Ordering Fractions',
-        qtext:'', size:'sm',
-        hint:'Convert them all to the same form first.',
-        ans:'1/2 , 3/4 , 7/5 , 2 , 9/4',
-        ansOrder: [
-          {num:'1', den:'2'},
-          {num:'3', den:'4'},
-          {num:'7', den:'5'},
-          {whole:'2'},
-          {num:'9', den:'4'}
-        ],
-        note:'As decimals: 1/2 = 0.5 · 3/4 = 0.75 · 7/5 = 1.4 · 2 = 2 · 9/4 = 2.25',
-        ordering: true,
-        fracs: [
-          {num:'3', den:'4'},
-          {whole:'2'},
-          {num:'7', den:'5'},
-          {num:'1', den:'2'},
-          {num:'9', den:'4'}
-        ]
-      },
-      {
-        col:'c4', type:'🧩 BIDMAS Puzzle',
-        qtext:'', size:'sm',
-        hint:'Remember: multiplication before addition!',
-        ans:'5 + 4 × (8 − 3) = 25', note:'BIDMAS: brackets first (8−3)=5 · then multiply 4×5=20 · then add 5+20=25',
-        bidmas2: true
-      },
-    ]
-  },
-
+  { lesson:'Prior Knowledge \xb7 Fractions & Decimals', cards:[
+    { col:'c1', type:'Fractions', badge:'prior knowledge', instr:'Simplify:', qtext:'36/48', ans:'3/4', note:'HCF(36,48) = 12 \xb7 36\xf712 = 3 \xb7 48\xf712 = 4' },
+    { col:'c2', type:'Fractions', badge:'prior knowledge', qtext:'\xbe + \u215d = ?', size:'med', ans:'11/8 = 1\u215c', note:'LCD = 8 \xb7 6/8 + 5/8 = 11/8' },
+    { col:'c3', type:'Decimals', badge:'prior knowledge', instr:'Write as a fraction in simplest form:', qtext:'0.65', ans:'13/20', note:'0.65 = 65/100 \xb7 HCF = 5 \xb7 65\xf75=13 \xb7 100\xf75=20' },
+    { col:'c4', type:'\U0001f9e9 Puzzle', qtext:'I am a fraction. My numerator is 3 less than my denominator. My decimal is 0.8. What fraction am I?', size:'sm', ans:'12/15', note:'0.8 = 4/5 = 12/15 \xb7 Check: 15 \u2212 12 = 3 \u2713 and 12\xf715 = 0.8 \u2713' },
+  ]},
+  { lesson:'Prior Knowledge \xb7 Integers & Powers', cards:[
+    { col:'c1', type:'Integers', badge:'prior knowledge', qtext:'\u221212 + 7 \u2212 (\u22125) = ?', size:'med', ans:'0', note:'\u221212 + 7 = \u22125 \xb7 \u22125 \u2212 (\u22125) = \u22125 + 5 = 0' },
+    { col:'c2', type:'Integers', badge:'prior knowledge', instr:'Find the missing number:', qtext:'? \xd7 (\u22126) = 42', ans:'\u22127', note:'42 \xf7 (\u22126) = \u22127 \xb7 Neg \xd7 Neg = Pos \u2713' },
+    { col:'c3', type:'Powers', badge:'prior knowledge', qtext:'2<sup>4</sup> \xd7 3<sup>2</sup> = ?', size:'med', ans:'144', note:'2\u2074 = 16 \xb7 3\xb2 = 9 \xb7 16 \xd7 9 = 144' },
+    { col:'c4', type:'\U0001f9e9 Puzzle', qtext:'The temperature drops 3\xb0C each hour. It is 8\xb0C at noon. At what time does it reach \u22124\xb0C?', size:'sm', ans:'4pm', note:'Need to drop 12\xb0C \xb7 12 \xf7 3 = 4 hours \xb7 Noon + 4h = 4pm' },
+  ]},
+  { lesson:'Lesson 1 \xb7 Adding & Subtracting Integers', cards:[
+    { col:'c1', type:'Integers', instr:'Calculate:', qtext:'(\u22129) + (+3) \u2212 (\u22124) = ?', size:'med', ans:'\u22122', note:'(\u22129) + (+3) = \u22126 \xb7 \u22126 \u2212 (\u22124) = \u22126 + 4 = \u22122' },
+    { col:'c2', type:'Integers', instr:'Calculate:', qtext:'(+5) \u2212 (\u221213) + (\u22128) = ?', size:'med', ans:'10', note:'(+5) \u2212 (\u221213) = 5 + 13 = 18 \xb7 18 + (\u22128) = 10' },
+    { col:'c3', type:'Absolute Value', instr:'Calculate:', qtext:'|\u221214| \u2212 |+6| + (\u22123) = ?', size:'med', ans:'5', note:'|\u221214| = 14 \xb7 |+6| = 6 \xb7 14 \u2212 6 = 8 \xb7 8 + (\u22123) = 5' },
+    { col:'c4', type:'\U0001f9e9 Puzzle', qtext:'A diver is at \u221218 metres. She swims up 7 metres, then dives down another 5 metres. What is her new depth?', size:'sm', ans:'\u221216 metres', note:'\u221218 + 7 = \u221211 \xb7 \u221211 \u2212 5 = \u221216 metres' },
+  ]},
+  { lesson:'Lesson 2 \xb7 Dividing Integers & Mixed Operations', cards:[
+    { col:'c1', type:'Integers', instr:'Calculate:', qtext:'\u221215 + (\u22127) \u2212 (\u22124) = ?', size:'med', ans:'\u221218', note:'\u221215 + (\u22127) = \u221222 \xb7 \u221222 \u2212 (\u22124) = \u221222 + 4 = \u221218' },
+    { col:'c2', type:'Division', instr:'Find the missing number:', qtext:'? \xf7 (\u22128) = 6', ans:'\u221248', note:'? = 6 \xd7 (\u22128) = \u221248 \xb7 Check: \u221248 \xf7 (\u22128) = 6 \u2713' },
+    { col:'c3', type:'Division', instr:'Find the missing number:', qtext:'(\u221254) \xf7 ? = \u22129', ans:'6', note:'? = (\u221254) \xf7 (\u22129) = 6 \xb7 Check: (\u221254) \xf7 6 = \u22129 \u2713' },
+    { col:'c4', type:'\U0001f9e9 Puzzle', qtext:'A lift starts at floor 0. It goes down 5 floors, up 3 floors, then down 4 more. What floor is it on? How many floors below the start?', size:'sm', ans:'Floor \u22126 \xb7 6 floors below', note:'0 \u2212 5 = \u22125 \xb7 \u22125 + 3 = \u22122 \xb7 \u22122 \u2212 4 = \u22126' },
+  ]},
+  { lesson:'Lesson 3 \xb7 Square Roots & Cube Roots', cards:[
+    { col:'c1', type:'Square Roots', qtext:'\u221a144 = ?', hint:'(Could there be more than one answer?)', ans:'+12 and \u221212', note:'(+12)\xb2 = 144 \u2713 \xb7 (\u221212)\xb2 = 144 \u2713' },
+    { col:'c2', type:'Negative Cube Root', qtext:'\u221b(\u221264) = ?', hint:'Can you cube root a negative? What \xd7 itself \xd7 itself = \u221264?', ans:'\u22124', note:'(\u22124)\xb3 = \u221264 \u2713 \xb7 Cube roots of negatives are real numbers.' },
+    { col:'c3', type:'Cube Root', qtext:'\u221b216 = ?', hint:'Which number multiplied by itself three times gives 216?', ans:'6', note:'6 \xd7 6 \xd7 6 = 216 \u2713' },
+    { col:'c4', type:'\U0001f50d Which is NOT real?', qtext:'\u221b(\u22128) , \u221a(\u22129) , \u2212\u221a25 , \u221b(\u22121)', size:'med', hint:'Think: what is different about square roots vs cube roots of negatives?', ans:'\u221a(\u22129)', note:'\u221b(\u22128)=\u22122 \u2713 \xb7 \u2212\u221a25=\u22125 \u2713 \xb7 \u221b(\u22121)=\u22121 \u2713 \xb7 You cannot square-root a negative.' },
+  ]},
+  { lesson:'Lesson 4 \xb7 Roots, Conversions & BIDMAS', cards:[
+    { col:'c1', type:'Roots', instr:'Calculate both:', qtext:'\u221a81 and \u221b(\u2212125)', size:'med', hint:'One has two answers. Does the other?', ans:'\xb19 and \u22125', note:'\u221a81 = +9 and \u22129 \xb7 \u221b(\u2212125) = \u22125 only \xb7 (\u22125)\xb3 = \u2212125 \u2713' },
+    { col:'c2', type:'Conversions', instr:'Write as a percentage AND as a fraction in its simplest form:', qtext:'0.35', size:'med', ans:'35%  and  7/20', note:'0.35 \xd7 100 = 35% \xb7 35/100 \u2192 HCF = 5 \u2192 7/20' },
+    { col:'c3', type:'Conversions', instr:'Write as a decimal AND as a percentage:', qtext:'9/25', size:'med', ans:'0.36  and  36%', note:'9 \xf7 25 = 0.36 \xb7 0.36 \xd7 100 = 36%' },
+    { col:'c4', type:'\U0001f9e9 BIDMAS Puzzle', qtext:'', size:'sm', hint:'Use each of these once. You may use brackets.', ans:'(3 + 7) \xd7 4 \u2212 2 = 38', note:'Brackets first: (3+7)=10 \xb7 10\xd74=40 \xb7 40\u22122=38 \xb7 Other arrangements also work \u2014 discuss!', bidmas:true },
+  ]},
+  { lesson:'Lesson 5 \xb7 Adding & Subtracting Negative Fractions', cards:[
+    { col:'c1', type:'Same Denominator', instr:'Calculate:', qtext:'', size:'sm', ans:'a) \u22123/5     b) 1/2', ansFracs:[{label:'a)',sign:'\u2212',num:'3',den:'5'},{label:'b)',num:'1',den:'2'}], note:'a) 1/5 + (\u22124/5) = 1/5 \u2212 4/5 = \u22123/5 \xb7 b) (\u22123/8) \u2212 (\u22127/8) = \u22123/8 + 7/8 = 4/8 = 1/2', subqs:[{label:'a)',num1:'1',den1:'5',op:'+',sign2:'\u2212',num2:'4',den2:'5'},{label:'b)',sign1:'\u2212',num1:'3',den1:'8',op:'\u2212',sign2:'\u2212',num2:'7',den2:'8'}] },
+    { col:'c2', type:'Different Denominators', instr:'Calculate:', qtext:'', size:'sm', ans:'a) \u22125/6     b) 1 3/20', ansFracs:[{label:'a)',sign:'\u2212',num:'5',den:'6'},{label:'b)',whole:'1',num:'3',den:'20'}], note:'a) \u22124/6 + (\u22121/6) = \u22125/6 \xb7 b) 15/20 \u2212 (\u22128/20) = 15/20 + 8/20 = 23/20 = 1 3/20', subqs:[{label:'a)',sign1:'\u2212',num1:'2',den1:'3',op:'+',sign2:'\u2212',num2:'1',den2:'6'},{label:'b)',num1:'3',den1:'4',op:'\u2212',sign2:'\u2212',num2:'2',den2:'5'}] },
+    { col:'c3', type:'Ordering Fractions', qtext:'', size:'sm', hint:'Convert them all to the same form first.', ans:'1/2 , 3/4 , 7/5 , 2 , 9/4', ansOrder:[{num:'1',den:'2'},{num:'3',den:'4'},{num:'7',den:'5'},{whole:'2'},{num:'9',den:'4'}], note:'As decimals: 1/2=0.5 \xb7 3/4=0.75 \xb7 7/5=1.4 \xb7 2=2 \xb7 9/4=2.25', ordering:true, fracs:[{num:'3',den:'4'},{whole:'2'},{num:'7',den:'5'},{num:'1',den:'2'},{num:'9',den:'4'}] },
+    { col:'c4', type:'\U0001f9e9 BIDMAS Puzzle', qtext:'', size:'sm', hint:'Remember: multiplication before addition!', ans:'5 + 4 \xd7 (8 \u2212 3) = 25', note:'BIDMAS: brackets first (8\u22123)=5 \xb7 then multiply 4\xd75=20 \xb7 then add 5+20=25', bidmas2:true },
+  ]},
+  { lesson:'Feedback Lesson \xb7 Fractions & Order of Operations', cards:[
+    { col:'c1', type:'Order of Operations', star:'\u2605 BIDMAS', hint:'Multiply before you add!', katexQ:'-3 + 2 \\times 5', ans:'7', note:'2 \xd7 5 = 10 first \xb7 then \u22123 + 10 = 7' },
+    { col:'c2', type:'Order of Operations', star:'\u2605\u2605 BIDMAS', hint:'From your test \u2014 can you get it this time?', katexQ:'-5 + (-3) \\times 4 - 1', katexQsize:'sm', ans:'\u221218', note:'(\u22123) \xd7 4 = \u221212 first \xb7 then \u22125 + (\u221212) \u2212 1 = \u221218' },
+    { col:'c3', type:'Fraction Addition', star:'\u2605\u2605 Fractions', hint:'What is LCM(6, 8)?', katexQ:'\\dfrac{5}{6} + \\dfrac{3}{8} = \\;?', katexA:'\\dfrac{29}{24} = 1\\dfrac{5}{24}', note:'LCM(6,8) = 24 \xb7 5/6 = 20/24 \xb7 3/8 = 9/24 \xb7 20 + 9 = 29' },
+    { col:'c4', type:'Missing Number', star:'\u2605\u2605\u2605 Fractions + BIDMAS', hint:'BIDMAS: what must the \xd7 part equal first?', katexQ:'\\dfrac{1}{2} + \\square \\times \\dfrac{2}{3} = \\dfrac{7}{6}', katexQsize:'sm', katexA:'\\square = 1', note:'\u25a1 \xd7 2/3 = 7/6 \u2212 1/2 = 7/6 \u2212 3/6 = 4/6 = 2/3 \xb7 So \u25a1 \xd7 2/3 = 2/3 \xb7 \u25a1 = 1' },
+  ]},
 ];
 
-/* ── HELPER: KaTeX fraction HTML ── */
-function frac(num, den) {
-  return katex.renderToString(`\\frac{${num}}{${den}}`, { throwOnError: false });
-}
+function frac(num,den){ return katex.renderToString('\\frac{'+num+'}{'+den+'}',{throwOnError:false}); }
 
-/* ── BUILD SLIDES ── */
 const wrap = document.getElementById('slideWrap');
 
-DONOWS.forEach((dn, idx) => {
+DONOWS.forEach((dn,idx)=>{
   const slide = document.createElement('div');
-  slide.className = 'slide' + (idx === 0 ? ' active' : '');
-  slide.id = 'dn' + idx;
-
+  slide.className = 'slide'+(idx===0?' active':'');
+  slide.id = 'dn'+idx;
   const tag = document.createElement('div');
   tag.className = 'lesson-tag';
   tag.textContent = dn.lesson;
-
   const grid = document.createElement('div');
   grid.className = 'grid';
 
-  dn.cards.forEach((c, ci) => {
+  dn.cards.forEach((c,ci)=>{
     const card = document.createElement('div');
-    card.className = 'card ' + c.col;
+    card.className = 'card '+c.col;
+    const sc = c.size?' '+c.size:'';
 
-    const sizeClass = c.size ? ' ' + c.size : '';
-
-    // Special render for BIDMAS puzzle card (Do Now 6 style)
-    if (c.bidmas) {
+    if(c.katexQ!==undefined){
+      const qR = katex.renderToString(c.katexQ,{throwOnError:false,displayMode:false});
+      const qSz = c.katexQsize==='sm'?' sm':'';
+      const aR = c.katexA ? katex.renderToString(c.katexA,{throwOnError:false}) : '<span>'+c.ans+'</span>';
       card.innerHTML = `
-        <div class="q-row">
-          <div class="q-dot">${ci + 1}</div>
-          <div class="q-type">${c.type}</div>
-        </div>
-        <div class="q-instr" style="color:var(--c4-ink);font-weight:600;font-size:clamp(0.78rem,1.5vw,0.95rem);">Place each number card into the correct box to make <span style="font-family:'DM Serif Display',serif;font-size:1.3em;">38</span></div>
-        <div class="tile-bank" style="gap:12px; margin-top:6px;">
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="star-badge">${c.star}</div>
+        <div class="q-katex${qSz}">${qR}</div>
+        ${c.hint?`<div class="q-hint">${c.hint}</div>`:''}
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">${aR}</div>
+          <div class="ans-note">${c.note}</div>
+        </div>`;
+    } else if(c.bidmas){
+      card.innerHTML = `
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="q-instr" style="color:var(--c4-ink);font-weight:600;font-size:clamp(0.78rem,1.5vw,0.95rem);">Place each number card to make <span style="font-family:'DM Serif Display',serif;font-size:1.3em;">38</span></div>
+        <div class="tile-bank" style="gap:12px;margin-top:6px;">
           <span class="tile" style="width:52px;height:52px;font-size:clamp(1.3rem,2.6vw,1.8rem);">2</span>
           <span class="tile" style="width:52px;height:52px;font-size:clamp(1.3rem,2.6vw,1.8rem);">3</span>
           <span class="tile" style="width:52px;height:52px;font-size:clamp(1.3rem,2.6vw,1.8rem);">4</span>
           <span class="tile" style="width:52px;height:52px;font-size:clamp(1.3rem,2.6vw,1.8rem);">7</span>
         </div>
-        <div class="eq-row" style="gap:8px; margin-top:10px; flex:1; align-items:center;">
+        <div class="eq-row" style="gap:8px;margin-top:10px;flex:1;align-items:center;">
           <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">(</span>
           <span class="eq-box" style="width:52px;height:52px;"></span>
           <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">+</span>
           <span class="eq-box" style="width:52px;height:52px;"></span>
-          <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">) ×</span>
+          <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">) \xd7</span>
           <span class="eq-box" style="width:52px;height:52px;"></span>
-          <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">−</span>
+          <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">\u2212</span>
           <span class="eq-box" style="width:52px;height:52px;"></span>
           <span class="eq-sep" style="font-size:clamp(1.5rem,3.2vw,2.4rem);">= 38</span>
         </div>
@@ -648,29 +254,23 @@ DONOWS.forEach((dn, idx) => {
           <div class="ans-lbl">One solution</div>
           <div class="ans-val" style="font-size:clamp(1rem,2vw,1.5rem)">${c.ans}</div>
           <div class="ans-note">${c.note}</div>
-        </div>
-      `;
-    }
-    // Special render for BIDMAS2 puzzle card (Do Now 7 — brackets on right, no instruction text)
-    else if (c.bidmas2) {
+        </div>`;
+    } else if(c.bidmas2){
       card.innerHTML = `
-        <div class="q-row">
-          <div class="q-dot">${ci + 1}</div>
-          <div class="q-type">${c.type}</div>
-        </div>
-        <div class="tile-bank" style="gap:12px; margin-top:8px;">
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="tile-bank" style="gap:12px;margin-top:8px;">
           <span class="tile" style="width:56px;height:56px;font-size:clamp(1.4rem,2.8vw,2rem);">3</span>
           <span class="tile" style="width:56px;height:56px;font-size:clamp(1.4rem,2.8vw,2rem);">4</span>
           <span class="tile" style="width:56px;height:56px;font-size:clamp(1.4rem,2.8vw,2rem);">5</span>
           <span class="tile" style="width:56px;height:56px;font-size:clamp(1.4rem,2.8vw,2rem);">8</span>
         </div>
-        <div class="eq-row" style="gap:8px; margin-top:12px; flex:1; align-items:center;">
+        <div class="eq-row" style="gap:8px;margin-top:12px;flex:1;align-items:center;">
           <span class="eq-box" style="width:56px;height:56px;"></span>
           <span class="eq-sep" style="font-size:clamp(1.6rem,3.4vw,2.6rem);">+</span>
           <span class="eq-box" style="width:56px;height:56px;"></span>
-          <span class="eq-sep" style="font-size:clamp(1.6rem,3.4vw,2.6rem);">× (</span>
+          <span class="eq-sep" style="font-size:clamp(1.6rem,3.4vw,2.6rem);">\xd7 (</span>
           <span class="eq-box" style="width:56px;height:56px;"></span>
-          <span class="eq-sep" style="font-size:clamp(1.6rem,3.4vw,2.6rem);">−</span>
+          <span class="eq-sep" style="font-size:clamp(1.6rem,3.4vw,2.6rem);">\u2212</span>
           <span class="eq-box" style="width:56px;height:56px;"></span>
           <span class="eq-sep" style="font-size:clamp(1.6rem,3.4vw,2.6rem);">) = 25</span>
         </div>
@@ -678,170 +278,102 @@ DONOWS.forEach((dn, idx) => {
           <div class="ans-lbl">One solution</div>
           <div class="ans-val" style="font-size:clamp(1rem,2vw,1.5rem)">${c.ans}</div>
           <div class="ans-note">${c.note}</div>
-        </div>
-      `;
-    }
-    // Special render for sub-questions with KaTeX fractions
-    else if (c.subqs) {
-      const subHTML = c.subqs.map(sq => {
-        // Build full LaTeX: (\sign1 \frac{n1}{d1}) op (\sign2 \frac{n2}{d2}) = ?
-        const s1 = sq.sign1 ? sq.sign1 : '';
-        const s2 = sq.sign2 ? sq.sign2 : '';
-        const latex = `\\left(${s1}\\frac{${sq.num1}}{${sq.den1}}\\right) ${sq.op} \\left(${s2}\\frac{${sq.num2}}{${sq.den2}}\\right) = \\;?`;
-        const rendered = katex.renderToString(latex, { throwOnError: false });
-        return `<div class="sub-q">
-          <span class="sub-label">${sq.label}</span>
-          <span class="sub-expr">${rendered}</span>
         </div>`;
+    } else if(c.subqs){
+      const subHTML = c.subqs.map(sq=>{
+        const s1=sq.sign1||''; const s2=sq.sign2||'';
+        const latex='\\left('+s1+'\\frac{'+sq.num1+'}{'+sq.den1+'}\\right) '+sq.op+' \\left('+s2+'\\frac{'+sq.num2+'}{'+sq.den2+'}\\right) = \\;?';
+        const r=katex.renderToString(latex,{throwOnError:false});
+        return '<div class="sub-q"><span class="sub-label">'+sq.label+'</span><span class="sub-expr">'+r+'</span></div>';
       }).join('');
-      // Build answer with KaTeX fractions
-      const ansHTML = c.ansFracs ? c.ansFracs.map(af => {
-        let latex = '';
-        if (af.sign) latex += af.sign;
-        if (af.whole && af.num) {
-          latex += af.whole + '\\,' + `\\frac{${af.num}}{${af.den}}`;
-        } else if (af.whole) {
-          latex += af.whole;
-        } else if (af.num) {
-          latex += `\\frac{${af.num}}{${af.den}}`;
-        }
-        return af.label + ' ' + katex.renderToString(latex, { throwOnError: false });
+      const ansHTML = c.ansFracs ? c.ansFracs.map(af=>{
+        let l=''; if(af.sign)l+=af.sign;
+        if(af.whole&&af.num) l+=af.whole+'\\,\\frac{'+af.num+'}{'+af.den+'}';
+        else if(af.whole) l+=af.whole;
+        else if(af.num) l+='\\frac{'+af.num+'}{'+af.den+'}';
+        return af.label+' '+katex.renderToString(l,{throwOnError:false});
       }).join('&nbsp;&nbsp;&nbsp;&nbsp;') : c.ans;
       card.innerHTML = `
-        <div class="q-row">
-          <div class="q-dot">${ci + 1}</div>
-          <div class="q-type">${c.type}</div>
-        </div>
-        <div class="q-instr">${c.instr}</div>
-        ${subHTML}
-        ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="q-instr">${c.instr}</div>${subHTML}
+        ${c.hint?`<div class="q-hint">${c.hint}</div>`:''}
         <div class="ans-wrap" id="a${idx}-${ci}">
           <div class="ans-lbl">Answers</div>
           <div class="ans-val" style="font-size:clamp(0.95rem,2.2vw,1.6rem)">${ansHTML}</div>
           <div class="ans-note">${c.note}</div>
-        </div>
-      `;
-    }
-    // Special render for ordering fractions — large tiles, no blank slots
-    else if (c.ordering) {
-      const fracTiles = c.fracs.map(f => {
-        if (f.whole) return `<span class="frac-tile">${f.whole}</span>`;
-        return `<span class="frac-tile">${frac(f.num, f.den)}</span>`;
-      }).join('');
-      // Build answer with KaTeX fractions and < signs
-      const ansHTML = c.ansOrder ? c.ansOrder.map(af => {
-        if (af.whole) return katex.renderToString(af.whole, { throwOnError: false });
-        return frac(af.num, af.den);
-      }).join(' <span style="opacity:0.5; font-size:0.85em; margin:0 4px;">&lt;</span> ') : c.ans;
+        </div>`;
+    } else if(c.ordering){
+      const tiles = c.fracs.map(f=>f.whole?`<span class="frac-tile">${f.whole}</span>`:`<span class="frac-tile">${frac(f.num,f.den)}</span>`).join('');
+      const ansHTML = c.ansOrder ? c.ansOrder.map(af=>af.whole?katex.renderToString(af.whole,{throwOnError:false}):frac(af.num,af.den)).join(' <span style="opacity:0.5;font-size:0.85em;margin:0 4px;">&lt;</span> ') : c.ans;
       card.innerHTML = `
-        <div class="q-row">
-          <div class="q-dot">${ci + 1}</div>
-          <div class="q-type">${c.type}</div>
-        </div>
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
         <div class="q-instr" style="color:var(--c3-ink);font-weight:600;font-size:clamp(0.82rem,1.6vw,1rem);">Order from smallest to largest:</div>
-        <div class="frac-bank">${fracTiles}</div>
-        ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
+        <div class="frac-bank">${tiles}</div>
+        ${c.hint?`<div class="q-hint">${c.hint}</div>`:''}
         <div class="ans-wrap" id="a${idx}-${ci}">
           <div class="ans-lbl">Answer</div>
           <div class="ans-val" style="font-size:clamp(0.95rem,2.2vw,1.5rem)">${ansHTML}</div>
           <div class="ans-note">${c.note}</div>
-        </div>
-      `;
-    }
-    // Standard card with instruction line
-    else if (c.instr) {
+        </div>`;
+    } else if(c.instr){
       card.innerHTML = `
-        <div class="q-row">
-          <div class="q-dot">${ci + 1}</div>
-          <div class="q-type">${c.type}</div>
-        </div>
-        ${c.badge ? `<div class="pk-badge">${c.badge}</div>` : ''}
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        ${c.badge?`<div class="pk-badge">${c.badge}</div>`:''}
         <div class="q-instr">${c.instr}</div>
         <div class="q-eq">${c.qtext}</div>
-        ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
+        ${c.hint?`<div class="q-hint">${c.hint}</div>`:''}
         <div class="ans-wrap" id="a${idx}-${ci}">
-          <div class="ans-lbl">Answer</div>
-          <div class="ans-val">${c.ans}</div>
-          ${c.note ? `<div class="ans-note">${c.note}</div>` : ''}
-        </div>
-      `;
-    }
-    // Default card
-    else {
+          <div class="ans-lbl">Answer</div><div class="ans-val">${c.ans}</div>
+          ${c.note?`<div class="ans-note">${c.note}</div>`:''}
+        </div>`;
+    } else {
       card.innerHTML = `
-        <div class="q-row">
-          <div class="q-dot">${ci + 1}</div>
-          <div class="q-type">${c.type}</div>
-        </div>
-        ${c.badge ? `<div class="pk-badge">${c.badge}</div>` : ''}
-        <div class="q-text${sizeClass}">${c.qtext.replace(/\n/g,'<br>')}</div>
-        ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        ${c.badge?`<div class="pk-badge">${c.badge}</div>`:''}
+        <div class="q-text${sc}">${c.qtext.replace(/\n/g,'<br>')}</div>
+        ${c.hint?`<div class="q-hint">${c.hint}</div>`:''}
         <div class="ans-wrap" id="a${idx}-${ci}">
-          <div class="ans-lbl">Answer</div>
-          <div class="ans-val">${c.ans}</div>
-          ${c.note ? `<div class="ans-note">${c.note}</div>` : ''}
-        </div>
-      `;
+          <div class="ans-lbl">Answer</div><div class="ans-val">${c.ans}</div>
+          ${c.note?`<div class="ans-note">${c.note}</div>`:''}
+        </div>`;
     }
     grid.appendChild(card);
   });
-
-  slide.appendChild(tag);
-  slide.appendChild(grid);
-  wrap.appendChild(slide);
+  slide.appendChild(tag); slide.appendChild(grid); wrap.appendChild(slide);
 });
 
-/* ── NAV ── */
-const slides   = document.querySelectorAll('.slide');
-const total    = slides.length;
-let cur        = 0;
-let showing    = false;
+const slides=document.querySelectorAll('.slide'),total=slides.length;
+let cur=0,showing=false;
+const topSub=document.getElementById('topSub'),topLesson=document.getElementById('topLesson'),
+      navInfo=document.getElementById('navInfo'),pf=document.getElementById('pf'),
+      pb=document.getElementById('pb'),nb=document.getElementById('nb'),
+      masterBtn=document.getElementById('masterBtn');
 
-const topSub    = document.getElementById('topSub');
-const topLesson = document.getElementById('topLesson');
-const navInfo   = document.getElementById('navInfo');
-const pf        = document.getElementById('pf');
-const pb        = document.getElementById('pb');
-const nb        = document.getElementById('nb');
-const masterBtn = document.getElementById('masterBtn');
-
-function update() {
-  slides.forEach((s,i) => s.classList.toggle('active', i===cur));
-  topSub.textContent    = `Do Now ${cur+1} of ${total}`;
-  topLesson.textContent = DONOWS[cur].lesson;
-  navInfo.textContent   = `Do Now ${cur+1} of ${total}`;
-  pf.style.width        = ((cur+1)/total*100) + '%';
-  pb.disabled = cur===0;
-  nb.disabled = cur===total-1;
-  nb.textContent = cur===total-1 ? 'Done ✓' : 'Next →';
-  hideAll();
-  showing = false;
-  masterBtn.textContent = 'Show Answers';
-  masterBtn.classList.remove('on');
+function update(){
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  topSub.textContent='Do Now '+(cur+1)+' of '+total;
+  topLesson.textContent=DONOWS[cur].lesson;
+  navInfo.textContent='Do Now '+(cur+1)+' of '+total;
+  pf.style.width=((cur+1)/total*100)+'%';
+  pb.disabled=cur===0; nb.disabled=cur===total-1;
+  nb.textContent=cur===total-1?'Done \u2713':'Next \u2192';
+  document.querySelectorAll('.ans-wrap').forEach(el=>el.classList.remove('on'));
+  showing=false; masterBtn.textContent='Show Answers'; masterBtn.classList.remove('on');
 }
 
-function hideAll() {
-  document.querySelectorAll('.ans-wrap').forEach(el => el.classList.remove('on'));
+function toggleAnswers(){
+  showing=!showing;
+  for(let ci=0;ci<4;ci++){const el=document.getElementById('a'+cur+'-'+ci);if(el)el.classList.toggle('on',showing);}
+  masterBtn.textContent=showing?'Hide Answers':'Show Answers';
+  masterBtn.classList.toggle('on',showing);
 }
 
-function toggleAnswers() {
-  showing = !showing;
-  for(let ci=0; ci<4; ci++) {
-    const el = document.getElementById(`a${cur}-${ci}`);
-    if(el) el.classList.toggle('on', showing);
-  }
-  masterBtn.textContent = showing ? 'Hide Answers' : 'Show Answers';
-  masterBtn.classList.toggle('on', showing);
-}
-
-pb.onclick = () => { if(cur>0){cur--;update();} };
-nb.onclick = () => { if(cur<total-1){cur++;update();} };
-
-document.addEventListener('keydown', e => {
+pb.onclick=()=>{if(cur>0){cur--;update();}};
+nb.onclick=()=>{if(cur<total-1){cur++;update();}};
+document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();if(cur<total-1){cur++;update();}}
   if(e.key==='ArrowLeft'){e.preventDefault();if(cur>0){cur--;update();}}
 });
-
 update();
 </script>
 </body>
