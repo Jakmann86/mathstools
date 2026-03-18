@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decimals &amp; Fractions · MWB Activity</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+  :root {
+    --bg:#f0ede8; --navy:#0f2044; --text:#1a1a2e; --muted:#6a6a8a;
+    --t-bg:#dff0ed; --t-bdr:#9dd4cc; --t-ink:#0a6b5e;
+    --a-bg:#fdf0dc; --a-bdr:#f0c472; --a-ink:#7a4800;
+    --p-bg:#e8e4f8; --p-bdr:#b8aeed; --p-ink:#4c2ea8;
+    --c-bg:#fde8e8; --c-bdr:#f0a8a8; --c-ink:#9a1f1f;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;overflow:hidden;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;}
+
+  .tb{background:var(--navy);color:white;height:50px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .tb-title{font-family:'DM Serif Display',serif;font-size:1rem;}
+  .tb-sub{font-size:0.66rem;opacity:.4;letter-spacing:.13em;text-transform:uppercase;}
+
+  .slides{flex:1;position:relative;overflow:hidden;min-height:0;}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:28px 36px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .35s,transform .35s;overflow-y:auto;}
+  .slide.active{opacity:1;transform:translateY(0);pointer-events:all;}
+
+  /* PHASE BADGE */
+  .phase{display:inline-flex;align-items:center;gap:7px;padding:5px 18px;border-radius:100px;font-size:0.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;border:1.5px solid;}
+  .p-i  {background:rgba(10,107,94,.1);border-color:var(--t-ink);color:var(--t-ink);}
+  .p-we {background:rgba(76,46,168,.1);border-color:var(--p-ink);color:var(--p-ink);}
+  .p-you{background:rgba(122,72,0,.1);border-color:var(--a-ink);color:var(--a-ink);}
+  .p-key{background:rgba(15,32,68,.07);border-color:rgba(15,32,68,.22);color:var(--navy);}
+  .p-ch {background:rgba(154,31,31,.1);border-color:var(--c-ink);color:var(--c-ink);}
+
+  .h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4.5vw,3.6rem);color:var(--navy);text-align:center;line-height:1.1;margin-bottom:10px;}
+  .h2{font-family:'DM Serif Display',serif;font-size:clamp(1.2rem,2.4vw,1.8rem);color:var(--navy);text-align:center;margin-bottom:8px;}
+  .sub{font-size:0.88rem;color:var(--muted);text-align:center;line-height:1.6;max-width:620px;}
+  .rule{width:44px;height:4px;border-radius:2px;margin:8px auto 14px;}
+
+  /* BIG IDEA */
+  .big-idea{background:rgba(10,107,94,.06);border:2px solid var(--t-bdr);border-radius:16px;padding:22px 32px;max-width:700px;margin-top:18px;text-align:center;}
+  .big-idea .bi-label{font-size:0.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t-ink);margin-bottom:8px;}
+  .big-idea .bi-text{font-family:'DM Serif Display',serif;font-size:clamp(1.1rem,2.4vw,1.6rem);color:var(--navy);line-height:1.4;}
+
+  /* STEM */
+  .stem{background:rgba(76,46,168,.06);border:1.5px solid var(--p-bdr);border-radius:12px;padding:14px 24px;font-size:0.92rem;max-width:660px;line-height:1.6;text-align:center;margin-top:12px;}
+  .stem strong{color:var(--p-ink);}
+
+  /* KEY VOCAB BOX */
+  .kv-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:740px;width:100%;margin:10px 0;}
+  @media(max-width:640px){.kv-row{grid-template-columns:1fr;}}
+  .kv-box{background:white;border:2.5px solid;border-radius:14px;padding:20px 24px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.04);}
+  .kv-box.kb-t{border-color:var(--t-bdr);}
+  .kv-box.kb-a{border-color:var(--a-bdr);}
+  .kv-box .kv-label{font-size:0.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px;}
+  .kb-t .kv-label{color:var(--t-ink);} .kb-a .kv-label{color:var(--a-ink);}
+  .kv-box .kv-math{font-size:1.3rem;margin:6px 0;}
+  .kv-box .kv-note{font-size:0.82rem;color:var(--muted);}
+
+  /* BIG QUESTION — centered, large */
+  .big-q{font-family:'DM Serif Display',serif;font-size:clamp(3rem,8vw,5.5rem);color:var(--navy);text-align:center;line-height:1.2;margin:16px 0;}
+  .big-q .katex{font-size:1em;}
+
+  /* HINT NOTE */
+  .hint{font-size:0.9rem;color:var(--muted);margin-top:8px;font-style:italic;}
+
+  /* MWB STRIP */
+  .mwb{display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(15,32,68,.06);border:1.5px solid rgba(15,32,68,.14);border-radius:12px;padding:11px 28px;font-size:0.92rem;font-weight:500;margin-top:14px;}
+  .mwb .cd{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--a-ink);}
+
+  /* REVEAL BTN + ANSWER (You Do only) */
+  .rev-btn{padding:10px 30px;border-radius:10px;border:2px solid var(--t-bdr);color:var(--t-ink);font-size:0.88rem;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;background:transparent;transition:all .2s;margin-top:12px;}
+  .rev-btn:hover,.rev-btn.on{background:var(--t-ink);color:white;}
+  .ans-panel{display:none;flex-direction:column;align-items:center;gap:6px;animation:fadeUp .3s ease both;margin-top:12px;padding:16px 24px;border-radius:12px;border:2px solid var(--t-bdr);background:rgba(10,107,94,.06);text-align:center;max-width:600px;}
+  .ans-panel.on{display:flex;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  .ans-big{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--t-ink);}
+  .ans-big .katex{font-size:1em;}
+
+  /* FINAL 4 GRID */
+  .f4-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:820px;width:100%;margin:12px 0;}
+  .f4-card{background:white;border-radius:14px;padding:22px 24px;border:2.5px solid;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05);}
+  .f4-card.fc1{border-color:var(--t-bdr);} .f4-card.fc2{border-color:var(--a-bdr);} .f4-card.fc3{border-color:var(--p-bdr);} .f4-card.fc4{border-color:var(--c-bdr);}
+  .f4-card .f4-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:800;color:white;}
+  .fc1 .f4-num{background:var(--t-ink);} .fc2 .f4-num{background:var(--a-ink);} .fc3 .f4-num{background:var(--p-ink);} .fc4 .f4-num{background:var(--c-ink);}
+  .f4-card .f4-q{font-family:'DM Serif Display',serif;font-size:clamp(1.2rem,2.6vw,1.8rem);color:var(--navy);}
+  .f4-card .card-rev{padding:5px 16px;border-radius:8px;border:1.5px solid;font-size:0.72rem;font-weight:700;cursor:pointer;background:transparent;transition:all .18s;margin-top:2px;}
+  .fc1 .card-rev{border-color:var(--t-bdr);color:var(--t-ink);} .fc1 .card-rev:hover{background:var(--t-ink);color:white;}
+  .fc2 .card-rev{border-color:var(--a-bdr);color:var(--a-ink);} .fc2 .card-rev:hover{background:var(--a-ink);color:white;}
+  .fc3 .card-rev{border-color:var(--p-bdr);color:var(--p-ink);} .fc3 .card-rev:hover{background:var(--p-ink);color:white;}
+  .fc4 .card-rev{border-color:var(--c-bdr);color:var(--c-ink);} .fc4 .card-rev:hover{background:var(--c-ink);color:white;}
+  .f4-card .f4-ans{display:none;font-family:'DM Serif Display',serif;font-size:clamp(1rem,2.2vw,1.5rem);animation:fadeUp .25s ease both;}
+  .f4-card .f4-ans.on{display:block;}
+  .fc1 .f4-ans{color:var(--t-ink);} .fc2 .f4-ans{color:var(--a-ink);} .fc3 .f4-ans{color:var(--p-ink);} .fc4 .f4-ans{color:var(--c-ink);}
+
+  /* NAV */
+  .pbar{height:4px;background:rgba(0,0,0,.08);flex-shrink:0;}
+  .pfill{height:100%;background:var(--navy);transition:width .4s;}
+  .bnav{height:46px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0;}
+  .nav-info{font-size:0.7rem;color:rgba(255,255,255,.38);letter-spacing:.12em;text-transform:uppercase;}
+  .nbtns{display:flex;gap:8px;}
+  .nb{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;border-radius:7px;padding:7px 18px;font-size:0.78rem;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .18s;}
+  .nb:hover{background:rgba(255,255,255,.2);}
+  .nb:disabled{opacity:.28;cursor:default;}
+  .nb.prim{background:#00b4a0;border-color:#00b4a0;color:var(--navy);font-weight:700;}
+</style>
+</head>
+<body>
+
+<div class="tb">
+  <div>
+    <div class="tb-title">Decimals &amp; Fractions · MWB Activity</div>
+    <div class="tb-sub" id="slideLabel">Intro</div>
+  </div>
+  <div class="tb-sub">Year 8 · Unit 1</div>
+</div>
+
+<div class="slides" id="slidesContainer">
+
+<!-- 0 TITLE -->
+<div class="slide active" id="s0">
+  <div class="h1">Decimals <span style="color:var(--a-ink)">&amp;</span> <span style="color:var(--t-ink)">Fractions</span></div>
+  <div class="rule" style="background:var(--t-ink)"></div>
+  <div class="sub">Converting between forms and combining them in calculations</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0;">
+    <div style="padding:8px 18px;border-radius:10px;background:rgba(10,107,94,.1);border:1.5px solid var(--t-bdr);color:var(--t-ink);font-size:0.82rem;font-weight:600">👁 I Do — watch me</div>
+    <div style="padding:8px 18px;border-radius:10px;background:rgba(76,46,168,.1);border:1.5px solid var(--p-bdr);color:var(--p-ink);font-size:0.82rem;font-weight:600">🤝 We Do — together</div>
+    <div style="padding:8px 18px;border-radius:10px;background:rgba(122,72,0,.1);border:1.5px solid var(--a-bdr);color:var(--a-ink);font-size:0.82rem;font-weight:600">✍️ You Do — whiteboard</div>
+  </div>
+  <div class="big-idea">
+    <div class="bi-label">Big Idea</div>
+    <div class="bi-text">Decimals and fractions are <span style="color:var(--t-ink)">different ways of writing the same number</span>. To combine them, we convert so they speak the <span style="color:var(--a-ink)">same language</span>.</div>
+  </div>
+</div>
+
+<!-- 1 KEY VOCAB -->
+<div class="slide" id="s1">
+  <div class="phase p-key">📚 Key Vocabulary</div>
+  <div class="h2">Two conversion methods</div>
+  <div class="rule" style="background:var(--navy)"></div>
+  <div class="kv-row">
+    <div class="kv-box kb-t">
+      <div class="kv-label">Decimal → Fraction</div>
+      <div class="kv-note">Read the place value, then simplify.</div>
+      <div class="kv-math" id="kv1"></div>
+      <div class="kv-note">"75 hundredths" → simplify by GCD</div>
+    </div>
+    <div class="kv-box kb-a">
+      <div class="kv-label">Fraction → Decimal</div>
+      <div class="kv-note">Divide numerator by denominator.</div>
+      <div class="kv-math" id="kv2"></div>
+      <div class="kv-note">3 ÷ 4 = 0.75</div>
+    </div>
+  </div>
+  <div class="stem"><strong>Stem sentence:</strong> "To combine a decimal and a fraction, I convert them to the <strong>same form</strong> — either both decimals or both fractions."</div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- DECIMAL → FRACTION                 -->
+<!-- ═══════════════════════════════════ -->
+
+<!-- 2 I Do: 0.3 (tenths) -->
+<div class="slide" id="s2">
+  <div class="phase p-i">👁 I Do · Decimal → Fraction</div>
+  <div class="h2">Tenths — one decimal place</div>
+  <div class="big-q" id="q2"></div>
+  <div class="hint">One decimal place → tenths → denominator is 10</div>
+</div>
+
+<!-- 3 I Do: 0.45 (hundredths) -->
+<div class="slide" id="s3">
+  <div class="phase p-i">👁 I Do · Decimal → Fraction</div>
+  <div class="h2">Hundredths — two decimal places</div>
+  <div class="big-q" id="q3"></div>
+  <div class="hint">Two decimal places → hundredths → denominator is 100, then simplify</div>
+</div>
+
+<!-- 4 We Do: 0.68 (hundredths) -->
+<div class="slide" id="s4">
+  <div class="phase p-we">🤝 We Do · Decimal → Fraction</div>
+  <div class="h2">Your turn — try this one</div>
+  <div class="big-q" id="q4"></div>
+</div>
+
+<!-- 5 We Do: 1.4 (greater than 1) -->
+<div class="slide" id="s5">
+  <div class="phase p-we">🤝 We Do · Decimal → Fraction</div>
+  <div class="h2">What about a number greater than 1?</div>
+  <div class="big-q" id="q5"></div>
+</div>
+
+<!-- 6 You Do: 0.7 -->
+<div class="slide" id="s6">
+  <div class="phase p-you">✍️ You Do · Decimal → Fraction</div>
+  <div class="big-q" id="q6"></div>
+  <button class="rev-btn" onclick="reveal(this)">Reveal Answer</button>
+  <div class="ans-panel"><div class="ans-big" id="a6"></div></div>
+</div>
+
+<!-- 7 You Do: 0.36 -->
+<div class="slide" id="s7">
+  <div class="phase p-you">✍️ You Do · Decimal → Fraction</div>
+  <div class="big-q" id="q7"></div>
+  <button class="rev-btn" onclick="reveal(this)">Reveal Answer</button>
+  <div class="ans-panel"><div class="ans-big" id="a7"></div></div>
+</div>
+
+<!-- 8 You Do: 2.15 -->
+<div class="slide" id="s8">
+  <div class="phase p-you">✍️ You Do · Decimal → Fraction</div>
+  <div class="big-q" id="q8"></div>
+  <button class="rev-btn" onclick="reveal(this)">Reveal Answer</button>
+  <div class="ans-panel"><div class="ans-big" id="a8"></div></div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- FRACTION → DECIMAL                 -->
+<!-- ═══════════════════════════════════ -->
+
+<!-- 9 I Do: 3/5 -->
+<div class="slide" id="s9">
+  <div class="phase p-i">👁 I Do · Fraction → Decimal</div>
+  <div class="h2">Divide top by bottom</div>
+  <div class="big-q" id="q9"></div>
+  <div class="hint">3 ÷ 5 — or make the denominator 10</div>
+</div>
+
+<!-- 10 I Do: 7/8 -->
+<div class="slide" id="s10">
+  <div class="phase p-i">👁 I Do · Fraction → Decimal</div>
+  <div class="h2">A trickier division</div>
+  <div class="big-q" id="q10"></div>
+  <div class="hint">7 ÷ 8 — three decimal places, that's fine!</div>
+</div>
+
+<!-- 11 We Do: 9/20 -->
+<div class="slide" id="s11">
+  <div class="phase p-we">🤝 We Do · Fraction → Decimal</div>
+  <div class="big-q" id="q11"></div>
+</div>
+
+<!-- 12 We Do: 2 3/8 -->
+<div class="slide" id="s12">
+  <div class="phase p-we">🤝 We Do · Fraction → Decimal</div>
+  <div class="h2">What about a mixed number?</div>
+  <div class="big-q" id="q12"></div>
+</div>
+
+<!-- 13 You Do: 1/4 -->
+<div class="slide" id="s13">
+  <div class="phase p-you">✍️ You Do · Fraction → Decimal</div>
+  <div class="big-q" id="q13"></div>
+  <button class="rev-btn" onclick="reveal(this)">Reveal Answer</button>
+  <div class="ans-panel"><div class="ans-big" id="a13"></div></div>
+</div>
+
+<!-- 14 You Do: 11/8 -->
+<div class="slide" id="s14">
+  <div class="phase p-you">✍️ You Do · Fraction → Decimal</div>
+  <div class="big-q" id="q14"></div>
+  <button class="rev-btn" onclick="reveal(this)">Reveal Answer</button>
+  <div class="ans-panel"><div class="ans-big" id="a14"></div></div>
+</div>
+
+<!-- 15 You Do: 3 1/5 -->
+<div class="slide" id="s15">
+  <div class="phase p-you">✍️ You Do · Fraction → Decimal</div>
+  <div class="big-q" id="q15"></div>
+  <button class="rev-btn" onclick="reveal(this)">Reveal Answer</button>
+  <div class="ans-panel"><div class="ans-big" id="a15"></div></div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- ADDING DECIMALS & FRACTIONS        -->
+<!-- ═══════════════════════════════════ -->
+
+<!-- 16 I Do: 0.5 + 1/4 -->
+<div class="slide" id="s16">
+  <div class="phase p-i">👁 I Do · Adding Decimals &amp; Fractions</div>
+  <div class="h2">Convert to the same form first</div>
+  <div class="big-q" id="q16"></div>
+  <div class="hint">Method 1: Both as decimals. Method 2: Both as fractions.</div>
+</div>
+
+<!-- 17 I Do: 0.75 − 1/3 -->
+<div class="slide" id="s17">
+  <div class="phase p-i">👁 I Do · Subtracting Decimals &amp; Fractions</div>
+  <div class="h2">Fractions are often easier here</div>
+  <div class="big-q" id="q17"></div>
+  <div class="hint">Convert 0.75 to ¾, then find a common denominator with ⅓</div>
+</div>
+
+<!-- 18 We Do: 1/5 + 0.3 -->
+<div class="slide" id="s18">
+  <div class="phase p-we">🤝 We Do · Adding Decimals &amp; Fractions</div>
+  <div class="big-q" id="q18"></div>
+</div>
+
+<!-- 19 We Do: 1.5 + 2/3 -->
+<div class="slide" id="s19">
+  <div class="phase p-we">🤝 We Do · Adding Decimals &amp; Fractions</div>
+  <div class="big-q" id="q19"></div>
+</div>
+
+<!-- 20 You Do: 0.4 − 1/6 -->
+<div class="slide" id="s20">
+  <div class="phase p-you">✍️ You Do · Decimals &amp; Fractions</div>
+  <div class="big-q" id="q20"></div>
+  <button class="rev-btn" onclick="reveal(this)">Reveal Answer</button>
+  <div class="ans-panel"><div class="ans-big" id="a20"></div></div>
+</div>
+
+<!-- 21 You Do: 0.5 × 3/4 + 0.25 -->
+<div class="slide" id="s21">
+  <div class="phase p-you">✍️ You Do · Mixed Operations</div>
+  <div class="h2">Remember BIDMAS — multiply first!</div>
+  <div class="big-q" id="q21"></div>
+  <button class="rev-btn" onclick="reveal(this)">Reveal Answer</button>
+  <div class="ans-panel"><div class="ans-big" id="a21"></div></div>
+</div>
+
+<!-- 22 You Do: 3/4 × 0.8 + 1/5 -->
+<div class="slide" id="s22">
+  <div class="phase p-you">✍️ You Do · Mixed Operations</div>
+  <div class="big-q" id="q22"></div>
+  <button class="rev-btn" onclick="reveal(this)">Reveal Answer</button>
+  <div class="ans-panel"><div class="ans-big" id="a22"></div></div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- BUILDING TO BOOKLET LEVEL          -->
+<!-- ═══════════════════════════════════ -->
+
+<!-- 23 We Do: (3/4)² × 5/9 − 7/8 -->
+<div class="slide" id="s23">
+  <div class="phase p-we">🤝 We Do · Challenge</div>
+  <div class="h2">Powers, fractions and decimals — all together</div>
+  <div class="big-q" id="q23"></div>
+</div>
+
+<!-- 24 We Do: 1.2 × 5/6 − 0.5 -->
+<div class="slide" id="s24">
+  <div class="phase p-we">🤝 We Do · Challenge</div>
+  <div class="big-q" id="q24"></div>
+</div>
+
+<!-- 25 We Do: (2/3)² + 0.75 ÷ 3/8 -->
+<div class="slide" id="s25">
+  <div class="phase p-we">🤝 We Do · Challenge</div>
+  <div class="big-q" id="q25"></div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- FINAL 4: INDEPENDENT IN BOOKS      -->
+<!-- ═══════════════════════════════════ -->
+
+<!-- 26 Final 4 -->
+<div class="slide" id="s26">
+  <div class="phase p-ch">📓 Independent Practice — In Your Books</div>
+  <div class="h2">Try these 4 in your exercise book — then we'll check</div>
+  <div class="f4-grid">
+    <div class="f4-card fc1">
+      <div class="f4-num">1</div>
+      <div class="f4-q" id="f4q1"></div>
+      <button class="card-rev" onclick="this.style.display='none';this.nextElementSibling.classList.add('on')">Show</button>
+      <div class="f4-ans" id="f4a1"></div>
+    </div>
+    <div class="f4-card fc2">
+      <div class="f4-num">2</div>
+      <div class="f4-q" id="f4q2"></div>
+      <button class="card-rev" onclick="this.style.display='none';this.nextElementSibling.classList.add('on')">Show</button>
+      <div class="f4-ans" id="f4a2"></div>
+    </div>
+    <div class="f4-card fc3">
+      <div class="f4-num">3</div>
+      <div class="f4-q" id="f4q3"></div>
+      <button class="card-rev" onclick="this.style.display='none';this.nextElementSibling.classList.add('on')">Show</button>
+      <div class="f4-ans" id="f4a3"></div>
+    </div>
+    <div class="f4-card fc4">
+      <div class="f4-num">4</div>
+      <div class="f4-q" id="f4q4"></div>
+      <button class="card-rev" onclick="this.style.display='none';this.nextElementSibling.classList.add('on')">Show</button>
+      <div class="f4-ans" id="f4a4"></div>
+    </div>
+  </div>
+  <div class="sub" style="margin-top:10px;font-size:0.82rem">Then continue with the booklet — pages 24–25</div>
+</div>
+
+</div><!-- end .slides -->
+
+<div class="pbar"><div class="pfill" id="pf"></div></div>
+<div class="bnav">
+  <div class="nav-info" id="nc">Intro</div>
+  <div class="nbtns">
+    <button class="nb" id="pb" disabled>← Back</button>
+    <button class="nb prim" id="nb2">Next →</button>
+  </div>
+</div>
+
+<script>
+const K = (id, tex) => { const el=document.getElementById(id); if(el) katex.render(tex,el,{displayMode:false,throwOnError:false}); };
+const KD = (id, tex) => { const el=document.getElementById(id); if(el) katex.render(tex,el,{displayMode:true,throwOnError:false}); };
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Vocab
+  KD('kv1','0.75 = \\dfrac{75}{100} = \\dfrac{3}{4}');
+  KD('kv2','\\dfrac{3}{4} = 3 \\div 4 = 0.75');
+
+  // Decimal → Fraction
+  KD('q2','0.3 = \\;?');                                          // I Do tenths
+  KD('q3','0.45 = \\;?');                                         // I Do hundredths
+  KD('q4','0.68 = \\;?');                                         // We Do hundredths
+  KD('q5','1.4 = \\;?');                                          // We Do >1
+  KD('q6','0.7');          KD('a6','\\dfrac{7}{10}');              // You Do
+  KD('q7','0.36');         KD('a7','\\dfrac{9}{25}');              // You Do
+  KD('q8','2.15');         KD('a8','2\\dfrac{3}{20} = \\dfrac{43}{20}'); // You Do
+
+  // Fraction → Decimal
+  KD('q9','\\dfrac{3}{5} = \\;?');                                // I Do
+  KD('q10','\\dfrac{7}{8} = \\;?');                               // I Do
+  KD('q11','\\dfrac{9}{20} = \\;?');                              // We Do
+  KD('q12','2\\dfrac{3}{8} = \\;?');                              // We Do mixed
+  KD('q13','\\dfrac{1}{4}');    KD('a13','0.25');                  // You Do
+  KD('q14','\\dfrac{11}{8}');   KD('a14','1.375');                 // You Do
+  KD('q15','3\\dfrac{1}{5}');   KD('a15','3.2');                   // You Do
+
+  // Adding Decimals & Fractions
+  KD('q16','0.5 + \\dfrac{1}{4}');                                // I Do
+  KD('q17','0.75 - \\dfrac{1}{3}');                               // I Do
+  KD('q18','\\dfrac{1}{5} + 0.3');                                // We Do
+  KD('q19','1.5 + \\dfrac{2}{3}');                                // We Do
+  KD('q20','0.4 - \\dfrac{1}{6}');   KD('a20','\\dfrac{7}{30}'); // You Do
+  KD('q21','0.5 \\times \\dfrac{3}{4} + 0.25');  KD('a21','\\dfrac{5}{8} = 0.625'); // You Do
+  KD('q22','\\dfrac{3}{4} \\times 0.8 + \\dfrac{1}{5}');  KD('a22','\\dfrac{4}{5} = 0.8'); // You Do
+
+  // Challenge We Dos
+  KD('q23','\\left(\\dfrac{3}{4}\\right)^{\\!2} \\times \\dfrac{5}{9} \\;-\\; \\dfrac{7}{8}');
+  KD('q24','1.2 \\times \\dfrac{5}{6} \\;-\\; 0.5');
+  KD('q25','\\left(\\dfrac{2}{3}\\right)^{\\!2} + 0.75 \\div \\dfrac{3}{8}');
+
+  // Final 4
+  KD('f4q1','\\left(\\dfrac{3}{2}\\right)^{\\!2} - 1 + 6');
+  KD('f4a1','\\dfrac{29}{4} = 7.25');
+  KD('f4q2','(-1.5) \\div \\left(-1\\dfrac{1}{3}\\right) + (-1.5)^{2}');
+  KD('f4a2','\\dfrac{27}{8} = 3.375');
+  KD('f4q3','0.75 \\times 1\\dfrac{1}{3} \\div \\left(-\\dfrac{2}{3}\\right) + 5');
+  KD('f4a3','\\dfrac{7}{2} = 3.5');
+  KD('f4q4','2\\dfrac{2}{3} + \\dfrac{-16}{9} + 0.75');
+  KD('f4a4','\\dfrac{59}{36}');
+});
+
+function reveal(btn){
+  btn.style.display='none';
+  btn.nextElementSibling.classList.add('on');
+}
+
+/* NAV */
+const META=[
+  'Intro','Key Vocabulary',
+  'Dec→Frac · I Do','Dec→Frac · I Do','Dec→Frac · We Do','Dec→Frac · We Do',
+  'Dec→Frac · You Do','Dec→Frac · You Do','Dec→Frac · You Do',
+  'Frac→Dec · I Do','Frac→Dec · I Do','Frac→Dec · We Do','Frac→Dec · We Do',
+  'Frac→Dec · You Do','Frac→Dec · You Do','Frac→Dec · You Do',
+  'Adding · I Do','Subtracting · I Do','Adding · We Do','Adding · We Do',
+  'Adding · You Do','Mixed Ops · You Do','Mixed Ops · You Do',
+  'Challenge · We Do','Challenge · We Do','Challenge · We Do',
+  'Independent Practice'
+];
+const SL=document.querySelectorAll('.slide'),TOT=SL.length;let CUR=0;
+const nc=document.getElementById('nc'),pf=document.getElementById('pf'),pb=document.getElementById('pb'),nb=document.getElementById('nb2'),sl=document.getElementById('slideLabel');
+function upd(){
+  SL.forEach((s,i)=>s.classList.toggle('active',i===CUR));
+  nc.textContent=META[CUR]||'';sl.textContent=META[CUR]||'';
+  pf.style.width=((CUR+1)/TOT*100)+'%';pb.disabled=CUR===0;
+  nb.disabled=CUR===TOT-1;nb.textContent=CUR===TOT-1?'Done ✓':'Next →';
+}
+pb.onclick=()=>{if(CUR>0){CUR--;upd();}};
+nb.onclick=()=>{if(CUR<TOT-1){CUR++;upd();}};
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();if(CUR<TOT-1){CUR++;upd();}}
+  if(e.key==='ArrowLeft'){e.preventDefault();if(CUR>0){CUR--;upd();}}
+});
+upd();
+</script>
+</body>
+</html>
