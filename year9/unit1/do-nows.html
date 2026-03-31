@@ -454,6 +454,75 @@ const DONOWS = [
     ]
   },
 
+  // ═══════════════════════════════════════════════════════════════════
+  //  STANDARD FORM BLOCK (Do Nows 16–18)
+  // ═══════════════════════════════════════════════════════════════════
+
+  // ── DO NOW 16 · Standard Form Lesson ────────────────────────────────
+  {
+    lesson: 'Standard Form · Lesson Starter',
+    cards: [
+      { col:'c1', type:'Standard Form', instr:'Write in standard form:',
+        qtext:'$0.000\\,045$',
+        ans:'$4.5 \\times 10^{-5}$', note:'Move decimal 5 places right → negative power of 10' },
+      { col:'c2', type:'Solve', instr:'Solve for $x$:',
+        qtext:'$\\dfrac{2}{5}\\,x + 3 = 11$',
+        hint:'Multiply both sides by the reciprocal of the fraction.',
+        ans:'$x = 20$', note:'$\\tfrac{2}{5}x = 8$ · $x = 8 \\times \\tfrac{5}{2} = 20$' },
+      { col:'c3', type:'Index Laws', instr:'Find the value of $n$:',
+        qtext:'$\\dfrac{x^{n} \\times x^{3}}{x^{4}} = x^{6}$',
+        hint:'Simplify the left side first using index laws.',
+        ans:'$n = 7$', note:'Top: $x^{n+3}$ · $\\div x^4 = x^{n-1}$ · $n - 1 = 6$' },
+      { col:'c4', type:'🧩 BIDMAS Puzzle', bidmas2: true,
+        ans:'$7 \\times 3 - 4^{2} = 5$',
+        note:'Powers first: $4^2 = 16$ · Multiply: $7 \\times 3 = 21$ · $21 - 16 = 5$ ✓' },
+    ]
+  },
+
+  // ── DO NOW 17 · Standard Form Mixed Review ──────────────────────────
+  {
+    lesson: 'Standard Form · Mixed Review',
+    cards: [
+      { col:'c1', type:'Standard Form', instr:'Calculate. Give your answer in standard form.',
+        qtext:'$(4.2 \\times 10^{7}) \\div (6 \\times 10^{3})$', size:'sm',
+        ans:'$7 \\times 10^{3}$', note:'$4.2 \\div 6 = 0.7$ · $10^7 \\div 10^3 = 10^4$ · $0.7 \\times 10^4$ → adjust → $7 \\times 10^3$' },
+      { col:'c2', type:'Standard Form', instr:'Calculate. Give your answer in standard form.',
+        qtext:'$(5 \\times 10^{5}) - (8 \\times 10^{4})$', size:'sm',
+        ans:'$4.2 \\times 10^{5}$', note:'Rewrite: $8 \\times 10^4 = 0.8 \\times 10^5$ · $5 - 0.8 = 4.2$' },
+      { col:'c3', type:'Solve', instr:'Expand the bracket and solve for $x$:',
+        qtext:'$\\dfrac{3}{4}(4x - 8) = x + 3$', size:'sm',
+        hint:'Expand first, then collect like terms.',
+        ans:'$x = 4.5$', note:'$3x - 6 = x + 3$ · $2x = 9$ · $x = 4.5$' },
+      { col:'c4', type:'Recurring Decimal', instr:'Write as a fraction in simplest form:',
+        qtext:'$0.\\dot{4}\\dot{5}$',
+        hint:'Two digits repeat — multiply by 100.',
+        ans:'$\\dfrac{5}{11}$', note:'Let $x = 0.4545\\ldots$ · $100x = 45.4545\\ldots$ · $99x = 45$ · $x = \\tfrac{45}{99} = \\tfrac{5}{11}$' },
+    ]
+  },
+
+  // ── DO NOW 18 · Surds, Standard Form & Equations ────────────────────
+  {
+    lesson: 'Surds · Standard Form · Equations',
+    cards: [
+      { col:'c1', type:'Simplify Surd', instr:'Simplify fully:',
+        qtext:'$\\sqrt{72}$',
+        hint:'Find the largest square factor of 72.',
+        ans:'$6\\sqrt{2}$', note:'$72 = 36 \\times 2$ · $\\sqrt{36} = 6$ · so $\\sqrt{72} = 6\\sqrt{2}$' },
+      { col:'c2', type:'Add Surds', instr:'Simplify fully:',
+        qtext:'$\\sqrt{50} + \\sqrt{18}$',
+        hint:'Simplify each surd first — do they share the same root?',
+        ans:'$8\\sqrt{2}$', note:'$\\sqrt{50} = 5\\sqrt{2}$ · $\\sqrt{18} = 3\\sqrt{2}$ · $5\\sqrt{2} + 3\\sqrt{2} = 8\\sqrt{2}$' },
+      { col:'c3', type:'🧩 Standard Form', instr:'Find the value of $n$:',
+        qtext:'$(3 \\times 10^{n})^{2} = 9 \\times 10^{8}$', size:'sm',
+        hint:'Expand the bracket — what does $(10^n)^2$ give you?',
+        ans:'$n = 4$', note:'$3^2 = 9$ · $(10^n)^2 = 10^{2n}$ · $10^{2n} = 10^8$ · $2n = 8$' },
+      { col:'c4', type:'Solve', instr:'Solve for $x$:',
+        qtext:'$\\dfrac{2}{3}(6x + 9) - \\dfrac{1}{2}x = 10$', size:'sm',
+        hint:'Expand $\\tfrac{2}{3} \\times 6x$ and $\\tfrac{2}{3} \\times 9$ first.',
+        ans:'$x = \\dfrac{8}{7}$', note:'$4x + 6 - \\tfrac{1}{2}x = 10$ · $\\tfrac{7}{2}x = 4$ · $x = \\tfrac{8}{7}$' },
+    ]
+  },
+
 ];
 
 // ═══════════════════════════════════════════════════════════════════
@@ -504,6 +573,33 @@ DONOWS.forEach((dn, idx) => {
           <div class="ans-lbl">Answer</div>
           <div class="ans-val">$(2 + 4)^{2} - 9 \\times 3 = 9$</div>
           <div class="ans-note">Brackets: $(2+4)^2 = 36$ · $9 \\times 3 = 27$ · $36 - 27 = 9$ ✓</div>
+        </div>`;
+    } else if (c.bidmas2) {
+      card.innerHTML = `
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="q-instr" style="color:var(--c4-ink);font-weight:600;font-size:clamp(0.9rem,1.6vw,1.1rem);">
+          Place each number tile once to make the equation true:
+        </div>
+        <div class="tile-bank" style="gap:12px;margin-top:6px;">
+          <span class="tile" style="width:48px;height:48px;font-size:clamp(1.2rem,2.4vw,1.6rem);">3</span>
+          <span class="tile" style="width:48px;height:48px;font-size:clamp(1.2rem,2.4vw,1.6rem);">4</span>
+          <span class="tile" style="width:48px;height:48px;font-size:clamp(1.2rem,2.4vw,1.6rem);">5</span>
+          <span class="tile" style="width:48px;height:48px;font-size:clamp(1.2rem,2.4vw,1.6rem);">7</span>
+        </div>
+        <div class="eq-row" style="gap:8px;margin-top:10px;flex:1;align-items:center;">
+          <span class="eq-box" style="width:48px;height:48px;"></span>
+          <span class="eq-sep" style="font-size:clamp(1.4rem,3vw,2.2rem);">×</span>
+          <span class="eq-box" style="width:48px;height:48px;"></span>
+          <span class="eq-sep" style="font-size:clamp(1.4rem,3vw,2.2rem);">−</span>
+          <span class="eq-box" style="width:48px;height:48px;"></span>
+          <span class="eq-sep" style="font-size:clamp(1.4rem,3vw,2.2rem);"><sup style="font-size:0.6em">2</sup> =</span>
+          <span class="eq-box" style="width:48px;height:48px;"></span>
+        </div>
+        <div class="q-hint">Powers before multiplication before subtraction.</div>
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">${c.ans}</div>
+          <div class="ans-note">${c.note}</div>
         </div>`;
     } else if(c.instr){
       card.innerHTML = `
