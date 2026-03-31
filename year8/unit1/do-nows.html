@@ -719,6 +719,47 @@ const DONOWS = [
     ]
   },
 
+  // ── DO NOW 11 · Index Laws with Coefficients & Negative Fraction Power ──────
+  {
+    lesson: 'Index Laws with Coefficients',
+    cards: [
+      {
+        col:'c1', type:'Index Laws',
+        instr:'Simplify:',
+        katexQ:'3x^{4} \\times 2x^{3}',
+        hint:'Multiply the numbers, add the powers.',
+        katexA:'6x^{7}',
+        ans:'6x⁷', note:'3 × 2 = 6 · x⁴ × x³ = x⁴⁺³ = x⁷'
+      },
+      {
+        col:'c2', type:'Index Laws',
+        instr:'Simplify:',
+        katexQ:'\\left(2x^{3}\\right)^{2}',
+        hint:'Square the number AND multiply the power by 2.',
+        katexA:'4x^{6}',
+        ans:'4x⁶', note:'2² = 4 · (x³)² = x³ˣ² = x⁶'
+      },
+      {
+        col:'c3', type:'Negative Powers',
+        instr:'Calculate:',
+        katexQ:'\\left(\\dfrac{3}{4}\\right)^{-2}',
+        katexQsize:'sm',
+        hint:'Flip the fraction, then apply the power.',
+        katexA:'\\dfrac{16}{9} = 1\\tfrac{7}{9}',
+        ans:'16/9', note:'(3/4)⁻² = (4/3)² = 16/9 = 1 7/9'
+      },
+      {
+        col:'c4', type:'🧩 BIDMAS Puzzle',
+        instr:'Add one pair of brackets to make this true:',
+        katexQ:'9 - 2 \\times 3 + 1 = 22',
+        katexQsize:'sm',
+        hint:'Without brackets, what does BIDMAS give you?',
+        katexA:'(9 - 2) \\times 3 + 1 = 22',
+        ans:'(9 − 2) × 3 + 1 = 22', note:'Without brackets: 9 − 6 + 1 = 4 ✗ · With brackets: (9−2)=7 · 7×3=21 · 21+1=22 ✓'
+      },
+    ]
+  },
+
 ];
 
 /* ── HELPER: KaTeX fraction HTML ── */
