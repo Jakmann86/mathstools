@@ -47,6 +47,8 @@
   .q-hint{font-size:0.92rem;color:var(--muted);font-style:italic;line-height:1.45;margin-top:-4px;}
   .q-instr{font-family:'DM Sans',sans-serif;font-size:clamp(1rem,1.8vw,1.2rem);color:var(--muted);font-weight:500;line-height:1.4;margin-top:2px;}
   .q-eq{font-family:'DM Serif Display',serif;font-size:clamp(1.9rem,3.8vw,3.2rem);line-height:1.35;flex:1;display:flex;align-items:center;letter-spacing:0.04em;}
+  .q-eq.sm{font-size:clamp(1.3rem,2.6vw,2rem);}
+  .q-eq.med{font-size:clamp(1.5rem,3vw,2.4rem);}
   .c1 .q-eq{color:var(--c1-ink);} .c2 .q-eq{color:var(--c2-ink);} .c3 .q-eq{color:var(--c3-ink);} .c4 .q-eq{color:var(--c4-ink);}
   .ans-wrap{display:none !important;flex-direction:column;gap:5px;border-top:2.5px dashed rgba(0,0,0,0.18);padding-top:10px;margin-top:4px;animation:fadeUp .25s ease both;}
   .ans-wrap.on{display:flex !important;}
@@ -523,6 +525,28 @@ const DONOWS = [
     ]
   },
 
+  // ── DO NOW 19 · Standard Form, Surds & Equations ────────────────────
+  {
+    lesson: 'Standard Form · Surds · Equations Mixed',
+    cards: [
+      { col:'c1', type:'Standard Form', instr:'Calculate. Give your answer as an ordinary number.',
+        qtext:'$(3 \\times 10^{-2}) - (4.5 \\times 10^{-2})$', size:'sm',
+        ans:'$-0.015$', note:'Same power of 10: $3 - 4.5 = -1.5$ · $-1.5 \\times 10^{-2} = -0.015$' },
+      { col:'c2', type:'Add Surds', instr:'Simplify fully:',
+        qtext:'$\\sqrt{27} + \\sqrt{12}$',
+        hint:'Simplify each surd first — look for square factors.',
+        ans:'$5\\sqrt{3}$', note:'$\\sqrt{27} = 3\\sqrt{3}$ · $\\sqrt{12} = 2\\sqrt{3}$ · $3\\sqrt{3} + 2\\sqrt{3} = 5\\sqrt{3}$' },
+      { col:'c3', type:'Expand Double Bracket', instr:'Expand and simplify:',
+        qtext:'$(\\sqrt{3} + 1)(\\sqrt{3} - 2)$', size:'sm',
+        hint:'Use FOIL — multiply each term in the first bracket by each in the second.',
+        ans:'$1 - \\sqrt{3}$', note:'$\\sqrt{3} \\cdot \\sqrt{3} = 3$ · $\\sqrt{3} \\cdot (-2) = -2\\sqrt{3}$ · $1 \\cdot \\sqrt{3} = \\sqrt{3}$ · $1 \\cdot (-2) = -2$ · $3 - 2\\sqrt{3} + \\sqrt{3} - 2 = 1 - \\sqrt{3}$' },
+      { col:'c4', type:'🧩 Solve', instr:'Expand and solve for $x$:',
+        qtext:'$\\dfrac{3}{5}(10x - 5) + 2 = 4x + 3$', size:'sm',
+        hint:'Expand $\\tfrac{3}{5} \\times 10x$ and $\\tfrac{3}{5} \\times (-5)$ first.',
+        ans:'$x = 2$', note:'$6x - 3 + 2 = 4x + 3$ · $6x - 1 = 4x + 3$ · $2x = 4$' },
+    ]
+  },
+
 ];
 
 // ═══════════════════════════════════════════════════════════════════
@@ -605,7 +629,7 @@ DONOWS.forEach((dn, idx) => {
       card.innerHTML = `
         <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
         <div class="q-instr">${c.instr}</div>
-        <div class="q-eq">${c.qtext}</div>
+        <div class="q-eq${sizeClass}">${c.qtext}</div>
         ${c.hint?`<div class="q-hint">${c.hint}</div>`:''}
         <div class="ans-wrap" id="a${idx}-${ci}">
           <div class="ans-lbl">Answer</div>
