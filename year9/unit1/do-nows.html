@@ -547,6 +547,75 @@ const DONOWS = [
     ]
   },
 
+  // ── DO NOW 20 · Standard Form, Surds & Index Laws ───────────────────
+  {
+    lesson: 'Standard Form · Surds · Index Laws',
+    cards: [
+      { col:'c1', type:'Standard Form', instr:'Calculate. Give your answer in standard form.',
+        qtext:'$(6.3 \\times 10^{4}) + (7 \\times 10^{3})$', size:'sm',
+        hint:'The powers are different — rewrite so they match.',
+        ans:'$7 \\times 10^{4}$', note:'$7 \\times 10^3 = 0.7 \\times 10^4$ · $6.3 + 0.7 = 7$' },
+      { col:'c2', type:'Add Surds', instr:'Simplify fully:',
+        qtext:'$3\\sqrt{8} + 2\\sqrt{18}$',
+        hint:'Simplify each surd first, then collect like terms.',
+        ans:'$12\\sqrt{2}$', note:'$3\\sqrt{8} = 3 \\times 2\\sqrt{2} = 6\\sqrt{2}$ · $2\\sqrt{18} = 2 \\times 3\\sqrt{2} = 6\\sqrt{2}$ · $6\\sqrt{2} + 6\\sqrt{2} = 12\\sqrt{2}$' },
+      { col:'c3', type:'Expand', instr:'Expand and simplify:',
+        qtext:'$(\\sqrt{5} + 3)(\\sqrt{5} - 3)$', size:'sm',
+        hint:'This is a difference of two squares pattern — what cancels?',
+        ans:'$-4$', note:'$(\\sqrt{5})^2 - 3^2 = 5 - 9 = -4$ · The surds cancel completely!' },
+      { col:'c4', type:'🧩 Index Laws Puzzle', instr:'Find the value of $n$:',
+        qtext:'$\\dfrac{\\sqrt{32} \\times 4^{3}}{16^{2}} = 2^{n}$', size:'sm',
+        hint:'Rewrite everything as powers of 2 first.',
+        ans:'$n = \\dfrac{1}{2}$', note:'$\\sqrt{32} = 2^{\\frac{5}{2}}$ · $4^3 = 2^6$ · $16^2 = 2^8$ · $2^{\\frac{5}{2}+6-8} = 2^{\\frac{1}{2}}$' },
+    ]
+  },
+
+  // ── DO NOW 21 · Rationalise, Surd Brackets, Std Form & Indices ──────
+  {
+    lesson: 'Rationalise · Surds · Standard Form · Index Laws',
+    cards: [
+      { col:'c1', type:'Rationalise', instr:'Rationalise the denominator:',
+        qtext:'$\\dfrac{5}{\\sqrt{3}}$',
+        hint:'Multiply top and bottom by $\\sqrt{3}$.',
+        ans:'$\\dfrac{5\\sqrt{3}}{3}$', note:'$\\dfrac{5}{\\sqrt{3}} \\times \\dfrac{\\sqrt{3}}{\\sqrt{3}} = \\dfrac{5\\sqrt{3}}{3}$' },
+      { col:'c2', type:'Expand', instr:'Expand and simplify:',
+        qtext:'$(2\\sqrt{7} + 3)(\\sqrt{7} - 1)$', size:'sm',
+        hint:'FOIL — watch out for $2\\sqrt{7} \\times \\sqrt{7}$.',
+        ans:'$11 + \\sqrt{7}$', note:'$2\\sqrt{7} \\times \\sqrt{7} = 2 \\times 7 = 14$ · $2\\sqrt{7} \\times (-1) = -2\\sqrt{7}$ · $3 \\times \\sqrt{7} = 3\\sqrt{7}$ · $3 \\times (-1) = -3$ · $14 + \\sqrt{7} - 3 = 11 + \\sqrt{7}$' },
+      { col:'c3', type:'Standard Form', instr:'Calculate. Give your answer in standard form.',
+        qtext:'$(7 \\times 10^{4}) \\times (5 \\times 10^{3})$', size:'sm',
+        hint:'Multiply the coefficients, add the powers — then check!',
+        ans:'$3.5 \\times 10^{8}$', note:'$7 \\times 5 = 35$ · $10^4 \\times 10^3 = 10^7$ · $35 \\times 10^7$ → adjust → $3.5 \\times 10^{8}$' },
+      { col:'c4', type:'🧩 Index Laws Puzzle', instr:'Find the value of $n$:',
+        qtext:'$\\dfrac{\\sqrt{27} \\times 9^{2}}{3^{5}} = 3^{n}$', size:'sm',
+        hint:'Rewrite everything as powers of 3 first.',
+        ans:'$n = \\dfrac{1}{2}$', note:'$\\sqrt{27} = 3^{\\frac{3}{2}}$ · $9^2 = 3^4$ · Top: $3^{\\frac{3}{2}+4} = 3^{\\frac{11}{2}}$ · $3^{\\frac{11}{2}-5} = 3^{\\frac{1}{2}}$' },
+    ]
+  },
+
+  // ── DO NOW 22 · Rationalise (2 terms), Surds, Std Form & Indices ────
+  {
+    lesson: 'Rationalise · Surds · Standard Form · Index Laws (ii)',
+    cards: [
+      { col:'c1', type:'Rationalise', instr:'Rationalise the denominator:',
+        qtext:'$\\dfrac{3 + \\sqrt{5}}{\\sqrt{5}}$', size:'sm',
+        hint:'Multiply top and bottom by $\\sqrt{5}$ — expand the numerator.',
+        ans:'$\\dfrac{3\\sqrt{5} + 5}{5}$', note:'$\\dfrac{(3+\\sqrt{5})\\times\\sqrt{5}}{\\sqrt{5}\\times\\sqrt{5}} = \\dfrac{3\\sqrt{5}+5}{5}$' },
+      { col:'c2', type:'Expand', instr:'Expand and simplify:',
+        qtext:'$(3\\sqrt{2} - 4)(\\sqrt{2} + 5)$', size:'sm',
+        hint:'FOIL — watch $3\\sqrt{2} \\times \\sqrt{2}$.',
+        ans:'$-14 + 11\\sqrt{2}$', note:'$3\\sqrt{2} \\times \\sqrt{2} = 6$ · $3\\sqrt{2} \\times 5 = 15\\sqrt{2}$ · $-4\\sqrt{2}$ · $-20$ · $6 + 11\\sqrt{2} - 20 = -14 + 11\\sqrt{2}$' },
+      { col:'c3', type:'Standard Form', instr:'Calculate. Give your answer in standard form.',
+        qtext:'$(5.1 \\times 10^{6}) - (3 \\times 10^{4})$', size:'sm',
+        hint:'The powers are two apart — rewrite the smaller one.',
+        ans:'$5.07 \\times 10^{6}$', note:'$3 \\times 10^4 = 0.03 \\times 10^6$ · $5.1 - 0.03 = 5.07$' },
+      { col:'c4', type:'🧩 Index Laws Puzzle', instr:'Find the value of $n$:',
+        qtext:'$\\dfrac{\\sqrt{8} \\times \\sqrt[3]{64}}{4^{2}} = 2^{n}$', size:'sm',
+        hint:'Rewrite everything as powers of 2. Remember $\\sqrt[3]{64} = 64^{\\frac{1}{3}}$.',
+        ans:'$n = -\\dfrac{1}{2}$', note:'$\\sqrt{8} = 2^{\\frac{3}{2}}$ · $\\sqrt[3]{64} = 2^2$ · $4^2 = 2^4$ · $2^{\\frac{3}{2}+2-4} = 2^{-\\frac{1}{2}}$' },
+    ]
+  },
+
 ];
 
 // ═══════════════════════════════════════════════════════════════════
