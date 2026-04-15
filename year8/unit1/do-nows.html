@@ -842,6 +842,161 @@ const DONOWS = [
     ]
   },
 
+  // ── DO NOW 14 · Double Recurring, Index Laws, Standard Form ─────────────────
+  {
+    lesson: 'Recurring Decimals · Index Laws · Standard Form',
+    cards: [
+      {
+        col:'c1', type:'Recurring Decimals',
+        instr:'Calculate. Give your answer as a fraction.',
+        katexQ:'0.\\dot{2}\\dot{7} \\times \\dfrac{3}{2}',
+        katexQsize:'sm',
+        hint:'Two digits repeat → divide by 99',
+        katexA:'\\dfrac{9}{22}',
+        ans:'9/22', note:'0.27̄  = 27/99 = 3/11 · 3/11 × 3/2 = 9/22'
+      },
+      {
+        col:'c2', type:'Index Laws',
+        instr:'Simplify:',
+        katexQ:'\\dfrac{(4x^{5})^{2}}{8x^{3}}',
+        katexQsize:'sm',
+        hint:'Square the bracket first, then divide.',
+        katexA:'2x^{7}',
+        ans:'2x⁷', note:'(4x⁵)² = 16x¹⁰ · 16x¹⁰ ÷ 8x³ = 2x⁷'
+      },
+      {
+        col:'c3', type:'Standard Form',
+        instr:'Write as an ordinary number:',
+        katexQ:'4.03 \\times 10^{4}',
+        hint:'Move the decimal 4 places right.',
+        katexA:'40{,}300',
+        ans:'40,300', note:'4.03 × 10⁴ · Move decimal 4 places right · 40,300'
+      },
+      {
+        col:'c4', type:'Standard Form',
+        instr:'Write in standard form:',
+        katexQ:'0.0056',
+        hint:'Small number → negative power of 10.',
+        katexA:'5.6 \\times 10^{-3}',
+        ans:'5.6 × 10⁻³', note:'Decimal moves 3 places right to get 5.6 · Small number → 5.6 × 10⁻³'
+      },
+    ]
+  },
+
+  // ── DO NOW 15 · Recurring Decimals, Standard Form & Algebra Intro ───────────
+  {
+    lesson: 'Mixed Review · Into Algebra',
+    cards: [
+      {
+        col:'c1', type:'Recurring Decimals',
+        instr:'Calculate. Give your answer as a fraction.',
+        katexQ:'0.\\dot{8} \\times \\left(\\dfrac{3}{4}\\right)^{2}',
+        katexQsize:'sm',
+        hint:'Convert the recurring decimal first. Then square the fraction.',
+        katexA:'\\dfrac{1}{2}',
+        ans:'1/2', note:'0.8̄ = 8/9 · (3/4)² = 9/16 · 8/9 × 9/16 = 72/144 = 1/2'
+      },
+      {
+        col:'c2', type:'Standard Form',
+        instr:'Rewrite in correct standard form:',
+        katexQ:'35 \\times 10^{3}',
+        hint:'35 is not between 1 and 10...',
+        katexA:'3.5 \\times 10^{4}',
+        ans:'3.5 × 10⁴', note:'35 = 3.5 × 10 · So 3.5 × 10 × 10³ = 3.5 × 10⁴'
+      },
+      {
+        col:'c3', type:'Standard Form',
+        instr:'Write in standard form:',
+        katexQ:'0.00091',
+        hint:'Move the decimal until you have a number between 1 and 10.',
+        katexA:'9.1 \\times 10^{-4}',
+        ans:'9.1 × 10⁻⁴', note:'Decimal moves 4 places right to get 9.1 · Small number → negative power'
+      },
+      {
+        col:'c4', type:'🧩 Number Puzzle',
+        qtext:'I think of a number.\nI multiply it by 3.\nI add 7.\nMy answer is 22.\nWhat was my number?', size:'sm',
+        hint:'Can you write this as an equation?',
+        ans:'5', note:'3x + 7 = 22 · 3x = 15 · x = 5 · Check: 5 × 3 = 15, 15 + 7 = 22 ✓'
+      },
+    ]
+  },
+
+  // ── DO NOW 16 · Recurring + Squared Fraction, Standard Form, Number Puzzle ──
+  {
+    lesson: 'Mixed Review · Transition to Algebra',
+    cards: [
+      {
+        col:'c1', type:'Recurring Decimals',
+        instr:'Calculate. Give your answer as a fraction.',
+        katexQ:'0.\\dot{4} + \\left(\\dfrac{1}{2}\\right)^{2}',
+        katexQsize:'sm',
+        hint:'Convert the recurring decimal. Then square the fraction. Then add.',
+        katexA:'\\dfrac{25}{36}',
+        ans:'25/36', note:'0.4̄ = 4/9 · (1/2)² = 1/4 · 4/9 + 1/4 · LCD = 36 · 16/36 + 9/36 = 25/36'
+      },
+      {
+        col:'c2', type:'Standard Form',
+        instr:'Rewrite in correct standard form:',
+        katexQ:'0.72 \\times 10^{5}',
+        hint:'0.72 is not between 1 and 10...',
+        katexA:'7.2 \\times 10^{4}',
+        ans:'7.2 × 10⁴', note:'0.72 = 7.2 ÷ 10 · So 7.2 ÷ 10 × 10⁵ = 7.2 × 10⁴'
+      },
+      {
+        col:'c3', type:'Standard Form',
+        instr:'Write in standard form:',
+        katexQ:'0.000063',
+        hint:'How many places does the decimal move?',
+        katexA:'6.3 \\times 10^{-5}',
+        ans:'6.3 × 10⁻⁵', note:'Decimal moves 5 places right to get 6.3 · Small number → 6.3 × 10⁻⁵'
+      },
+      {
+        col:'c4', type:'🧩 Number Puzzle',
+        qtext:'I think of a number.\nI square it.\nI subtract 4.\nI divide by 3.\nMy answer is 7.\nWhat was my number?', size:'sm',
+        hint:'Work backwards! Or write it as an equation.',
+        ans:'5', note:'x² − 4 = 21 · x² = 25 · x = 5 · Check: 5² = 25, 25 − 4 = 21, 21 ÷ 3 = 7 ✓'
+      },
+    ]
+  },
+
+  // ── DO NOW 17 · Recurring + Squared, Standard Form, Number Puzzle ───────────
+  {
+    lesson: 'Mixed Review · Algebra Warm-Up',
+    cards: [
+      {
+        col:'c1', type:'Recurring Decimals',
+        instr:'Calculate. Give your answer as a fraction.',
+        katexQ:'0.\\dot{4} + \\left(\\dfrac{2}{3}\\right)^{2}',
+        katexQsize:'sm',
+        hint:'Convert the recurring decimal. Then square the fraction. Then add.',
+        katexA:'\\dfrac{8}{9}',
+        ans:'8/9', note:'0.4̄ = 4/9 · (2/3)² = 4/9 · 4/9 + 4/9 = 8/9'
+      },
+      {
+        col:'c2', type:'Standard Form',
+        instr:'Rewrite in correct standard form:',
+        katexQ:'450 \\times 10^{2}',
+        hint:'450 is not between 1 and 10...',
+        katexA:'4.5 \\times 10^{4}',
+        ans:'4.5 × 10⁴', note:'450 × 10² = 45,000 · 4.5 × 10⁴'
+      },
+      {
+        col:'c3', type:'Standard Form',
+        instr:'Write in standard form:',
+        katexQ:'0.0039',
+        hint:'How many places does the decimal move?',
+        katexA:'3.9 \\times 10^{-3}',
+        ans:'3.9 × 10⁻³', note:'Decimal moves 3 places right to get 3.9 · Small number → 3.9 × 10⁻³'
+      },
+      {
+        col:'c4', type:'🧩 Number Puzzle',
+        qtext:'I think of a number.\nI multiply it by 4.\nI subtract 6.\nI divide by 2.\nMy answer is 9.\nWhat was my number?', size:'sm',
+        hint:'Try writing it as an equation!',
+        ans:'6', note:'(4x − 6) ÷ 2 = 9 · 4x − 6 = 18 · 4x = 24 · x = 6 · Check: 4×6=24, 24−6=18, 18÷2=9 ✓'
+      },
+    ]
+  },
+
 ];
 
 /* ── HELPER: KaTeX fraction HTML ── */
