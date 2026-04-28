@@ -153,6 +153,253 @@ const DONOWS = [
     ]
   },
 
+  // ── DO NOW 2 · Equations, Substitution, Negative Powers, Puzzle ─────────
+  {
+    lesson: 'Equations & Substitution',
+    cards: [
+      {
+        col:'c1', type:'Solve',
+        instr:'Solve:',
+        katexQ:'3(x - 2) = 21',
+        hint:'What is 21 ÷ 3? Then what?',
+        katexA:'x = 9',
+        ans:'x = 9', note:'3(x − 2) = 21 · x − 2 = 7 · x = 9'
+      },
+      {
+        col:'c2', type:'Substitution',
+        instr:'If  x = 6,  find:',
+        katexQ:'\\dfrac{3x + 7}{5}',
+        hint:'Work out the top first, then divide.',
+        katexA:'5',
+        ans:'5', note:'3(6) + 7 = 25 · 25 ÷ 5 = 5'
+      },
+      {
+        col:'c3', type:'Negative Powers',
+        instr:'Write as a fraction:',
+        katexQ:'2^{-4}',
+        hint:'Negative power → 1 over the positive power.',
+        katexA:'\\dfrac{1}{16}',
+        ans:'1/16', note:'2⁻⁴ = 1/2⁴ = 1/16'
+      },
+      {
+        col:'c4', type:'🧩 Algebra Puzzle',
+        qtext:'A rectangle has length (x + 4) cm and width 3 cm. Its perimeter is 26 cm. Find x.', size:'sm',
+        hint:'Perimeter = 2 × (length + width). Can you write the equation?',
+        ans:'x = 6', note:'2(x + 4 + 3) = 26 · x + 7 = 13 · x = 6 · Check: length = 10, width = 3, P = 2(13) = 26 ✓'
+      },
+    ]
+  },
+
+  // ── DO NOW 3 · Change Subject, Solve, Index Laws, BIDMAS Fractions ──────
+  {
+    lesson: 'Rearranging · Equations · Index Laws',
+    cards: [
+      {
+        col:'c1', type:'Change the Subject',
+        instr:'Make x the subject:',
+        katexQ:'y = 2x + 7',
+        hint:'Subtract 7 first, then divide by 2.',
+        katexA:'x = \\dfrac{y - 7}{2}',
+        ans:'x = (y−7)/2', note:'y − 7 = 2x · x = (y − 7)/2'
+      },
+      {
+        col:'c2', type:'Solve',
+        instr:'Solve:',
+        katexQ:'4(2x + 1) = 3x + 19',
+        katexQsize:'sm',
+        hint:'Expand the bracket first.',
+        katexA:'x = 3',
+        ans:'x = 3', note:'8x + 4 = 3x + 19 · 5x = 15 · x = 3 · Check: 4(7) = 28, 3(3)+19 = 28 ✓'
+      },
+      {
+        col:'c3', type:'Index Laws',
+        instr:'Simplify:',
+        katexQ:'(2a^{3})^{2} \\times a^{-4}',
+        katexQsize:'sm',
+        hint:'Square the bracket first, then add the powers.',
+        katexA:'4a^{2}',
+        ans:'4a²', note:'(2a³)² = 4a⁶ · 4a⁶ × a⁻⁴ = 4a⁶⁻⁴ = 4a²'
+      },
+      {
+        col:'c4', type:'BIDMAS',
+        instr:'Calculate:',
+        katexQ:'\\left(\\dfrac{2}{5} + \\dfrac{3}{5}\\right) \\div \\sqrt{\\dfrac{4}{9}} + \\left(-\\dfrac{1}{6}\\right)',
+        katexQsize:'sm',
+        hint:'Brackets first, then the root, then ÷, then +',
+        katexA:'\\dfrac{4}{3} = 1\\tfrac{1}{3}',
+        ans:'4/3 = 1⅓', note:'2/5 + 3/5 = 1 · √(4/9) = 2/3 · 1 ÷ 2/3 = 3/2 · 3/2 + (−1/6) = 9/6 − 1/6 = 8/6 = 4/3'
+      },
+    ]
+  },
+
+  // ── DO NOW 4 · Change Subject, Solve, Roots & Negative Indices (weak areas) ─
+  {
+    lesson: 'Rearranging · Equations · Weak Areas Recap',
+    cards: [
+      {
+        col:'c1', type:'Change the Subject',
+        instr:'Make a the subject:',
+        katexQ:'P = 4a + 3b',
+        hint:'Subtract 3b first, then divide by 4.',
+        katexA:'a = \\dfrac{P - 3b}{4}',
+        ans:'a = (P−3b)/4', note:'P − 3b = 4a · a = (P − 3b)/4'
+      },
+      {
+        col:'c2', type:'Solve',
+        instr:'Solve:',
+        katexQ:'3(2x - 5) = 21',
+        katexQsize:'sm',
+        hint:'Divide both sides by 3 first, or expand.',
+        katexA:'x = 6',
+        ans:'x = 6', note:'3(2x − 5) = 21 · 2x − 5 = 7 · 2x = 12 · x = 6 · Check: 3(12−5) = 3(7) = 21 ✓'
+      },
+      {
+        col:'c3', type:'Roots & Negative Indices',
+        instr:'Calculate each:',
+        katexQ:'\\text{a)}\\;\\sqrt[3]{\\dfrac{-8}{27}} \\qquad \\text{b)}\\;\\left(\\dfrac{2}{5}\\right)^{-2}',
+        katexQsize:'sm',
+        hint:'a) Cube root top and bottom separately. b) Flip the fraction, then square.',
+        katexA:'\\text{a)}\\;\\dfrac{-2}{3} \\qquad \\text{b)}\\;\\dfrac{25}{4}',
+        ans:'a) −2/3   b) 25/4', note:'a) ∛(−8) = −2, ∛27 = 3 → −2/3 · b) Flip: (5/2)² = 25/4'
+      },
+      {
+        col:'c4', type:'BIDMAS',
+        instr:'Calculate each:',
+        katexQ:'\\text{a)}\\;\\sqrt{\\dfrac{49}{16}} + \\dfrac{1}{4} \\qquad \\text{b)}\\;3 \\times 2^{-3} + \\dfrac{1}{2}',
+        katexQsize:'sm',
+        hint:'a) Root the top and bottom. b) Work out 2⁻³ first.',
+        katexA:'\\text{a)}\\;2 \\qquad \\text{b)}\\;\\dfrac{7}{8}',
+        ans:'a) 2   b) 7/8', note:'a) √49=7, √16=4 → 7/4 + 1/4 = 8/4 = 2 · b) 2⁻³ = 1/8 · 3×1/8 = 3/8 · 3/8 + 1/2 = 3/8 + 4/8 = 7/8'
+      },
+    ]
+  },
+
+  // ── DO NOW 5 · Change Subject, Solve, Neg Index BIDMAS, Cube Root BIDMAS ──
+  {
+    lesson: 'Rearranging · Equations · BIDMAS with Indices & Roots',
+    cards: [
+      {
+        col:'c1', type:'Change the Subject',
+        instr:'Make m the subject:',
+        katexQ:'T = 5m - 2n',
+        hint:'Add 2n first, then divide by 5.',
+        katexA:'m = \\dfrac{T + 2n}{5}',
+        ans:'m = (T+2n)/5', note:'T + 2n = 5m · m = (T + 2n)/5'
+      },
+      {
+        col:'c2', type:'Solve',
+        instr:'Solve:',
+        katexQ:'4(3x + 2) = 56',
+        hint:'Divide both sides by 4 first, or expand.',
+        katexA:'x = 4',
+        ans:'x = 4', note:'3x + 2 = 14 · 3x = 12 · x = 4 · Check: 4(14) = 56 ✓'
+      },
+      {
+        col:'c3', type:'BIDMAS · Negative Index',
+        instr:'Calculate:',
+        katexQ:'\\left(\\dfrac{2}{3}\\right)^{-2} - \\dfrac{1}{4}',
+        katexQsize:'sm',
+        hint:'Flip the fraction and square it first.',
+        katexA:'2',
+        ans:'2', note:'(2/3)⁻² = (3/2)² = 9/4 · 9/4 − 1/4 = 8/4 = 2'
+      },
+      {
+        col:'c4', type:'BIDMAS · Cube Root',
+        instr:'Calculate:',
+        katexQ:'\\sqrt[3]{\\dfrac{27}{8}} \\times \\dfrac{2}{3} - \\dfrac{1}{2}',
+        katexQsize:'sm',
+        hint:'Cube root top and bottom separately first.',
+        katexA:'\\dfrac{1}{2}',
+        ans:'1/2', note:'∛27 = 3, ∛8 = 2 → 3/2 · 3/2 × 2/3 = 1 · 1 − 1/2 = 1/2'
+      },
+    ]
+  },
+
+  // ── DO NOW 6 · Change Subject (square root), x both sides, neg cube root, neg index ──
+  {
+    lesson: 'Rearranging · Equations · Roots & Negative Indices',
+    cards: [
+      {
+        col:'c1', type:'Change the Subject',
+        instr:'Make t the subject:',
+        katexQ:'S = 2t^{2}',
+        hint:'Divide by 2 first. Then what undoes a square?',
+        katexA:'t = \\sqrt{\\dfrac{S}{2}}',
+        ans:'t = √(S/2)', note:'t² = S/2 · t = √(S/2)'
+      },
+      {
+        col:'c2', type:'Solve',
+        instr:'Solve:',
+        katexQ:'3(x + 4) = 5x - 2',
+        katexQsize:'sm',
+        hint:'Expand the bracket, then collect x terms on one side.',
+        katexA:'x = 7',
+        ans:'x = 7', note:'3x + 12 = 5x − 2 · 12 + 2 = 5x − 3x · 14 = 2x · x = 7 · Check: 3(11) = 33, 5(7)−2 = 33 ✓'
+      },
+      {
+        col:'c3', type:'BIDMAS · Negative Cube Root',
+        instr:'Calculate:',
+        katexQ:'\\sqrt[3]{\\dfrac{-64}{125}} + \\dfrac{3}{5}',
+        katexQsize:'sm',
+        hint:'Cube root the top and bottom separately. Keep the negative!',
+        katexA:'-\\dfrac{1}{5}',
+        ans:'−1/5', note:'∛(−64) = −4, ∛125 = 5 → −4/5 · −4/5 + 3/5 = −1/5'
+      },
+      {
+        col:'c4', type:'BIDMAS · Negative Index',
+        instr:'Calculate:',
+        katexQ:'\\left(\\dfrac{5}{2}\\right)^{-2} \\times 100',
+        katexQsize:'sm',
+        hint:'Flip the fraction first, then square, then multiply.',
+        katexA:'16',
+        ans:'16', note:'(5/2)⁻² = (2/5)² = 4/25 · 4/25 × 100 = 400/25 = 16'
+      },
+    ]
+  },
+
+  // ── DO NOW 7 · Change Subject (fraction), Solve (x both sides), BIDMAS roots & neg indices ──
+  {
+    lesson: 'Rearranging · Equations · Roots & Negative Indices',
+    cards: [
+      {
+        col:'c1', type:'Change the Subject',
+        instr:'Make x the subject:',
+        katexQ:'y = \\dfrac{3x + 4}{5}',
+        katexQsize:'sm',
+        hint:'Multiply both sides by 5 first.',
+        katexA:'x = \\dfrac{5y - 4}{3}',
+        ans:'x = (5y−4)/3', note:'5y = 3x + 4 · 5y − 4 = 3x · x = (5y − 4)/3'
+      },
+      {
+        col:'c2', type:'Solve',
+        instr:'Solve:',
+        katexQ:'2(3x - 1) = 4x + 6',
+        katexQsize:'sm',
+        hint:'Expand the bracket, then collect x terms on one side.',
+        katexA:'x = 4',
+        ans:'x = 4', note:'6x − 2 = 4x + 6 · 2x = 8 · x = 4 · Check: 2(11) = 22, 4(4)+6 = 22 ✓'
+      },
+      {
+        col:'c3', type:'BIDMAS · Root × Negative Index',
+        instr:'Calculate:',
+        katexQ:'\\sqrt{\\dfrac{81}{16}} \\times \\left(\\dfrac{3}{2}\\right)^{-2}',
+        katexQsize:'sm',
+        hint:'Root first, then flip and square, then multiply.',
+        katexA:'1',
+        ans:'1', note:'√(81/16) = 9/4 · (3/2)⁻² = (2/3)² = 4/9 · 9/4 × 4/9 = 36/36 = 1'
+      },
+      {
+        col:'c4', type:'BIDMAS · Cube Root + Negative Index',
+        instr:'Calculate:',
+        katexQ:'\\sqrt[3]{\\dfrac{-27}{64}} + \\left(\\dfrac{2}{3}\\right)^{-1}',
+        katexQsize:'sm',
+        hint:'Cube root top and bottom. Then flip the fraction for the ⁻¹.',
+        katexA:'\\dfrac{3}{4}',
+        ans:'3/4', note:'∛(−27) = −3, ∛64 = 4 → −3/4 · (2/3)⁻¹ = 3/2 · −3/4 + 3/2 = −3/4 + 6/4 = 3/4'
+      },
+    ]
+  },
+
 ];
 
 /* ── BUILD SLIDES ── */
