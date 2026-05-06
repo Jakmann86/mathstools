@@ -616,6 +616,52 @@ const DONOWS = [
     ]
   },
 
+  // ── DO NOW 23 · Rationalise, Surds, Std Form ÷ & Indices ────────────
+  {
+    lesson: 'Rationalise · Surds · Standard Form · Index Laws (iii)',
+    cards: [
+      { col:'c1', type:'Rationalise', instr:'Rationalise the denominator:',
+        qtext:'$\\dfrac{4 + \\sqrt{3}}{\\sqrt{3}}$', size:'sm',
+        hint:'Multiply top and bottom by $\\sqrt{3}$ — expand the numerator.',
+        ans:'$\\dfrac{4\\sqrt{3} + 3}{3}$', note:'$\\dfrac{(4+\\sqrt{3})\\times\\sqrt{3}}{\\sqrt{3}\\times\\sqrt{3}} = \\dfrac{4\\sqrt{3}+3}{3}$' },
+      { col:'c2', type:'Expand', instr:'Expand and simplify:',
+        qtext:'$(2\\sqrt{5} + 3)(\\sqrt{5} - 4)$', size:'sm',
+        hint:'FOIL — watch $2\\sqrt{5} \\times \\sqrt{5}$.',
+        ans:'$-2 - 5\\sqrt{5}$', note:'$2\\sqrt{5} \\times \\sqrt{5} = 10$ · $2\\sqrt{5} \\times (-4) = -8\\sqrt{5}$ · $3\\sqrt{5}$ · $-12$ · $10 - 5\\sqrt{5} - 12 = -2 - 5\\sqrt{5}$' },
+      { col:'c3', type:'Standard Form', instr:'Calculate. Give your answer in standard form.',
+        qtext:'$(3.6 \\times 10^{9}) \\div (9 \\times 10^{4})$', size:'sm',
+        hint:'Divide the coefficients, subtract the powers — then check!',
+        ans:'$4 \\times 10^{4}$', note:'$3.6 \\div 9 = 0.4$ · $10^9 \\div 10^4 = 10^5$ · $0.4 \\times 10^5$ → adjust → $4 \\times 10^{4}$' },
+      { col:'c4', type:'🧩 Index Laws Puzzle', instr:'Find the value of $n$:',
+        qtext:'$\\dfrac{\\sqrt[3]{64} \\times 4}{\\sqrt{128}} = 2^{n}$', size:'sm',
+        hint:'Rewrite everything as powers of 2. Remember $\\sqrt[3]{64} = 64^{\\frac{1}{3}}$.',
+        ans:'$n = \\dfrac{1}{2}$', note:'$\\sqrt[3]{64} = 2^2$ · $4 = 2^2$ · $\\sqrt{128} = 2^{\\frac{7}{2}}$ · $2^{2+2-\\frac{7}{2}} = 2^{\\frac{1}{2}}$' },
+    ]
+  },
+
+  // ── DO NOW 24 · Fractional Powers, Surd Brackets, Simultaneous, Rationalise ─
+  {
+    lesson: 'Fractional Powers · Surds · Simultaneous Equations · Rationalise',
+    cards: [
+      { col:'c1', type:'Fractional Powers', instr:'Write each as a single power of $x$:',
+        qtext:'a) $\\sqrt[3]{x^{2}}$ &emsp; b) $\\sqrt[4]{x^{3}}$<br>c) $\\dfrac{1}{\\sqrt{x}}$ &emsp; d) $\\dfrac{1}{\\sqrt[3]{x^{5}}}$', size:'sm',
+        ans:'a) $x^{\\frac{2}{3}}$ &ensp; b) $x^{\\frac{3}{4}}$ &ensp; c) $x^{-\\frac{1}{2}}$ &ensp; d) $x^{-\\frac{5}{3}}$',
+        note:'Root → fraction in the power · Reciprocal → negative power' },
+      { col:'c2', type:'Expand', instr:'Expand and simplify:',
+        qtext:'$(\\sqrt{5} + \\sqrt{3})(\\sqrt{5} + 2\\sqrt{3})$', size:'sm',
+        hint:'FOIL — $\\sqrt{5} \\times \\sqrt{3} = \\sqrt{15}$ and $\\sqrt{3} \\times 2\\sqrt{3} = 2 \\times 3$.',
+        ans:'$11 + 3\\sqrt{15}$', note:'$\\sqrt{5} \\cdot \\sqrt{5} = 5$ · $\\sqrt{5} \\cdot 2\\sqrt{3} = 2\\sqrt{15}$ · $\\sqrt{3} \\cdot \\sqrt{5} = \\sqrt{15}$ · $\\sqrt{3} \\cdot 2\\sqrt{3} = 6$ · $5 + 3\\sqrt{15} + 6$' },
+      { col:'c3', type:'Simultaneous Equations', instr:'Solve:',
+        qtext:'$2x + y = 7$<br>$x - y = 2$', size:'sm',
+        hint:'Look at the $y$ terms — what happens if you add the equations?',
+        ans:'$x = 3, \\; y = 1$', note:'Add: $3x = 9$ · $x = 3$ · Sub back: $3 - y = 2$ · $y = 1$' },
+      { col:'c4', type:'🧩 Rationalise', instr:'Rationalise the denominator. Simplify fully.',
+        qtext:'$\\dfrac{6}{\\sqrt{7} - 1}$',
+        hint:'Multiply top and bottom by the conjugate: $\\sqrt{7} + 1$.',
+        ans:'$\\sqrt{7} + 1$', note:'$\\dfrac{6(\\sqrt{7}+1)}{(\\sqrt{7})^2 - 1^2} = \\dfrac{6(\\sqrt{7}+1)}{6} = \\sqrt{7} + 1$' },
+    ]
+  },
+
 ];
 
 // ═══════════════════════════════════════════════════════════════════

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Y9 · Unit 2 · Do Nows · Complete</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --bg:#f0ede8; --navy:#0f2044; --text:#111122; --muted:#3e3e5c;
+    --c1-bg:#dff0ed; --c1-bdr:#7ac4b8; --c1-ink:#043d35;
+    --c2-bg:#fdf0dc; --c2-bdr:#dba840; --c2-ink:#422400;
+    --c3-bg:#e8e4f8; --c3-bdr:#9688dd; --c3-ink:#2a1660;
+    --c4-bg:#fde8e8; --c4-bdr:#e08080; --c4-ink:#5c1010;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;overflow:hidden;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;}
+  .topbar{background:var(--navy);color:white;height:54px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .top-left{display:flex;align-items:center;gap:16px;}
+  .top-title{font-family:'DM Serif Display',serif;font-size:1.15rem;}
+  .top-sub{font-size:0.78rem;opacity:0.5;letter-spacing:0.13em;text-transform:uppercase;}
+  .toggle-btn{background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.28);color:white;border-radius:8px;padding:7px 20px;font-size:0.88rem;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:0.04em;}
+  .toggle-btn:hover{background:rgba(255,255,255,.22);}
+  .toggle-btn.on{background:#00b4a0;border-color:#00b4a0;}
+  .slides{flex:1;position:relative;overflow:hidden;min-height:0;}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:14px 20px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .35s,transform .35s;overflow-y:auto;}
+  .slide.active{opacity:1;transform:translateY(0);pointer-events:all;}
+  .lesson-tag{font-size:0.78rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:10px;text-align:center;flex-shrink:0;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:14px;width:100%;max-width:1200px;min-height:min(100%,660px);margin:0 auto;padding-bottom:10px;}
+  .card{border-radius:18px;padding:22px 28px;border:2.5px solid;display:flex;flex-direction:column;gap:10px;overflow:visible;position:relative;}
+  .card.c1{background:var(--c1-bg);border-color:var(--c1-bdr);}
+  .card.c2{background:var(--c2-bg);border-color:var(--c2-bdr);}
+  .card.c3{background:var(--c3-bg);border-color:var(--c3-bdr);}
+  .card.c4{background:var(--c4-bg);border-color:var(--c4-bdr);}
+  .q-row{display:flex;align-items:center;gap:10px;}
+  .q-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.95rem;font-weight:800;color:white;flex-shrink:0;}
+  .c1 .q-dot{background:var(--c1-ink);} .c2 .q-dot{background:var(--c2-ink);} .c3 .q-dot{background:var(--c3-ink);} .c4 .q-dot{background:var(--c4-ink);}
+  .q-type{font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;opacity:0.75;}
+  .c1 .q-type{color:var(--c1-ink);} .c2 .q-type{color:var(--c2-ink);} .c3 .q-type{color:var(--c3-ink);} .c4 .q-type{color:var(--c4-ink);}
+  .q-text{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.2;flex:1;display:flex;align-items:center;}
+  .q-text.sm{font-size:clamp(1.5rem,3.2vw,2.5rem);} .q-text.med{font-size:clamp(1.7rem,3.6vw,2.8rem);}
+  .c1 .q-text{color:var(--c1-ink);} .c2 .q-text{color:var(--c2-ink);} .c3 .q-text{color:var(--c3-ink);} .c4 .q-text{color:var(--c4-ink);}
+  .q-hint{font-size:0.92rem;color:var(--muted);font-style:italic;line-height:1.45;margin-top:-4px;}
+  .q-instr{font-family:'DM Sans',sans-serif;font-size:clamp(1rem,1.8vw,1.2rem);color:var(--muted);font-weight:500;line-height:1.4;margin-top:2px;}
+  .q-eq{font-family:'DM Serif Display',serif;font-size:clamp(1.9rem,3.8vw,3.2rem);line-height:1.35;flex:1;display:flex;align-items:center;letter-spacing:0.04em;}
+  .q-eq.sm{font-size:clamp(1.3rem,2.6vw,2rem);}
+  .q-eq.med{font-size:clamp(1.5rem,3vw,2.4rem);}
+  .c1 .q-eq{color:var(--c1-ink);} .c2 .q-eq{color:var(--c2-ink);} .c3 .q-eq{color:var(--c3-ink);} .c4 .q-eq{color:var(--c4-ink);}
+  .ans-wrap{display:none !important;flex-direction:column;gap:5px;border-top:2.5px dashed rgba(0,0,0,0.18);padding-top:10px;margin-top:4px;animation:fadeUp .25s ease both;}
+  .ans-wrap.on{display:flex !important;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+  .ans-lbl{font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;opacity:0.55;}
+  .ans-val{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3vw,2.3rem);line-height:1.2;}
+  .ans-note{font-size:0.9rem;color:var(--muted);line-height:1.45;}
+  .c1 .ans-val{color:var(--c1-ink);} .c2 .ans-val{color:var(--c2-ink);} .c3 .ans-val{color:var(--c3-ink);} .c4 .ans-val{color:var(--c4-ink);}
+
+  /* BIDMAS tile bank + empty boxes */
+  .tile-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
+  .tile{font-family:'DM Serif Display',serif;font-size:clamp(1rem,1.8vw,1.3rem);width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:2px solid var(--c4-bdr);background:rgba(92,16,16,0.10);color:var(--c4-ink);font-weight:700;flex-shrink:0;}
+  .eq-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .eq-box{width:42px;height:42px;border-radius:8px;border:2.5px dashed var(--c4-bdr);background:rgba(92,16,16,0.04);flex-shrink:0;}
+  .eq-sep{font-family:'DM Serif Display',serif;font-size:clamp(1.2rem,2.4vw,1.6rem);color:var(--c4-ink);font-weight:700;}
+
+  .pbar{height:4px;background:rgba(0,0,0,.08);flex-shrink:0;}
+  .pfill{height:100%;background:var(--navy);transition:width .4s;}
+  .bnav{height:46px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 28px;flex-shrink:0;}
+  .nav-info{font-size:0.8rem;color:rgba(255,255,255,.45);letter-spacing:0.12em;text-transform:uppercase;}
+  .nbtns{display:flex;gap:8px;}
+  .nb{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;border-radius:7px;padding:7px 20px;font-size:0.88rem;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .18s;}
+  .nb:hover{background:rgba(255,255,255,.2);} .nb:disabled{opacity:.28;cursor:default;}
+  .nb.prim{background:#00b4a0;border-color:#00b4a0;color:var(--navy);font-weight:700;}
+  .katex{font-size:1em;} .q-text .katex{font-size:1em;} .q-text.sm .katex{font-size:0.9em;}
+  .q-eq .katex{font-size:1.1em;} .ans-val .katex{font-size:0.95em;} .ans-note .katex{font-size:0.82em;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="top-left">
+    <div class="top-title">Y9 · Unit 2 · Do Nows</div>
+    <div class="top-sub" id="topSub">Do Now 1</div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div style="font-size:0.72rem;opacity:.42;color:white;letter-spacing:.1em;text-transform:uppercase" id="topLesson"></div>
+    <button class="toggle-btn" id="masterBtn" onclick="toggleAnswers()">Show Answers</button>
+  </div>
+</div>
+<div class="slides" id="slideWrap"></div>
+<div class="pbar"><div class="pfill" id="pf" style="width:0%"></div></div>
+<div class="bnav">
+  <div class="nav-info" id="navInfo"></div>
+  <div class="nbtns">
+    <button class="nb" id="pb" disabled>← Back</button>
+    <button class="nb prim" id="nb">Next →</button>
+  </div>
+</div>
+<script>
+const DONOWS = [
+
+  // ── DO NOW 1 · Fractional Powers, Surd Brackets, Simultaneous, Rationalise ─
+  {
+    lesson: 'Fractional Powers · Surds · Simultaneous Equations · Rationalise',
+    cards: [
+      { col:'c1', type:'Fractional Powers', instr:'Write each as a single power of $x$:',
+        qtext:'a) $\\sqrt[3]{x^{2}}$ &emsp; b) $\\sqrt[4]{x^{3}}$<br>c) $\\dfrac{1}{\\sqrt{x}}$ &emsp; d) $\\dfrac{1}{\\sqrt[3]{x^{5}}}$', size:'sm',
+        ans:'a) $x^{\\frac{2}{3}}$ &ensp; b) $x^{\\frac{3}{4}}$ &ensp; c) $x^{-\\frac{1}{2}}$ &ensp; d) $x^{-\\frac{5}{3}}$',
+        note:'Root → fraction in the power · Reciprocal → negative power' },
+      { col:'c2', type:'Expand', instr:'Expand and simplify:',
+        qtext:'$(\\sqrt{5} + \\sqrt{3})(\\sqrt{5} + 2\\sqrt{3})$', size:'sm',
+        hint:'FOIL — $\\sqrt{5} \\times \\sqrt{3} = \\sqrt{15}$ and $\\sqrt{3} \\times 2\\sqrt{3} = 2 \\times 3$.',
+        ans:'$11 + 3\\sqrt{15}$', note:'$\\sqrt{5} \\cdot \\sqrt{5} = 5$ · $\\sqrt{5} \\cdot 2\\sqrt{3} = 2\\sqrt{15}$ · $\\sqrt{3} \\cdot \\sqrt{5} = \\sqrt{15}$ · $\\sqrt{3} \\cdot 2\\sqrt{3} = 6$ · $5 + 3\\sqrt{15} + 6$' },
+      { col:'c3', type:'Simultaneous Equations', instr:'Solve the simultaneous equations:', simul: true,
+        eq1:'$2x + y = 7$', eq2:'$x - y = 2$',
+        hint:'Look at the $y$ terms — what happens if you add the equations?',
+        ans:'$x = 3, \\; y = 1$', note:'Add: $3x = 9$ · $x = 3$ · Sub back: $3 - y = 2$ · $y = 1$' },
+      { col:'c4', type:'🧩 Rationalise', instr:'Rationalise the denominator. Simplify fully.',
+        qtext:'$\\dfrac{6}{\\sqrt{7} - 1}$',
+        hint:'Multiply top and bottom by the conjugate: $\\sqrt{7} + 1$.',
+        ans:'$\\sqrt{7} + 1$', note:'$\\dfrac{6(\\sqrt{7}+1)}{(\\sqrt{7})^2 - 1^2} = \\dfrac{6(\\sqrt{7}+1)}{6} = \\sqrt{7} + 1$' },
+    ]
+  },
+
+];
+
+// ═══════════════════════════════════════════════════════════════════
+//  BUILD SLIDES
+// ═══════════════════════════════════════════════════════════════════
+
+const wrap = document.getElementById('slideWrap');
+DONOWS.forEach((dn, idx) => {
+  const slide = document.createElement('div');
+  slide.className = 'slide' + (idx===0?' active':'');
+  slide.id = 'dn'+idx;
+  const tag = document.createElement('div');
+  tag.className = 'lesson-tag';
+  tag.textContent = dn.lesson;
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+
+  dn.cards.forEach((c, ci) => {
+    const card = document.createElement('div');
+    card.className = 'card '+c.col;
+    const sizeClass = c.size?' '+c.size:'';
+
+    if (c.simul) {
+      // Simultaneous equations — two separate displayed equations
+      card.innerHTML = `
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="q-instr">${c.instr}</div>
+        <div style="display:flex;flex-direction:column;gap:8px;flex:1;justify-content:center;">
+          <div class="q-eq${sizeClass}" style="font-size:clamp(1.6rem,3.2vw,2.6rem);">${c.eq1}</div>
+          <div class="q-eq${sizeClass}" style="font-size:clamp(1.6rem,3.2vw,2.6rem);">${c.eq2}</div>
+        </div>
+        ${c.hint?`<div class="q-hint">${c.hint}</div>`:''}
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">${c.ans}</div>
+          ${c.note?`<div class="ans-note">${c.note}</div>`:''}
+        </div>`;
+    } else if (c.bidmas) {
+      card.innerHTML = `
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="q-instr" style="color:var(--c4-ink);font-weight:600;font-size:clamp(0.9rem,1.6vw,1.1rem);">
+          Place each number card to make the equation equal <span style="font-family:'DM Serif Display',serif;font-size:1.3em;">9</span>
+        </div>
+        <div class="tile-bank">
+          <span class="tile">2</span>
+          <span class="tile">3</span>
+          <span class="tile">4</span>
+          <span class="tile">9</span>
+        </div>
+        <div class="eq-row">
+          <span class="eq-sep">(</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">+</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">)<sup style="font-size:0.7em">2</sup> −</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">×</span>
+          <span class="eq-box"></span>
+          <span class="eq-sep">= 9</span>
+        </div>
+        <div class="q-hint">Remember: brackets and powers before multiply before subtract</div>
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">$(2 + 4)^{2} - 9 \\times 3 = 9$</div>
+          <div class="ans-note">Brackets: $(2+4)^2 = 36$ · $9 \\times 3 = 27$ · $36 - 27 = 9$ ✓</div>
+        </div>`;
+    } else if(c.instr){
+      card.innerHTML = `
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="q-instr">${c.instr}</div>
+        <div class="q-eq${sizeClass}">${c.qtext}</div>
+        ${c.hint?`<div class="q-hint">${c.hint}</div>`:''}
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">${c.ans}</div>
+          ${c.note?`<div class="ans-note">${c.note}</div>`:''}
+        </div>`;
+    } else {
+      card.innerHTML = `
+        <div class="q-row"><div class="q-dot">${ci+1}</div><div class="q-type">${c.type}</div></div>
+        <div class="q-text${sizeClass}">${c.qtext.replace(/\n/g,'<br>')}</div>
+        ${c.hint?`<div class="q-hint">${c.hint}</div>`:''}
+        <div class="ans-wrap" id="a${idx}-${ci}">
+          <div class="ans-lbl">Answer</div>
+          <div class="ans-val">${c.ans}</div>
+          ${c.note?`<div class="ans-note">${c.note}</div>`:''}
+        </div>`;
+    }
+    grid.appendChild(card);
+  });
+
+  slide.appendChild(tag); slide.appendChild(grid); wrap.appendChild(slide);
+});
+
+const slides=document.querySelectorAll('.slide'),total=slides.length;
+let cur=0,showing=false;
+const topSub=document.getElementById('topSub'),topLesson=document.getElementById('topLesson'),
+      navInfo=document.getElementById('navInfo'),pf=document.getElementById('pf'),
+      pb=document.getElementById('pb'),nb=document.getElementById('nb'),
+      masterBtn=document.getElementById('masterBtn');
+
+function renderSlide(i){
+  renderMathInElement(document.getElementById('dn'+i),{
+    delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false
+  });
+}
+
+function update(){
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  topSub.textContent=`Do Now ${cur+1} of ${total}`;
+  topLesson.textContent=DONOWS[cur].lesson;
+  navInfo.textContent=`Do Now ${cur+1} of ${total}`;
+  pf.style.width=((cur+1)/total*100)+'%';
+  pb.disabled=cur===0; nb.disabled=cur===total-1;
+  nb.textContent=cur===total-1?'Done ✓':'Next →';
+  hideAll(); showing=false;
+  masterBtn.textContent='Show Answers'; masterBtn.classList.remove('on');
+  renderSlide(cur);
+}
+function hideAll(){document.querySelectorAll('.ans-wrap').forEach(el=>el.classList.remove('on'));}
+function toggleAnswers(){
+  showing=!showing;
+  for(let ci=0;ci<4;ci++){const el=document.getElementById(`a${cur}-${ci}`);if(el)el.classList.toggle('on',showing);}
+  masterBtn.textContent=showing?'Hide Answers':'Show Answers';
+  masterBtn.classList.toggle('on',showing);
+  if(showing) renderSlide(cur);
+}
+pb.onclick=()=>{if(cur>0){cur--;update();}};
+nb.onclick=()=>{if(cur<total-1){cur++;update();}};
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();if(cur<total-1){cur++;update();}}
+  if(e.key==='ArrowLeft'){e.preventDefault();if(cur>0){cur--;update();}}
+});
+update();
+</script>
+</body>
+</html>
